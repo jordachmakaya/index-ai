@@ -21,6 +21,17 @@
   --vp-c-divider: #e5e5e5;
   --vp-c-brand-tint: rgba(0, 179, 134, 0.08);
   --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
+  --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
+  --vp-c-term-ink: #e2e8f0; /* terminal text */
+  --vp-c-term-dim: #94a3b8; /* terminal muted */
+  --vp-c-term-ok: #34d399; /* terminal ok */
+  --vp-c-term-warn: #fbbf24; /* terminal warn */
+  --vp-c-term-err: #f87171; /* terminal err */
+  --vp-c-term-shimmer: #1e293b; /* shimmer base */
+  --vp-c-term-shimmer-2: #334155; /* shimmer highlight */
+  --vp-c-dot-r: #f87171;
+  --vp-c-dot-y: #fbbf24;
+  --vp-c-dot-g: #34d399;
 
   /* Typography */
   --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -47,6 +58,17 @@
   --vp-c-divider: #3a3a3c;
   --vp-c-brand-tint: rgba(0, 212, 164, 0.1);
   --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
+  --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
+  --vp-c-term-ink: #e2e8f0; /* terminal text */
+  --vp-c-term-dim: #94a3b8; /* terminal muted */
+  --vp-c-term-ok: #34d399; /* terminal ok */
+  --vp-c-term-warn: #fbbf24; /* terminal warn */
+  --vp-c-term-err: #f87171; /* terminal err */
+  --vp-c-term-shimmer: #1e293b; /* shimmer base */
+  --vp-c-term-shimmer-2: #334155; /* shimmer highlight */
+  --vp-c-dot-r: #f87171;
+  --vp-c-dot-y: #fbbf24;
+  --vp-c-dot-g: #34d399;
 }
 
 /* ---------- Two-panel (Human/Agent) — home view ---------- */
