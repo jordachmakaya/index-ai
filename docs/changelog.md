@@ -2,18 +2,17 @@
 layout: page
 ---
 
+<script setup>
+import MaturityGrid from './.vitepress/theme/components/MaturityGrid.vue'
+</script>
+
 # Changelog
 
 Published versions are immutable. The docs site currently documents **1.0-rc1** — if this page lists a newer version, follow it.
 
 ## Maturity
 
-| Artifact | Status | Evidence |
-|---|---|---|
-| Normative text | **RC** | public tag + commit |
-| Schemas | **Draft** | URL + conformance tests |
-| Validator L1/L2a | **Tested** | package + fixtures |
-| Level 3 (MCP) | **Proposed** | runnable example |
+<MaturityGrid />
 
 ## 1.0-rc1 — Request for Comments
 

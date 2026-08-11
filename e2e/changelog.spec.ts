@@ -12,12 +12,15 @@ test.describe('changelog page (V-005)', () => {
     await expect(page.getByText('content_chars contract')).toBeVisible()
   })
 
-  test('shows the maturity matrix', async ({ page }) => {
+  test('shows the maturity matrix (v4 4-card grid)', async ({ page }) => {
     await page.goto('/changelog')
-    const table = page.getByRole('table')
-    await expect(table).toContainText('Normative text')
-    await expect(table).toContainText('Tested')
-    await expect(table).toContainText('Proposed')
+    const grid = page.locator('.maturity-grid')
+    await expect(grid).toBeVisible()
+    await expect(grid).toContainText('Normative text')
+    await expect(grid).toContainText('Tested')
+    await expect(grid).toContainText('Proposed')
+    // exactly four cards, one per artifact
+    await expect(grid.locator('.maturity-card')).toHaveCount(4)
   })
 
   test('no invented dates: the rc1 entry references the SPEC frontmatter', async ({ page }) => {

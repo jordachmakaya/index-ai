@@ -1,13 +1,49 @@
 <script setup lang="ts">
 // v4 SpecToc (V-002): sticky table of contents linking INTO the canonical
 // spec file (docs/spec/SPEC-v1.0-rc1.md) — never duplicates the prose.
-// Section slugs follow VitePress heading slugs in that file.
-// Note: VitePress slugs keep the leading underscore and the em-dash (see dist ids).
-const sections = [
-  { id: '1', label: 'Level 1 — AI Manifest', href: '/spec/SPEC-v1.0-rc1#_6-level-1-—-ai-manifest' },
-  { id: '2a', label: 'Level 2a — Agent Index', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view' },
-  { id: '2b', label: 'Level 2b — Agent Graph', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view' },
-  { id: '3', label: 'Level 3 — Query Interface', href: '/spec/SPEC-v1.0-rc1#_8-level-3-—-query-interface' },
+// Section slugs follow VitePress heading slugs in that file (leading
+// underscore + em-dash preserved, see dist ids). Full coverage of the
+// canonical h2 sections, grouped (Phase C′ 2026-08-12).
+const tocGroups = [
+  {
+    label: 'Overview',
+    items: [
+      { href: '/spec/SPEC-v1.0-rc1#_1-the-problem-this-solves', label: '1. The Problem This Solves' },
+      { href: '/spec/SPEC-v1.0-rc1#_2-the-agent-view-concept', label: '2. The Agent View Concept' },
+      { href: '/spec/SPEC-v1.0-rc1#_3-terminology', label: '3. Terminology' },
+      { href: '/spec/SPEC-v1.0-rc1#_4-design-goals', label: '4. Design Goals' },
+      { href: '/spec/SPEC-v1.0-rc1#_5-discovery', label: '5. Discovery' },
+    ],
+  },
+  {
+    label: 'Conformance levels',
+    items: [
+      { num: '1', href: '/spec/SPEC-v1.0-rc1#_6-level-1-—-ai-manifest', label: 'Level 1 — AI Manifest' },
+      { num: '2a', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view', label: 'Level 2a — Agent Index' },
+      { num: '2b', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view', label: 'Level 2b — Agent Graph' },
+      { num: '3', href: '/spec/SPEC-v1.0-rc1#_8-level-3-—-query-interface', label: 'Level 3 — Query Interface' },
+    ],
+  },
+  {
+    label: 'Details',
+    items: [
+      { href: '/spec/SPEC-v1.0-rc1#_9-token-economics', label: '9. Token Economics' },
+      { href: '/spec/SPEC-v1.0-rc1#_10-policy-usage-preferences', label: '10. Policy & Usage Preferences' },
+      { href: '/spec/SPEC-v1.0-rc1#_11-publisher-roles', label: '11. Publisher Roles' },
+      { href: '/spec/SPEC-v1.0-rc1#_12-freshness-versioning', label: '12. Freshness & Versioning' },
+    ],
+  },
+  {
+    label: 'Standard',
+    items: [
+      { href: '/spec/SPEC-v1.0-rc1#_13-conformance', label: '13. Conformance' },
+      { href: '/spec/SPEC-v1.0-rc1#_14-security-considerations', label: '14. Security Considerations' },
+      { href: '/spec/SPEC-v1.0-rc1#_15-privacy-considerations', label: '15. Privacy Considerations' },
+      { href: '/spec/SPEC-v1.0-rc1#_16-compatibility', label: '16. Compatibility' },
+      { href: '/spec/SPEC-v1.0-rc1#_17-governance', label: '17. Governance' },
+      { href: '/spec/SPEC-v1.0-rc1#_18-changelog', label: '18. Changelog' },
+    ],
+  },
 ]
 const meta = [
   { k: 'Version', v: '1.0-rc1' },
@@ -34,17 +70,17 @@ const meta = [
     <div class="spec-layout">
       <nav class="toc" aria-label="Table of contents">
         <b>Contents</b>
-        <a
-          v-for="s in sections"
-          :key="s.id"
-          :href="s.href"
-          class="toc-link"
-        >
-          <span class="toc-num">{{ s.id }}</span>{{ s.label }}
-        </a>
-        <a class="toc-link" href="/spec/SPEC-v1.0-rc1#_14-security-considerations">Security</a>
-        <a class="toc-link" href="/spec/SPEC-v1.0-rc1#_15-privacy-considerations">Privacy</a>
-        <a class="toc-link" href="/spec/SPEC-v1.0-rc1#_18-changelog">Changelog</a>
+        <template v-for="g in tocGroups" :key="g.label">
+          <span class="toc-group">{{ g.label }}</span>
+          <a
+            v-for="s in g.items"
+            :key="s.label"
+            :href="s.href"
+            class="toc-link"
+          >
+            <span v-if="s.num" class="toc-num">{{ s.num }}</span>{{ s.label }}
+          </a>
+        </template>
       </nav>
 
       <div class="spec-body">
@@ -127,6 +163,18 @@ const meta = [
   letter-spacing: 0.06em;
   color: var(--vp-c-text-3);
   margin-bottom: 0.75rem;
+}
+.toc-group {
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.65625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-brand-1);
+  margin: 0.875rem 0 0.25rem;
+}
+.toc-group:first-of-type {
+  margin-top: 0;
 }
 .toc-link {
   display: flex;

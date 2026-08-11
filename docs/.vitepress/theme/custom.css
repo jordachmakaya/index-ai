@@ -287,6 +287,26 @@
   font-weight: 600;
 }
 
+/* ---------- Inner pages — v4 page-head (V-002..V-005, Phase C′) ---------- */
+/* Validated page-head typography (dir_3_v4.html `.page-head`): 32px display h1,
+   lede in text-2 with a bounded measure. Applied to markdown content pages; the
+   home hero and SpecToc (scoped) are unaffected. */
+.vp-doc h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2rem);
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  margin-top: 0.25rem;
+}
+.vp-doc > p:first-of-type {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  max-width: 42.5rem;
+}
+.vp-doc > p:first-of-type b {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
 /* ---------- Footer badge (Shokunin Harness) ---------- */
 .footer-badge {
   display: inline-flex;
