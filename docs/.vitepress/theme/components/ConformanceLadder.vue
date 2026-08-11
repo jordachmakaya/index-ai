@@ -8,15 +8,48 @@ export interface LadderRung {
   done?: boolean
 }
 
-defineProps<{ rungs: LadderRung[] }>()
-
 // v4 Narrative Workflow macro: the rung number sits INLINE in the heading
-// (no eyebrow row) — one column per rung.
+// (no eyebrow row) — one column per rung. Content = the validated prototype.
+const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
+  rungs: () => [
+    {
+      id: '1',
+      title: 'AI Manifest',
+      eta: '~15 minutes',
+      done: true,
+      blurb: 'Identity, publisher, freshness, policy. One HTTP call answers: “What is this site?”',
+      file: '/.well-known/index-ai.json',
+    },
+    {
+      id: '2a',
+      title: 'Agent Index',
+      eta: '~1–2 hours, static site',
+      blurb:
+        'A flat list of content nodes — each with a clean-text endpoint and an exact measured size. An agent can navigate directly, no scraping.',
+      file: '/agent-index.json',
+    },
+    {
+      id: '2b',
+      title: 'Agent Graph',
+      eta: '+2–4 hours',
+      blurb:
+        'Typed relationships between nodes forming a navigable graph. From “hotels” to “hotels-casablanca” to “hotels-casablanca-luxury” — without parsing HTML.',
+      file: '/agent-index.json + relations',
+    },
+    {
+      id: '3',
+      title: 'Query Interface',
+      eta: 'MCP',
+      blurb: 'A typed API over the Agent View. The agent sends a query with filters and receives exactly the data requested — minimum possible tokens.',
+      file: 'MCP server',
+    },
+  ],
+})
 </script>
 
 <template>
   <div class="ladder">
-    <div v-for="rung in rungs" :key="rung.id" class="ladder-rung" :class="{ done: rung.done }">
+    <div v-for="rung in props.rungs" :key="rung.id" class="ladder-rung" :class="{ done: rung.done }">
       <h3 class="ladder-title">
         <span class="ladder-num">{{ rung.id }}</span>
         {{ rung.title }}
@@ -92,5 +125,7 @@ defineProps<{ rungs: LadderRung[] }>()
   border: 1px solid var(--vp-c-border);
   padding: 0.1875rem 0.5rem;
   border-radius: 6px;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 </style>

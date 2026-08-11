@@ -8,15 +8,7 @@ layout: page
   <div class="card">
     <h2>One site, four rungs of conformance</h2>
     <p class="sub">Start at Level 1, climb as far as you need. Partial conformance is valid to ship.</p>
-
-    <ConformanceLadder
-      :rungs="[
-        { id: '1', title: 'AI Manifest', eta: '~15 minutes', done: true, blurb: 'Identity, publisher, freshness, policy. One HTTP call answers: “What is this site?”', file: '/.well-known/index-ai.json' },
-        { id: '2a', title: 'Agent Index', eta: '~1–2 hours, static site', blurb: 'A flat list of content nodes — each with a clean-text endpoint and an exact measured size. An agent can navigate directly, no scraping.', file: '/agent-index.json' },
-        { id: '2b', title: 'Agent Graph', eta: '+2–4 hours', blurb: 'Typed relationships between nodes forming a navigable graph. From “hotels” to “hotels-casablanca” to “hotels-casablanca-luxury” — without parsing HTML.', file: '/agent-index.json + relations' },
-        { id: '3', title: 'Query Interface', eta: 'MCP', blurb: 'A typed API over the Agent View. The agent sends a query with filters and receives exactly the data requested — minimum possible tokens.', file: 'MCP server' }
-      ]"
-    />
+    <ConformanceLadder />
   </div>
 </div>
 

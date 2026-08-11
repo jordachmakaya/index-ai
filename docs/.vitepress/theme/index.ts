@@ -4,6 +4,7 @@ import { h } from 'vue'
 import StatusPill from './components/StatusPill.vue'
 import HeroSection from './components/HeroSection.vue'
 import ConformanceLadder from './components/ConformanceLadder.vue'
+import FooterBadge from './components/FooterBadge.vue'
 import './custom.css'
 
 // Signal v4 theme: DefaultTheme + tokens (custom.css), the validated status pill
@@ -14,6 +15,7 @@ export default {
   Layout: () =>
     h(DefaultTheme.Layout, null, {
       'nav-bar-content-before': () => h(StatusPill),
+      'layout-bottom': () => h(FooterBadge),
     }),
   enhanceApp({ app }) {
     app.component('HeroSection', HeroSection)

@@ -8,3 +8,5 @@ CLAUDE.md
 spec-repository
 scripts/
 docs/.vitepress/dist
+test-results/
+playwright-report/
