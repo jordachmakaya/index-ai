@@ -1,51 +1,18 @@
 {
-  "name": "@shokunin/harness",
-  "version": "1.0.0-draft",
-  "description": "Shokunin Harness V1 — zone-gated agent skills, souls, processes and the blueprint repo for verified AI software delivery. Self-contained: its scripts validate only what lives inside it.",
-  "private": true,
+  "name": "index-ai",
+  "version": "1.0.0-rc1",
+  "description": "The open web standard that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
   "type": "module",
-  "scripts": {
-    "test": "node scripts/isAllSkills-ready.mjs && node scripts/check-docs-integrity.mjs && node scripts/check-zones-compliance.mjs",
-    "zones:check": "node scripts/check-zones-compliance.mjs",
-    "composition:check": "node scripts/check-composition.mjs",
-    "composition:check:strict": "node scripts/check-composition.mjs --strict",
-    "composition:check:json": "node scripts/check-composition.mjs --json",
-    "skills:check": "node scripts/isAllSkills-ready.mjs",
-    "skills:check:strict": "node scripts/isAllSkills-ready.mjs --strict",
-    "skills:check:json": "node scripts/isAllSkills-ready.mjs --json",
-    "docs:check": "node scripts/check-docs-integrity.mjs",
-    "blueprint:structure": "node harness-blueprint-repo/.shokunin/scripts/check-shokunin-structure.mjs harness-blueprint-repo",
-    "blueprint:structure:strict": "node harness-blueprint-repo/.shokunin/scripts/check-shokunin-structure.mjs harness-blueprint-repo --strict"
-  },
   "keywords": [
-    "agent-skills",
-    "claude-code",
-    "shokunin",
-    "harness"
+    "ai",
+    "llm",
+    "agents",
+    "standard",
+    "specification",
+    "machine-web",
+    "token-economics"
   ],
-  "author": "Jordach Makaya (Hard Machine Labs)",
+  "author": "Hard Machine Labs",
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^26.1.1",
-    "animejs": "^4.5.0",
-    "apexcharts": "^6.7.0",
-    "changeset": "^0.2.6",
-    "chart.js": "^4.5.1",
-    "echarts": "^6.1.0",
-    "geopattern": "^1.2.3",
-    "granim": "^2.0.0",
-    "gsap": "^3.15.0",
-    "leaflet": "^1.9.4",
-    "lottie-web": "^5.13.0",
-    "maplibre-gl": "^6.2.0",
-    "p5": "^2.3.2",
-    "paper": "^0.12.18",
-    "pixi.js": "^8.19.0",
-    "three": "^0.185.1",
-    "trianglify": "^4.1.1",
-    "tsparticles": "^4.3.2",
-    "tsx": "^4.23.1",
-    "typescript": "^7.0.2",
-    "vanta": "^0.5.24"
-  }
+  "scripts": {}
 }

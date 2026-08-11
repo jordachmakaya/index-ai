@@ -4,4 +4,5 @@ node_modules
 .shokunin/
 .agents/
 .hallmark/
+CLAUDE.md
 spec-repository
