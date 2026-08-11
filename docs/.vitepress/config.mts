@@ -16,9 +16,8 @@ export default defineConfig({
       { text: 'vs llms.txt', link: '/compare/llms-txt' },
       { text: 'Changelog', link: '/changelog' },
     ],
-    footer: {
-      message: 'Spec text CC-BY-4.0 · Code MIT',
-      copyright: 'index-ai 1.0-rc1 — Request for Comments',
-    },
+    // footer is deliberately NOT set: the validated v4 foot-line (meta row +
+    // the four nav links + centered Shokunin badge) renders via FooterV4 in the
+    // layout-bottom slot — the native VitePress VPFooter would drift from it.
   },
 })

@@ -57,3 +57,29 @@ test('hero video keeps a 16:9 ratio (no cropping) and the page never overflows a
   const controls = await page.locator('video').getAttribute('controls')
   expect(controls).not.toBeNull()
 })
+
+test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }) => {
+  await page.goto('/')
+  const footer = page.locator('.foot-v4')
+  await expect(footer).toBeVisible()
+  // one-line meta with the exact validated wording
+  await expect(footer).toContainText('Version 1.0-rc1 (REQUEST FOR COMMENTS)')
+  await expect(footer).toContainText('Spec text:')
+  await expect(footer).toContainText('Code & examples: MIT')
+  // the four nav links, inside the footer
+  for (const [label, href] of [
+    ['Spec', '/spec/'],
+    ['Quickstart', '/quickstart'],
+    ['vs llms.txt', '/compare/llms-txt'],
+    ['Changelog', '/changelog'],
+  ] as const) {
+    const link = footer.getByRole('link', { name: label })
+    await expect(link).toBeVisible()
+    expect(await link.getAttribute('href')).toBe(href)
+  }
+  // the Shokunin badge lives INSIDE the footer (not a detached layout-bottom element)
+  const badge = footer.getByRole('link', { name: 'Built with Shokunin Harness' })
+  await expect(badge).toBeVisible()
+  expect(await badge.getAttribute('rel')).toBe('noopener noreferrer')
+  expect(await badge.getAttribute('target')).toBe('_blank')
+})
