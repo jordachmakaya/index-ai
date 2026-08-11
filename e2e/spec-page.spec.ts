@@ -3,22 +3,29 @@ import { test, expect } from '@playwright/test'
 // V-002 spec page: TOC visible, each anchor links into the canonical spec,
 // the four level cards present, and the status label rendered.
 test.describe('specification page (V-002)', () => {
-  test('renders the TOC, four level cards, and the status label', async ({ page }) => {
+  test('renders the TOC, the four-rung level ladder, and the status label', async ({ page }) => {
     await page.goto('/spec/')
     const toc = page.getByRole('navigation', { name: 'Table of contents' })
     await expect(toc).toBeVisible()
-    // level cards 1 / 2a / 2b / 3
-    await expect(page.locator('.level-card')).toHaveCount(4)
-    await expect(page.locator('.level-card').first()).toContainText('AI Manifest')
-    await expect(page.locator('.level-card').last()).toContainText('Query Interface')
+    // level ladder 1 / 2a / 2b / 3 (hallmark Long Document rungs)
+    await expect(page.locator('.lvl')).toHaveCount(4)
+    await expect(page.locator('.lvl').first()).toContainText('AI Manifest')
+    await expect(page.locator('.lvl').last()).toContainText('Query Interface')
+    // numbered rungs + mono file paths
+    await expect(page.locator('.lvl-num').first()).toHaveText('1')
+    await expect(page.locator('.lvl-file').first()).toContainText('.well-known/index-ai.json')
     // meta row: version + status
     await expect(page.locator('.meta-row')).toContainText('1.0-rc1')
     await expect(page.locator('.meta-row')).toContainText('REQUEST FOR COMMENTS')
+    // document-end CTA (validated black-pill voice)
+    const cta = page.getByRole('link', { name: /Open SPEC-v1\.0-rc1/ })
+    await expect(cta).toBeVisible()
+    expect(await cta.getAttribute('href')).toBe('/spec/SPEC-v1.0-rc1')
   })
 
   test('level links point into the canonical spec anchors', async ({ page }) => {
     await page.goto('/spec/')
-    const firstLevel = page.locator('.level-card').first()
+    const firstLevel = page.locator('.lvl').first()
     const href = await firstLevel.getAttribute('href')
     expect(href).toMatch(/\/spec\/SPEC-v1\.0-rc1#_6-level-1/)
     // follow it: the target section heading exists on the canonical page

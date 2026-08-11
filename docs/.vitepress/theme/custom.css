@@ -196,58 +196,132 @@
   transform: translateX(4px);
 }
 
-/* ---------- Spec page — level cards (V-002) ---------- */
-.level-grid {
+/* Hallmark · genre: modern-minimal · macrostructure: Long Document · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, ladder motif, CTA voice preserved */
+/* ---------- Spec page — level ladder (V-002, hallmark Long Document) ---------- */
+/* The four levels as a vertical numbered ladder — the site's identity motif
+   (echo of the home ConformanceLadder): XL tabular number, title, blurb, mono
+   file path, arrow affordance. Hairline-ruled rows, no card boxes. */
+.level-ladder {
+  margin: 1.75rem 0 0;
+}
+.lvl {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.875rem;
-  margin: 1.5rem 0 2rem;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.375rem 0.25rem;
+  border-top: 1px solid var(--vp-c-border);
+  text-decoration: none;
+  transition: background-color 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.level-card {
-  display: block;
+.lvl:focus-visible,
+.btn-spec:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+.lvl:last-child {
+  border-bottom: 1px solid var(--vp-c-border);
+}
+.lvl:hover {
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-border);
-  border-radius: 14px;
-  padding: 1.375rem 1.5rem;
   text-decoration: none;
-  transition: border-color 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.level-card:hover {
-  border-color: var(--vp-c-brand-1);
-  text-decoration: none;
-  transform: translateY(-2px);
-}
-.level-num {
-  display: inline-grid;
-  place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 8px;
-  background: var(--vp-c-brand-tint);
-  color: var(--vp-c-brand-1);
+.lvl-num {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--vp-c-brand-1);
+  padding-top: 0.125rem;
 }
-.level-card h3 {
-  font-size: 0.9375rem;
-  margin: 0 0 0.375rem;
+.lvl-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--vp-c-text-1);
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.level-card p {
+.lvl:hover .lvl-title {
+  color: var(--vp-c-brand-1);
+}
+.lvl-body {
+  min-width: 0;
+}
+.lvl-blurb {
+  display: block;
   font-size: 0.84375rem;
+  line-height: 1.55;
   color: var(--vp-c-text-2);
-  margin: 0;
-  line-height: 1.5;
+  margin-top: 0.375rem;
+  max-width: 48ch;
+  overflow-wrap: anywhere;
 }
-.level-card code {
+.lvl-file {
+  display: block;
+  font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  margin-top: 0.5rem;
+}
+.lvl-go {
+  color: var(--vp-c-text-3);
+  align-self: center;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lvl:hover .lvl-go {
+  transform: translateX(4px);
+  color: var(--vp-c-brand-1);
 }
 
-@media (max-width: 640px) {
-  .level-grid {
-    grid-template-columns: 1fr;
+/* Document-end CTA — validated black-pill voice (dir_3_v4.html) */
+.spec-cta {
+  margin: 1.5rem 0 2.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.spec-cta p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-3);
+  max-width: 36rem;
+}
+.btn-spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+  background: var(--vp-c-text-1);
+  color: var(--vp-c-bg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: 9999px;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-spec:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+@media (max-width: 480px) {
+  .lvl {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+  }
+  .lvl-go {
+    display: none;
   }
 }
 

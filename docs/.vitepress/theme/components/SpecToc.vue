@@ -93,6 +93,9 @@ const meta = [
 <style scoped>
 .page-head {
   padding: 2.25rem 0 1.5rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
 }
 .crumb {
   font-family: var(--vp-font-family-mono);
@@ -142,9 +145,15 @@ const meta = [
 
 .spec-layout {
   display: grid;
-  grid-template-columns: 15rem 1fr;
-  gap: 3rem;
+  grid-template-columns: 14rem 1fr;
+  gap: 2.5rem;
   padding: 0.5rem 0 4rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.spec-body {
+  min-width: 0;
 }
 .toc {
   position: sticky;
@@ -181,7 +190,7 @@ const meta = [
   align-items: baseline;
   gap: 0.5rem;
   color: var(--vp-c-text-2);
-  padding: 0.3125rem 0;
+  padding: 0.25rem 0;
   line-height: 1.35;
 }
 .toc-link:hover {
@@ -199,6 +208,7 @@ const meta = [
   .spec-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    max-width: none;
   }
   .toc {
     position: static;
