@@ -27,13 +27,18 @@ function playWithSound() {
   }
 }
 
-// Reveal stagger: elements animate in on mount (respecting reduced motion).
+// Reveal stagger (validated v4): the hidden state is gated behind a `js` class
+// added here — SSR/no-JS output stays visible, and reduced-motion never hides
+// content (the global reduce block forces opacity:1). Delays are set BEFORE the
+// class flip so the entrance animation starts staggered.
 onMounted(() => {
   document.querySelectorAll<HTMLElement>('.reveal').forEach((el, i) => {
     el.style.setProperty('--reveal-delay', `${i * 60}ms`)
   })
+  document.documentElement.classList.add('js')
 })
 onBeforeUnmount(() => {
+  document.documentElement.classList.remove('js')
   document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => {
     el.style.removeProperty('--reveal-delay')
   })
@@ -290,8 +295,10 @@ onBeforeUnmount(() => {
   color: var(--vp-c-text-2);
 }
 
-/* Reveal stagger (validated v4) — safe under reduced-motion (global media query kills transitions) */
-.reveal {
+/* Reveal stagger (validated v4). Hidden state ONLY under .js (progressive
+   enhancement: no-JS/SSR and crawlers see content); reduced-motion forces
+   opacity 1 — never an empty hero. */
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   animation: reveal-in 560ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -301,6 +308,12 @@ onBeforeUnmount(() => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 

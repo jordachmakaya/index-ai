@@ -34,6 +34,11 @@ describe('quality gate (T3.0)', () => {
     expect(wf).toMatch(/cache: pnpm/)
   })
 
+  it('locks the pnpm version to the local toolchain (packageManager)', () => {
+    const pkg = JSON.parse(readFileSync(pkgPath, 'utf8')) as { packageManager?: string }
+    expect(pkg.packageManager).toMatch(/^pnpm@/)
+  })
+
   it('runs the local gates: typecheck, lint, unit tests, docs build', () => {
     const wf = workflowBody()
     expect(wf).toMatch(/pnpm typecheck/)

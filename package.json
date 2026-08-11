@@ -3,6 +3,7 @@
   "version": "1.0.0-rc1",
   "description": "The open web standard that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
   "type": "module",
+  "packageManager": "pnpm@11.5.2",
   "keywords": [
     "ai",
     "llm",
@@ -21,7 +22,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --strict docs/.vitepress/theme/lib/useValidatorState.ts vitest.config.ts playwright.config.ts",
-    "lint": "node -e \"process.exitCode=1;const fs=require('fs'),p=require('path');const bad=[];const walk=d=>fs.readdirSync(d,{withFileTypes:true}).forEach(e=>{const f=p.join(d,e.name);if(e.isDirectory())walk(f);else if(/(\\.vue|\\.ts|\\.tsx|\\.mjs)$/.test(e.name)){const s=fs.readFileSync(f,'utf8');if(/v-html|localStorage|sessionStorage/.test(s))bad.push(f)}});['docs/.vitepress/theme'].forEach(walk);if(!bad.length)process.exit(0);console.error('lint fail:',bad);\""
+    "lint": "node -e \"process.exitCode=1;const fs=require('fs'),p=require('path');const bad=[];const walk=d=>fs.readdirSync(d,{withFileTypes:true}).forEach(e=>{const f=p.join(d,e.name);if(e.isDirectory())walk(f);else if(/(\\.vue|\\.ts|\\.tsx|\\.mjs)$/.test(e.name)){const s=fs.readFileSync(f,'utf8');if(/v-html|localStorage|sessionStorage/.test(s))bad.push(f)}});['docs/.vitepress/theme','e2e','tests'].forEach(walk);if(!bad.length)process.exit(0);console.error('lint fail:',bad);\""
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
