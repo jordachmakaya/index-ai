@@ -32,6 +32,12 @@ test.describe('quickstart page (V-003)', () => {
 
     await tabs.getByRole('tab', { name: 'Empty' }).click()
     await expect(block).toContainText('No index-ai manifest found')
+    // the empty state's back-link targets a real anchor on the page
+    const back = block.getByRole('link', { name: 'Back to step 1' })
+    await expect(back).toBeVisible()
+    expect(await back.getAttribute('href')).toBe('#step-1')
+    const hasAnchor = await page.evaluate(() => document.getElementById('step-1') !== null)
+    expect(hasAnchor).toBe(true)
 
     await tabs.getByRole('tab', { name: 'Data (pass)' }).click()
     await expect(block).toContainText('valid to ship')

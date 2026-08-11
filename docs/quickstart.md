@@ -11,7 +11,7 @@ import ValidatorBlock from './.vitepress/theme/components/ValidatorBlock.vue'
 A complete, copy-pasteable walkthrough covering **Level 2a** conformance — ending with a validator verdict.
 Levels 2b and 3 are explained in the [specification](/spec/), but the walkthrough stops at what the validator can check today.
 
-## Step 1 — Add the AI Manifest
+## Step 1 — Add the AI Manifest {#step-1}
 
 Create `/.well-known/index-ai.json` at your site root with your identity, publisher, and freshness.
 Copy this minimal example and adapt it:

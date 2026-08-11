@@ -34,4 +34,17 @@ test.describe('specification page (V-002)', () => {
       await expect(toc.getByRole('link', { name: new RegExp(label) }).first()).toBeVisible()
     }
   })
+
+  test('every level deep-link target exists in the canonical spec (no dead anchors)', async ({ page }) => {
+    // verify the anchor targets exist in the rendered canonical spec before
+    // asserting hrefs, so a future heading rename fails CI instead of silently
+    // breaking links.
+    const slugs = ['_6-level-1-—-ai-manifest', '_7-level-2-—-agent-view', '_8-level-3-—-query-interface']
+    const res = await page.request.get('/spec/SPEC-v1.0-rc1')
+    expect(res.ok()).toBe(true)
+    const html = await res.text()
+    for (const slug of slugs) {
+      expect(html.includes(`id="${slug}"`), `anchor #${slug} must exist in the canonical spec`).toBe(true)
+    }
+  })
 })
