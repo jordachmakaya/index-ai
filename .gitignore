@@ -7,3 +7,4 @@ node_modules
 CLAUDE.md
 spec-repository
 scripts/
+docs/.vitepress/dist
