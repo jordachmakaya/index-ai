@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'pnpm docs:build && pnpm exec vite preview --port 4173 --strictPort',
+    command: 'pnpm docs:build && pnpm exec vite preview --outDir docs/.vitepress/dist --port 4173 --strictPort',
     port: 4173,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

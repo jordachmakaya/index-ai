@@ -141,7 +141,7 @@ const videoSrc = withBase('/index-ai-intro.mp4')
   overflow: hidden;
   border: 1px solid var(--vp-c-border);
   box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--vp-c-text-1) 24%, transparent);
-  background: #0a0a0a;
+  background: var(--vp-c-video-bg);
 }
 .hero-video {
   width: 100%;
