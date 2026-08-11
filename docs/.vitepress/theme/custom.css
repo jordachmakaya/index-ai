@@ -287,13 +287,6 @@
   font-weight: 600;
 }
 
-@media (max-width: 30rem) {
-  /* validated v4: the RFC pill is hidden under 480px */
-  .status-pill {
-    display: none;
-  }
-}
-
 /* ---------- Footer badge (Shokunin Harness) ---------- */
 .footer-badge {
   display: inline-flex;

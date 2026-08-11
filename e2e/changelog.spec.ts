@@ -20,10 +20,8 @@ test.describe('changelog page (V-005)', () => {
     await expect(table).toContainText('Proposed')
   })
 
-  test('status label is consistent with the header pill (edge case 3)', async ({ page }) => {
+  test('no invented dates: the rc1 entry references the SPEC frontmatter', async ({ page }) => {
     await page.goto('/changelog')
-    await expect(page.getByText('1.0-rc1 · RFC').first()).toBeVisible()
-    // no invented dates: the rc1 entry references the SPEC frontmatter
     await expect(page.getByText('exact public date is set in the SPEC frontmatter')).toBeVisible()
   })
 })

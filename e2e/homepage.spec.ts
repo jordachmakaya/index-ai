@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 // V-001 · FR-2: the first screen (no scroll, no click) states the index-ai gist,
-// the status pill, the 4-rung conformance ladder, and a CTA to the spec page.
+// the 4-rung conformance ladder, and a CTA to the spec page.
 test('homepage states the gist in the first screen', async ({ page }) => {
   await page.goto('/')
 
@@ -9,9 +9,6 @@ test('homepage states the gist in the first screen', async ({ page }) => {
   const heading = page.getByRole('heading', { level: 1 })
   await expect(heading).toContainText('verifiably readable')
   await expect(page.getByText('index-ai is an open specification')).toBeVisible()
-
-  // Status pill 1.0-rc1 · RFC
-  await expect(page.getByText('1.0-rc1 · RFC').first()).toBeVisible()
 
   // Conformance ladder: 4 rungs (1 → 2a → 2b → 3)
   await expect(page.getByText('AI Manifest')).toBeVisible()
@@ -58,13 +55,13 @@ test('hero video keeps a 16:9 ratio (no cropping) and the page never overflows a
   expect(controls).not.toBeNull()
 })
 
-test('nav matches the validated v4 header (brand mark, toggle, pill, CTA)', async ({ page }) => {
+test('nav matches the validated v4 header (brand mark, toggle, CTA)', async ({ page }) => {
   await page.goto('/')
   // brand mark 'i' before the title
   await expect(page.locator('.nav-mark')).toBeVisible()
   await expect(page.locator('.nav-mark')).toContainText('i')
-  // status pill in the nav
-  await expect(page.getByText('1.0-rc1 · RFC').first()).toBeVisible()
+  // the "1.0-rc1 · RFC" pill is GONE from the nav (client decision 2026-08-12)
+  await expect(page.getByText('1.0-rc1 · RFC')).toHaveCount(0)
   // nav CTA
   await expect(page.getByRole('link', { name: 'Read the spec' }).first()).toBeVisible()
   // the v4 theme toggle is a switch that flips the .dark class (tokens)
