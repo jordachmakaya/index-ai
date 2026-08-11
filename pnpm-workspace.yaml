@@ -1,4 +1,0 @@
-allowBuilds:
-  '@tsparticles/engine': true
-  canvas: true
-  esbuild: true
