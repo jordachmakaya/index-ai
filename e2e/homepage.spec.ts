@@ -58,6 +58,24 @@ test('hero video keeps a 16:9 ratio (no cropping) and the page never overflows a
   expect(controls).not.toBeNull()
 })
 
+test('nav matches the validated v4 header (brand mark, toggle, pill, CTA)', async ({ page }) => {
+  await page.goto('/')
+  // brand mark 'i' before the title
+  await expect(page.locator('.nav-mark')).toBeVisible()
+  await expect(page.locator('.nav-mark')).toContainText('i')
+  // status pill in the nav
+  await expect(page.getByText('1.0-rc1 · RFC').first()).toBeVisible()
+  // nav CTA
+  await expect(page.getByRole('link', { name: 'Read the spec' }).first()).toBeVisible()
+  // the v4 theme toggle is a switch that flips the .dark class (tokens)
+  const toggle = page.getByRole('switch', { name: 'Toggle dark mode' })
+  await expect(toggle).toBeVisible()
+  const html = page.locator('html')
+  const before = (await html.getAttribute('class'))?.includes('dark') ?? false
+  await toggle.click()
+  await expect.poll(() => html.getAttribute('class')).toContain(before ? 'light' : 'dark')
+})
+
 test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }) => {
   await page.goto('/')
   const footer = page.locator('.foot-v4')

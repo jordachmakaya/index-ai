@@ -251,6 +251,49 @@
   }
 }
 
+/* ---------- Nav v4 (validated dir_3_v4.html) ---------- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+/* Hide the native VitePress appearance switch — ThemeToggleV4 replaces it */
+.VPNavBarAppearance {
+  display: none !important;
+}
+/* Underline animation + active state on nav links (validated .nav__link) */
+.VPNavBarMenuLink {
+  position: relative;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.VPNavBarMenuLink::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.3rem;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.VPNavBarMenuLink:hover::after,
+.VPNavBarMenuLink.active::after {
+  transform: scaleX(1);
+}
+.VPNavBarMenuLink.active {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+@media (max-width: 30rem) {
+  /* validated v4: the RFC pill is hidden under 480px */
+  .status-pill {
+    display: none;
+  }
+}
+
 /* ---------- Footer badge (Shokunin Harness) ---------- */
 .footer-badge {
   display: inline-flex;
