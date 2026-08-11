@@ -14,5 +14,28 @@
   ],
   "author": "Hard Machine Labs",
   "license": "MIT",
-  "scripts": {}
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "animejs": "^4.5.0",
+    "apexcharts": "^6.7.0",
+    "changeset": "^0.2.6",
+    "chart.js": "^4.5.1",
+    "echarts": "^6.1.0",
+    "geopattern": "^1.2.3",
+    "granim": "^2.0.0",
+    "gsap": "^3.15.0",
+    "leaflet": "^1.9.4",
+    "lottie-web": "^5.13.0",
+    "maplibre-gl": "^6.2.0",
+    "p5": "^2.3.2",
+    "paper": "^0.12.18",
+    "pixi.js": "^8.19.0",
+    "three": "^0.185.1",
+    "trianglify": "^4.1.1",
+    "tsparticles": "^4.3.2",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2",
+    "vanta": "^0.5.24"
+  }
 }
