@@ -27,6 +27,17 @@ test('homepage states the gist in the first screen', async ({ page }) => {
   // Hero video present (16:9 asset, no cropping)
   const video = page.locator('video')
   await expect(video).toBeVisible()
+
+  // v4 two-column hero: copy column + media column side by side at desktop
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.goto('/')
+  const hero = page.locator('.hero')
+  const copyBox = await page.locator('.hero-copy').boundingBox()
+  const mediaBox = await page.locator('.hero-media').boundingBox()
+  expect(copyBox && mediaBox && copyBox.x < mediaBox.x).toBe(true)
+
+  // nav CTA "Read the spec" (validated v4 nav)
+  await expect(page.getByRole('link', { name: 'Read the spec' }).first()).toBeVisible()
 })
 
 test('hero video keeps a 16:9 ratio (no cropping) and the page never overflows at 320px', async ({ page }) => {
@@ -41,4 +52,8 @@ test('hero video keeps a 16:9 ratio (no cropping) and the page never overflows a
   await page.goto('/')
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(overflow).toBeLessThanOrEqual(0)
+
+  // The video carries native controls (v4) — no cropping, sound affordance
+  const controls = await page.locator('video').getAttribute('controls')
+  expect(controls).not.toBeNull()
 })

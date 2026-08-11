@@ -2,6 +2,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import StatusPill from './components/StatusPill.vue'
+import NavCta from './components/NavCta.vue'
 import HeroSection from './components/HeroSection.vue'
 import ConformanceLadder from './components/ConformanceLadder.vue'
 import FooterBadge from './components/FooterBadge.vue'
@@ -15,6 +16,7 @@ export default {
   Layout: () =>
     h(DefaultTheme.Layout, null, {
       'nav-bar-content-before': () => h(StatusPill),
+      'nav-bar-content-after': () => h(NavCta),
       'layout-bottom': () => h(FooterBadge),
     }),
   enhanceApp({ app }) {

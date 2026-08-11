@@ -73,22 +73,26 @@ const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
   border-top: none;
 }
 .ladder-title {
-  font-size: 1rem;
-  letter-spacing: -0.01em;
+  font-size: 1.0625rem;
+  letter-spacing: -0.015em;
+  font-weight: 600;
   margin: 0;
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 0 0.5rem;
 }
 .ladder-num {
   font-family: var(--vp-font-family-mono);
   font-weight: 700;
-  font-size: 0.8125rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
+  line-height: 1;
   display: inline-flex;
   align-items: baseline;
   gap: 0.4rem;
+  margin-right: 0.75rem;
+  font-variant-numeric: tabular-nums;
 }
 .ladder-rung.done .ladder-num {
   color: var(--vp-c-brand-1);
@@ -107,23 +111,25 @@ const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
   color: var(--vp-c-brand-1);
+  margin-left: 0.5rem;
+  font-weight: 500;
 }
 .ladder-blurb {
-  font-size: 0.84375rem;
+  font-size: 0.9375rem;
   color: var(--vp-c-text-2);
   line-height: 1.55;
-  margin: 0.375rem 0 0;
+  margin: 0.5rem 0 0;
   max-width: 60ch;
 }
 .ladder-file {
   display: inline-block;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.71875rem;
-  color: var(--vp-c-text-1);
-  margin-top: 0.5rem;
-  background: var(--vp-c-bg-soft);
+  font-size: 0.75rem;
+  color: var(--vp-c-text-2);
+  margin-top: 0.75rem;
+  background: var(--vp-c-bg-alt);
   border: 1px solid var(--vp-c-border);
-  padding: 0.1875rem 0.5rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 6px;
   max-width: 100%;
   overflow-wrap: break-word;
