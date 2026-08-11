@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "shape": "monorepo",
+  "config": "fullstack",
+  "forge": "gitlab",
+  "packageManager": "pnpm",
+  "versioning": "changesets",
+  "registry": { "provider": "gitlab", "visibility": "private" },
+  "sharedPaths": ["packages/shared/"],
+  "services": {
+    "auth": { "path": "packages/core/auth", "framework": "nest", "type": "api" },
+    "dashboard": { "path": "packages/web/dashboard", "framework": "nuxt", "type": "web" },
+    "sentinel": { "path": "packages/product/sentinel", "framework": "nest", "type": "worker" },
+    "mastra": { "path": "packages/ai/mastra", "framework": "mastra", "type": "worker" }
+  },
+  "gates": {
+    "structure": true,
+    "lint": true,
+    "typecheck": true,
+    "unit": true,
+    "integration": true,
+    "coverageMin": { "lines": 80, "functions": 75 },
+    "e2e": "on_mr",
+    "package": true
+  }
+}

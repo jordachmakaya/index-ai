@@ -1,0 +1,129 @@
+# ==============================================================
+# Shokunin Ship — Pipeline SHIP (GitLab, default branch)
+# Stages: detect → version → build → package → handoff
+# S'arrête au SHIP_RECORD.json (frontière D4) — le déploiement vers
+# serveur est un adapter AVAL, hors de ce pipeline (HITL, décision D7).
+# ==============================================================
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - when: never
+
+variables:
+  PNPM_VERSION: "10"          # @ship-gateway:pnpm-version
+  GIT_DEPTH: 0
+  GIT_FETCH_EXTRA_FLAGS: --tags
+  DOCKER_BUILDKIT: 1
+
+stages:
+  - detect
+  - version
+  - build
+  - package
+  - handoff
+
+.node_base:
+  image: node:22-alpine
+  before_script:
+    - apk add --no-cache git jq bash coreutils
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+# ---------------- DETECT ----------------
+detect:
+  extends: .node_base
+  stage: detect
+  script:
+    - bash scripts/ship/ci-detect.sh
+  artifacts:
+    reports:
+      dotenv: services.env
+
+# ---------------- VERSION (changesets partout — D1) ----------------
+version:
+  extends: .node_base
+  stage: version
+  needs:
+    - job: detect
+      artifacts: true
+  resource_group: versioning
+  rules:
+    - if: '$SKIP_PIPELINE == "true"'
+      when: never
+    - when: on_success
+  script:
+    - bash scripts/ship/ci-version.sh
+  # Requiert le secret CI: SHIP_BOT_TOKEN (write repo, scope minimal).
+  # Seule exception au "no push main" — bot [skip ci] (git-discipline).
+
+# ---------------- BUILD ----------------
+build:
+  extends: .node_base
+  stage: build
+  needs:
+    - job: detect
+      artifacts: true
+    - job: version
+      optional: true
+  rules:
+    - if: '$SKIP_PIPELINE == "true"'
+      when: never
+    - when: on_success
+  script:
+    - git fetch origin $CI_DEFAULT_BRANCH && git pull origin $CI_DEFAULT_BRANCH
+    - bash scripts/ship/ci-build.sh
+    - echo "SERVICES=$SERVICES" > services.env
+    - echo "SKIP_PIPELINE=false" >> services.env
+  artifacts:
+    reports:
+      dotenv: services.env
+
+# ---------------- PACKAGE (docker → registry) ----------------
+# @ship-gateway:package — job SUPPRIMÉ du fichier instancié si gates.package=false (profil S)
+package:
+  stage: package
+  image: docker:27
+  services:
+    - docker:27-dind
+  needs:
+    - job: build
+      artifacts: true
+  rules:
+    - if: '$SKIP_PIPELINE == "true"'
+      when: never
+    - when: on_success
+  before_script:
+    - apk add --no-cache bash git jq nodejs
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - docker buildx inspect ci-builder >/dev/null 2>&1 || docker buildx create --name ci-builder --driver docker-container --use
+    - docker buildx use ci-builder
+  script:
+    - bash scripts/ship/ci-package.sh
+    - echo "SERVICES=$SERVICES" > services.env
+  artifacts:
+    reports:
+      dotenv: services.env
+    paths:
+      - ship-digests.env
+
+# ---------------- HANDOFF (SHIP_RECORD — la frontière) ----------------
+record:
+  extends: .node_base
+  stage: handoff
+  needs:
+    - job: detect
+      artifacts: true
+    - job: package
+      optional: true
+      artifacts: true
+  rules:
+    - if: '$SKIP_PIPELINE == "true"'
+      when: never
+    - when: on_success
+  script:
+    - bash scripts/ship/ci-record.sh
+  artifacts:
+    paths:
+      - SHIP_RECORD.json
+    expire_in: 90 days
