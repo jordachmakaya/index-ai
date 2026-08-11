@@ -2,6 +2,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import StatusPill from './components/StatusPill.vue'
+import SpecToc from './components/SpecToc.vue'
 import HeroSection from './components/HeroSection.vue'
 import ConformanceLadder from './components/ConformanceLadder.vue'
 import FooterBadge from './components/FooterBadge.vue'
@@ -20,5 +21,6 @@ export default {
   enhanceApp({ app }) {
     app.component('HeroSection', HeroSection)
     app.component('ConformanceLadder', ConformanceLadder)
+    app.component('SpecToc', SpecToc)
   },
 } satisfies Theme
