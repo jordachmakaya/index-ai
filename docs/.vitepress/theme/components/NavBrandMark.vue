@@ -5,16 +5,19 @@
 </script>
 
 <template>
-  <a class="nav-mark" href="/" aria-label="index-ai — home">
-    <span class="nav-mark__box" aria-hidden="true">i</span>
-  </a>
+  <!-- SPAN, not <a>: this renders INSIDE the VitePress title anchor
+       (nav-bar-title-before slot) — a nested <a> would be invalid HTML.
+       The parent <a class="title"> owns the navigation. -->
+  <span class="nav-mark" aria-hidden="true">
+    <span class="nav-mark__box">i</span>
+  </span>
 </template>
 
 <style scoped>
 .nav-mark {
   display: inline-flex;
   align-items: center;
-  text-decoration: none;
+  margin-right: 10px;
 }
 .nav-mark__box {
   width: 24px;

@@ -1,10 +1,19 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 // Validated v4 theme toggle (dir_3_v4.html `.toggle`): a 44×26 switch whose 18px
 // knob carries sun/moon SVGs, sliding 18px in dark. It drives the SAME `.dark`
 // class + localStorage key VitePress uses, so the tokens flip identically.
 const dark = ref(false)
+
+function readStored(): 'dark' | 'light' | null {
+  try {
+    const v = localStorage.getItem('vitepress-theme-appearance')
+    return v === 'dark' || v === 'light' ? v : null
+  } catch {
+    return null // private mode / SSR
+  }
+}
 
 function apply(next: boolean) {
   dark.value = next
@@ -20,17 +29,34 @@ function onToggle() {
   apply(!dark.value)
 }
 
+let cleanup: (() => void) | null = null
+
 onMounted(() => {
-  // Sync from VitePress's stored preference (or current DOM state).
-  let stored: string | null = null
-  try {
-    stored = localStorage.getItem('vitepress-theme-appearance')
-  } catch {
-    /* private mode */
+  // Initial sync: stored preference wins, else system preference — the same
+  // resolution VitePress's head script already applied to `.dark`.
+  const stored = readStored()
+  apply(stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+  // Keep knob + `.dark` in sync across tabs (VitePress's own composable listens
+  // to the same `storage` event) and with system changes when no preference is
+  // stored — mirrors the validated v4 behavior.
+  const onStorage = () => {
+    const s = readStored()
+    if (s) apply(s === 'dark')
   }
-  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  apply(stored === 'dark' || stored === 'light' ? stored === 'dark' : systemDark)
+  const mq = window.matchMedia('(prefers-color-scheme: dark)')
+  const onMq = () => {
+    if (!readStored()) apply(mq.matches)
+  }
+  window.addEventListener('storage', onStorage)
+  mq.addEventListener('change', onMq)
+  cleanup = () => {
+    window.removeEventListener('storage', onStorage)
+    mq.removeEventListener('change', onMq)
+  }
 })
+
+onBeforeUnmount(() => cleanup?.())
 </script>
 
 <template>

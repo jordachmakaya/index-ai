@@ -17,20 +17,25 @@ const SENSITIVE_RE = /api[_-]?key|secret|password|credential|jwt|access[_-]?toke
 
 const bad = []
 
+// Strip comment content BEFORE matching, so a comment mentioning a sensitive
+// word (or v-html) next to a storage call can never false-positive — the exact
+// bug class this linter was created to kill ("the tokens flip" comment).
+function stripComments(line) {
+  return line.replace(/\/\/.*$/, '').replace(/<!--.*?-->/g, '')
+}
+
 function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const f = join(dir, entry.name)
     if (entry.isDirectory()) walk(f)
     else if (FILE_RE.test(entry.name)) {
       const s = readFileSync(f, 'utf8')
-      if (XSS_RE.test(s)) {
+      const lines = s.split('\n')
+      if (lines.some((line) => XSS_RE.test(stripComments(line)))) {
         bad.push(`${f}: v-html/innerHTML`)
-      } else {
-        const hit = s
-          .split('\n')
-          .some((line) => STORAGE_RE.test(line) && SENSITIVE_RE.test(line))
-        if (hit) bad.push(`${f}: sensitive value in client storage`)
       }
+      const hit = lines.some((line) => STORAGE_RE.test(stripComments(line)) && SENSITIVE_RE.test(stripComments(line)))
+      if (hit) bad.push(`${f}: sensitive value in client storage`)
     }
   }
 }
