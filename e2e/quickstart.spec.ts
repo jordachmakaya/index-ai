@@ -16,8 +16,8 @@ test.describe('quickstart page (V-003)', () => {
     }
     await expect(page.getByText('@hardmachinelabs/index-ai-validator')).toBeVisible()
     await expect(page.getByText('validate https://your-site.com')).toBeVisible()
-    // copy-pasteable: every step code block carries a native Copy button
-    await expect(page.locator('.vp-adaptive-theme button.copy')).toHaveCount(3)
+    // copy-pasteable: every code block (3 steps + the scoped-discovery tip) carries a Copy button
+    await expect(page.locator('.vp-adaptive-theme button.copy')).toHaveCount(4)
   })
 
   test('validator block shows the verdict state by default (valid to ship)', async ({ page }) => {

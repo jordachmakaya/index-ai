@@ -1,21 +1,21 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
-  "generated": "2026-08-12T00:00:00Z",
-  "spec_version": "1.0-rc1",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json",
+  "generated": "2026-08-12T14:05:22Z",
+  "spec_version": "1.0-rc2",
   "total_nodes": 4,
   "nodes": [
     {
       "id": "specification",
       "type": "document",
-      "label": "index-ai Specification 1.0-rc1",
+      "label": "index-ai Specification 1.0-rc2",
       "description": "The full normative specification text (single source of truth).",
       "content": {
-        "llm_summary": "The index-ai open specification proposal v1.0-rc1: discovery, Level 1 AI Manifest, Level 2 Agent View, Level 3 Query Interface (MCP), conformance, security, and governance. Request for comments until 2026-08-26.",
-        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/docs/spec/SPEC-v1.0-rc1.md",
+        "llm_summary": "The index-ai open specification proposal v1.0-rc2: discovery profiles, Level 1 AI Manifest, Level 2 Agent View, Level 3 Query Interface (MCP), conformance, security, and governance. Request for comments until 2026-08-26.",
+        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/docs/spec/SPEC-v1.0-rc2.md",
         "summary_method": "manual",
         "language": "en"
       },
-      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc1" },
+      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc2" },
       "relations": { "parent": null, "children": [], "related": ["quickstart", "changelog"] }
     },
     {
@@ -24,12 +24,12 @@
       "label": "index-ai Quickstart",
       "description": "Step-by-step implementation guide for Levels 1-2.",
       "content": {
-        "llm_summary": "Step-by-step quickstart: publish /.well-known/index-ai.json, expose clean text endpoints, build /agent-index.json, and run the reference validator. Partial conformance is valid to ship.",
-        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/docs/quickstart.md",
+        "llm_summary": "Step-by-step quickstart: publish the AI Manifest (canonical or scoped discovery), expose clean text endpoints, build the Agent Index, and run the reference validator. Partial conformance is valid to ship.",
+        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/docs/quickstart.md",
         "summary_method": "manual",
         "language": "en"
       },
-      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc1" },
+      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc2" },
       "relations": { "parent": null, "children": [], "related": ["specification"] }
     },
     {
@@ -39,11 +39,11 @@
       "description": "Feature-by-feature comparison against the llms.txt convention.",
       "content": {
         "llm_summary": "Comparison of index-ai and llms.txt across format, verification, budget signal, structure, query interface, and policy. index-ai is additive: it coexists with llms.txt and robots.txt.",
-        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/docs/compare/llms-txt.md",
+        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/docs/compare/llms-txt.md",
         "summary_method": "manual",
         "language": "en"
       },
-      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc1" },
+      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc2" },
       "relations": { "parent": null, "children": [], "related": ["specification"] }
     },
     {
@@ -52,12 +52,12 @@
       "label": "index-ai Changelog",
       "description": "Version history and design evolution.",
       "content": {
-        "llm_summary": "Changelog of the index-ai project: 1.0-rc1 first public release (2026-08-12), plus the internal 0.x history. Published versions are immutable.",
-        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/docs/changelog.md",
+        "llm_summary": "Changelog of the index-ai project: 1.0-rc2 second public release (2026-08-12), 1.0-rc1 first public release, plus the internal 0.x history. Published versions are immutable.",
+        "llm_url": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/docs/changelog.md",
         "summary_method": "manual",
         "language": "en"
       },
-      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc1" },
+      "meta": { "format": "markdown", "immutable_source": "tag v1.0-rc2" },
       "relations": { "parent": null, "children": [], "related": ["specification"] }
     }
   ]

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
+  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json",
   "title": "index-ai AI Manifest",
-  "description": "Level 1 manifest served at /.well-known/index-ai.json. Field requirements follow the specification (SPEC-v1.0-rc1 §6): only spec_version, identity, and freshness are required; manifest_version and entrypoints are optional. The $id points at the immutable v1.0-rc1 tag — published versions never change (SPEC §17.1).",
+  "description": "Level 1 manifest served at /.well-known/index-ai.json (canonical profile) or another public HTTPS URL (scoped profile, SPEC §5.2). Field requirements follow the specification (SPEC-v1.0-rc2 §6): only spec_version, identity, and freshness are required; manifest_version and entrypoints are optional. The $id points at the immutable v1.0-rc2 tag — published versions never change (SPEC §17.2). This schema is STRUCTURAL: semantic rules that JSON Schema cannot express (word counts, freshness semantics, SSRF) are enforced by the reference validator and the conformance test suite.",
   "type": "object",
   "required": ["spec_version", "identity", "freshness"],
   "additionalProperties": true,
@@ -14,7 +14,7 @@
     "spec_version": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?(-[0-9A-Za-z.-]+)?$",
-      "description": "MUST be present. Identifies the version of this standard the manifest targets (e.g. \"1.0-rc1\" during the RC period, \"1.0\" once stable). Must be a version string, not free text."
+      "description": "MUST be present. Identifies the version of this standard the manifest targets (e.g. \"1.0-rc2\" during the RC period, \"1.0\" once stable). Must be a version string, not free text."
     },
     "manifest_version": {
       "type": "integer",
@@ -46,7 +46,13 @@
       "additionalProperties": true,
       "properties": {
         "name": { "type": "string" },
-        "role": { "type": "string" },
+        "role": {
+          "anyOf": [
+            { "enum": ["official-platform", "official-docs", "aggregator", "news", "blog", "community", "ecommerce", "government", "research"] },
+            { "type": "string", "pattern": "^x-[a-z0-9-]+$" }
+          ],
+          "description": "One of the SPEC §11.2 taxonomy values, or a custom role with the x- prefix (custom roles MUST use x-, SPEC §11.2)."
+        },
         "contact": { "type": "string" },
         "verification_hint": { "type": "string" }
       }
@@ -58,7 +64,11 @@
       "properties": {
         "content_updated_at": { "type": "string", "format": "date-time" },
         "manifest_generated_at": { "type": "string", "format": "date-time" },
-        "refresh_frequency": { "type": "string" },
+        "refresh_frequency": {
+          "type": "string",
+          "enum": ["continuous", "daily", "weekly", "monthly", "static"],
+          "description": "SPEC §12.2 values. 'realtime' is deprecated."
+        },
         "valid_until": { "type": "string", "format": "date-time" },
         "cache_max_age_seconds": { "type": "integer", "minimum": 0 }
       }
@@ -81,7 +91,26 @@
         }
       }
     },
-    "access": { "type": "object", "additionalProperties": true },
+    "access": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "agent_index": { "type": "string", "minLength": 1 },
+        "mcp_server": { "type": "string", "minLength": 1 },
+        "mcp_version": { "type": "string", "minLength": 1 },
+        "mcp_auth": { "type": "string", "minLength": 1 },
+        "mcp_tools": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "fetch_allowlist": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$" },
+          "description": "External origins the agent MAY fetch (SPEC §14.7)."
+        },
+        "llms_txt": { "type": "string", "minLength": 1 }
+      }
+    },
     "llm_instructions": { "type": "string", "maxLength": 500 }
   }
 }

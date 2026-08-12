@@ -1,8 +1,8 @@
 # Contributing to index-ai
 
-index-ai is an open specification proposal that makes websites **verifiably readable by AI agents**. The standard is in **RFC status** (`1.0-rc1`): feedback, questions, and pull requests that shape the next version are welcome.
+index-ai is an open specification proposal that makes websites **verifiably readable by AI agents**. The standard is in **RFC status** (`1.0-rc2`): feedback, questions, and pull requests that shape the next version are welcome.
 
-This guide covers the repository layout, how to report issues, how to propose spec changes, and how to contribute code or documentation. For an overview, read the [README](README.md); for the standard itself, read the [specification](docs/spec/SPEC-v1.0-rc1.md).
+This guide covers the repository layout, how to report issues, how to propose spec changes, and how to contribute code or documentation. For an overview, read the [README](README.md); for the standard itself, read the [specification](docs/spec/SPEC-v1.0-rc2.md).
 
 ## Table of contents
 
@@ -16,7 +16,7 @@ This guide covers the repository layout, how to report issues, how to propose sp
 
 ## Repository layout
 
-- `docs/spec/` — the specification (single source of truth; `SPEC-v1.0-rc1.md` + `index.md` overview)
+- `docs/spec/` — the specification (single source of truth; `SPEC-v1.0-rc2.md` + `index.md` overview)
 - `docs/` — the VitePress documentation site: landing page, [quickstart](docs/quickstart.md), [comparison](docs/compare/llms-txt.md), [changelog](docs/changelog.md)
 - `docs/.vitepress/theme/` — site theme, tokens, and components
 - `docs/public/` — media assets for the site
@@ -30,7 +30,7 @@ This guide covers the repository layout, how to report issues, how to propose sp
 
 The **one exception** is typo fixes — spelling, formatting, or broken links — which maintainers may apply without a version bump, because they change no requirement.
 
-The current version is `1.0-rc1` (RFC). Substantive feedback is best given **now**, before a stable version is published.
+The current version is `1.0-rc2` (RFC). Substantive feedback is best given **now**, before a stable version is published.
 
 ## Reporting issues
 

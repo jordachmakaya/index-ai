@@ -15,19 +15,19 @@ test.describe('specification page (V-002)', () => {
     await expect(page.locator('.lvl-num').first()).toHaveText('1')
     await expect(page.locator('.lvl-file').first()).toContainText('.well-known/index-ai.json')
     // meta row: version + status
-    await expect(page.locator('.meta-row')).toContainText('1.0-rc1')
+    await expect(page.locator('.meta-row')).toContainText('1.0-rc2')
     await expect(page.locator('.meta-row')).toContainText('REQUEST FOR COMMENTS')
     // document-end CTA (validated black-pill voice)
-    const cta = page.getByRole('link', { name: /Open SPEC-v1\.0-rc1/ })
+    const cta = page.getByRole('link', { name: /Open SPEC-v1\.0-rc2/ })
     await expect(cta).toBeVisible()
-    expect(await cta.getAttribute('href')).toMatch(/SPEC-v1\.0-rc1$/)
+    expect(await cta.getAttribute('href')).toMatch(/SPEC-v1\.0-rc2$/)
   })
 
   test('level links point into the canonical spec anchors', async ({ page }) => {
     await page.goto('/index-ai/spec/')
     const firstLevel = page.locator('.lvl').first()
     const href = await firstLevel.getAttribute('href')
-    expect(href).toMatch(/SPEC-v1\.0-rc1#_6-level-1/)
+    expect(href).toMatch(/SPEC-v1\.0-rc2#_6-level-1/)
     // follow it: the target section heading exists on the canonical page
     await firstLevel.click()
     await expect(page).toHaveURL(/#_6-level-1/)
@@ -53,7 +53,7 @@ test.describe('specification page (V-002)', () => {
     // asserting hrefs, so a future heading rename fails CI instead of silently
     // breaking links.
     const slugs = ['_6-level-1-—-ai-manifest', '_7-level-2-—-agent-view', '_8-level-3-—-query-interface', '_1-the-problem-this-solves', '_9-token-economics', '_16-compatibility', '_17-governance', '_18-changelog']
-    const res = await page.request.get('/index-ai/spec/SPEC-v1.0-rc1')
+    const res = await page.request.get('/index-ai/spec/SPEC-v1.0-rc2')
     expect(res.ok()).toBe(true)
     const html = await res.text()
     for (const slug of slugs) {

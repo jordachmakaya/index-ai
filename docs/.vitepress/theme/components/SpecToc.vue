@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // v4 SpecToc (V-002): sticky table of contents linking INTO the canonical
-// spec file (docs/spec/SPEC-v1.0-rc1.md) — never duplicates the prose.
+// spec file (docs/spec/SPEC-v1.0-rc2.md) — never duplicates the prose.
 // Section slugs follow VitePress heading slugs in that file (leading
 // underscore + em-dash preserved, see dist ids). Full coverage of the
 // canonical h2 sections, grouped (Phase C′ 2026-08-12). withBase: the
@@ -10,45 +10,45 @@ const tocGroups = [
   {
     label: 'Overview',
     items: [
-      { href: '/spec/SPEC-v1.0-rc1#_1-the-problem-this-solves', label: '1. The Problem This Solves' },
-      { href: '/spec/SPEC-v1.0-rc1#_2-the-agent-view-concept', label: '2. The Agent View Concept' },
-      { href: '/spec/SPEC-v1.0-rc1#_3-terminology', label: '3. Terminology' },
-      { href: '/spec/SPEC-v1.0-rc1#_4-design-goals', label: '4. Design Goals' },
-      { href: '/spec/SPEC-v1.0-rc1#_5-discovery', label: '5. Discovery' },
+      { href: '/spec/SPEC-v1.0-rc2#_1-the-problem-this-solves', label: '1. The Problem This Solves' },
+      { href: '/spec/SPEC-v1.0-rc2#_2-the-agent-view-concept', label: '2. The Agent View Concept' },
+      { href: '/spec/SPEC-v1.0-rc2#_3-terminology', label: '3. Terminology' },
+      { href: '/spec/SPEC-v1.0-rc2#_4-design-goals', label: '4. Design Goals' },
+      { href: '/spec/SPEC-v1.0-rc2#_5-discovery', label: '5. Discovery' },
     ],
   },
   {
     label: 'Conformance levels',
     items: [
-      { num: '1', href: '/spec/SPEC-v1.0-rc1#_6-level-1-—-ai-manifest', label: 'Level 1 — AI Manifest' },
-      { num: '2a', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view', label: 'Level 2a — Agent Index' },
-      { num: '2b', href: '/spec/SPEC-v1.0-rc1#_7-level-2-—-agent-view', label: 'Level 2b — Agent Graph' },
-      { num: '3', href: '/spec/SPEC-v1.0-rc1#_8-level-3-—-query-interface', label: 'Level 3 — Query Interface' },
+      { num: '1', href: '/spec/SPEC-v1.0-rc2#_6-level-1-—-ai-manifest', label: 'Level 1 — AI Manifest' },
+      { num: '2a', href: '/spec/SPEC-v1.0-rc2#_7-level-2-—-agent-view', label: 'Level 2a — Agent Index' },
+      { num: '2b', href: '/spec/SPEC-v1.0-rc2#_7-level-2-—-agent-view', label: 'Level 2b — Agent Graph' },
+      { num: '3', href: '/spec/SPEC-v1.0-rc2#_8-level-3-—-query-interface', label: 'Level 3 — Query Interface' },
     ],
   },
   {
     label: 'Details',
     items: [
-      { href: '/spec/SPEC-v1.0-rc1#_9-token-economics', label: '9. Token Economics' },
-      { href: '/spec/SPEC-v1.0-rc1#_10-policy-usage-preferences', label: '10. Policy & Usage Preferences' },
-      { href: '/spec/SPEC-v1.0-rc1#_11-publisher-roles', label: '11. Publisher Roles' },
-      { href: '/spec/SPEC-v1.0-rc1#_12-freshness-versioning', label: '12. Freshness & Versioning' },
+      { href: '/spec/SPEC-v1.0-rc2#_9-token-economics', label: '9. Token Economics' },
+      { href: '/spec/SPEC-v1.0-rc2#_10-policy-usage-preferences', label: '10. Policy & Usage Preferences' },
+      { href: '/spec/SPEC-v1.0-rc2#_11-publisher-roles', label: '11. Publisher Roles' },
+      { href: '/spec/SPEC-v1.0-rc2#_12-freshness-versioning', label: '12. Freshness & Versioning' },
     ],
   },
   {
     label: 'Standard',
     items: [
-      { href: '/spec/SPEC-v1.0-rc1#_13-conformance', label: '13. Conformance' },
-      { href: '/spec/SPEC-v1.0-rc1#_14-security-considerations', label: '14. Security Considerations' },
-      { href: '/spec/SPEC-v1.0-rc1#_15-privacy-considerations', label: '15. Privacy Considerations' },
-      { href: '/spec/SPEC-v1.0-rc1#_16-compatibility', label: '16. Compatibility' },
-      { href: '/spec/SPEC-v1.0-rc1#_17-governance', label: '17. Governance' },
-      { href: '/spec/SPEC-v1.0-rc1#_18-changelog', label: '18. Changelog' },
+      { href: '/spec/SPEC-v1.0-rc2#_13-conformance', label: '13. Conformance' },
+      { href: '/spec/SPEC-v1.0-rc2#_14-security-considerations', label: '14. Security Considerations' },
+      { href: '/spec/SPEC-v1.0-rc2#_15-privacy-considerations', label: '15. Privacy Considerations' },
+      { href: '/spec/SPEC-v1.0-rc2#_16-compatibility', label: '16. Compatibility' },
+      { href: '/spec/SPEC-v1.0-rc2#_17-governance', label: '17. Governance' },
+      { href: '/spec/SPEC-v1.0-rc2#_18-changelog', label: '18. Changelog' },
     ],
   },
 ]
 const meta = [
-  { k: 'Version', v: '1.0-rc1' },
+  { k: 'Version', v: '1.0-rc2' },
   { k: 'Status', v: 'REQUEST FOR COMMENTS' },
   { k: 'License', v: 'MIT · CC-BY-4.0' },
   { k: 'Reference impl', v: '@hardmachinelabs/index-ai-validator' },
@@ -62,7 +62,7 @@ const meta = [
       <h1>index-ai — An Open Specification Proposal for Agent-Readable Web Content</h1>
       <p class="lede">
         The normative text of the specification, versioned and navigable. This site documents
-        <b>version 1.0-rc1</b> — check the <a :href="withBase('/changelog')">changelog</a> for the latest published version.
+        <b>version 1.0-rc2</b> — check the <a :href="withBase('/changelog')">changelog</a> for the latest published version.
       </p>
       <dl class="meta-row">
         <div v-for="m in meta" :key="m.k"><dt>{{ m.k }}</dt><dd>{{ m.v }}</dd></div>

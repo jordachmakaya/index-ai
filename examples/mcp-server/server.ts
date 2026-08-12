@@ -1,5 +1,5 @@
 /**
- * index-ai Level 3 — executable MCP server example (SPEC-v1.0-rc1 §8.5).
+ * index-ai Level 3 — executable MCP server example (SPEC-v1.0-rc2 §8.5).
  *
  * Protocol facts this example proves (all verified against
  * `@modelcontextprotocol/sdk` v1.30):
@@ -105,8 +105,31 @@ export function createMcpApp(): express.Express {
     const server = new McpServer({ name: 'atlas-hotels', version: '1.0.0' })
     registerTools(server)
     const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined })
-    await server.connect(transport)
-    await transport.handleRequest(req, res, req.body)
+
+    // Per-request server + transport is the stateless-mode contract, but the
+    // instances must be torn down once the response completes — the SDK keeps
+    // keep-alive timers alive otherwise. (Cost/benefit discussion:
+    // https://github.com/modelcontextprotocol/typescript-sdk/issues/2090.)
+    const teardown = () => {
+      void transport.close().catch(() => {})
+      void server.close().catch(() => {})
+    }
+    res.on('close', teardown)
+
+    try {
+      await server.connect(transport)
+      await transport.handleRequest(req, res, req.body)
+    } catch (err) {
+      // handleRequest owns the response once it commits; only fall through for
+      // errors raised before that (e.g. a connect failure).
+      if (res.headersSent) return
+      console.error('MCP request failed:', err)
+      res.status(500).json({
+        jsonrpc: '2.0',
+        error: { code: -32603, message: 'Internal error' },
+        id: null,
+      })
+    }
   })
 
   return app

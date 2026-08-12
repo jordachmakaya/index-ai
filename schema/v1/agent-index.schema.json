@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
+  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json",
   "title": "index-ai Agent Index",
-  "description": "Level 2 Agent View served at the URL declared in access.agent_index (default /agent-index.json). Field requirements follow the specification (SPEC-v1.0-rc1 §7): generated, spec_version, and nodes are required; node label, description, meta, and content summary_method/language are optional. The $id points at the immutable v1.0-rc1 tag — published versions never change (SPEC §17.1).",
+  "description": "Level 2 Agent View served at the URL declared in access.agent_index (default /agent-index.json). Field requirements follow the specification (SPEC-v1.0-rc2 §7): generated, spec_version, and nodes are required; node label, description, meta, and content summary_method/language are optional. The $id points at the immutable v1.0-rc2 tag — published versions never change (SPEC §17.2). This schema is STRUCTURAL: referential integrity (every referenced id must exist), llm_summary word counts, freshness, and SSRF are enforced by the reference validator and the conformance test suite.",
   "type": "object",
   "required": ["generated", "spec_version", "nodes"],
   "additionalProperties": true,
@@ -19,7 +19,7 @@
     "spec_version": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?(-[0-9A-Za-z.-]+)?$",
-      "description": "REQUIRED. index-ai spec version this Agent View targets (e.g. \"1.0-rc1\"). Must be a version string, not free text."
+      "description": "REQUIRED. index-ai spec version this Agent View targets (e.g. \"1.0-rc2\"). Must be a version string, not free text."
     },
     "total_nodes": {
       "type": "integer",
@@ -55,7 +55,7 @@
             "llm_url": { "type": "string", "minLength": 1, "description": "RECOMMENDED. Clean text endpoint." },
             "content_chars": { "type": "integer", "minimum": 1, "description": "OPTIONAL. NFC code point count at llm_url." },
             "content_chars_mode": { "enum": ["exact", "max"], "description": "MUST be present when content_chars is present." },
-            "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "OPTIONAL. Lowercase hex SHA-256 of the NFC-normalized content." },
+            "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "OPTIONAL. Lowercase hex SHA-256 of the NFC-normalized content. Valid only with content_chars_mode: \"exact\" (SPEC §7.6)." },
             "content_version": { "type": "string", "description": "OPTIONAL. Opaque content-version label." },
             "content_chars_measurement": {
               "type": "object",
@@ -70,6 +70,13 @@
           },
           "dependencies": {
             "content_chars": ["llm_url", "content_chars_mode"]
+          },
+          "if": {
+            "required": ["content_sha256"]
+          },
+          "then": {
+            "required": ["content_chars", "content_chars_mode"],
+            "properties": { "content_chars_mode": { "const": "exact" } }
           }
         },
         "meta": {
