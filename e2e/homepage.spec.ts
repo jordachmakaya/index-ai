@@ -73,6 +73,21 @@ test('nav matches the validated v4 header (brand mark, toggle, CTA)', async ({ p
   await expect.poll(() => html.getAttribute('class')).toContain(before ? 'light' : 'dark')
 })
 
+test('visual metaphor image sits after the two interface panels', async ({ page }) => {
+  await page.goto('/')
+  // the image lives inside the "Two interfaces, one site" section, after the cards
+  const img = page.locator('.home-fig img')
+  await expect(img).toBeVisible()
+  await expect(img).toHaveAttribute('src', '/images/index_ai_visual_metaphor.jpg')
+  await expect(img).toHaveAttribute('alt', /visual metaphor/)
+  await expect(img).toHaveAttribute('width', '1376')
+  await expect(img).toHaveAttribute('loading', 'lazy')
+  // ordering: two-grid above the figure
+  const gridBox = await page.locator('.two-grid').boundingBox()
+  const figBox = await page.locator('.home-fig').boundingBox()
+  expect(gridBox && figBox && gridBox.y < figBox.y).toBe(true)
+})
+
 test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }) => {
   await page.goto('/')
   const footer = page.locator('.foot-v4')

@@ -38,4 +38,7 @@ layout: page
       <p class="panel-quote">index-ai builds the interface the agent side never had.</p>
     </div>
   </div>
+  <figure class="home-fig">
+    <img src="/images/index_ai_visual_metaphor.jpg" alt="index-ai visual metaphor — one site, two interfaces: the human page and the agent view" width="1376" height="768" loading="lazy" decoding="async">
+  </figure>
 </div>
