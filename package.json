@@ -1,7 +1,7 @@
 {
   "name": "index-ai",
   "version": "1.0.0-rc1",
-  "description": "The open web standard that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
+  "description": "An open specification proposal that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
   "type": "module",
   "packageManager": "pnpm@11.5.2",
   "keywords": [
