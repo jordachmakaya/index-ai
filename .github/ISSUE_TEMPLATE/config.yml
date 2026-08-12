@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the docs site
+    url: https://jordachmakaya.github.io/index-ai/
+    about: The rendered documentation — spec, quickstart, comparison, and changelog.
+  - name: Read the specification
+    url: https://github.com/jordachmakaya/index-ai/blob/develop/docs/spec/SPEC-v1.0-rc1.md
+    about: The full specification text, before opening an issue.

@@ -1,0 +1,51 @@
+name: Spec feedback
+description: Propose a change, correction, or clarification to the index-ai specification.
+title: "[Spec]: "
+labels: ["spec-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        index-ai is in RFC status (`1.0-rc1`) — feedback that shapes the next version is especially welcome.
+
+        **Published spec versions are immutable.** Once a version is published, its requirements are fixed; a substantive correction ships as a new version. The one exception is typo fixes (spelling, formatting, broken links), which maintainers may apply without a version bump.
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      description: What should change and why. Quote the section you are commenting on.
+      render: markdown
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Affected conformance level
+      description: Which part of the conformance ladder does this touch?
+      options:
+        - General / editorial
+        - Level 1 — AI Manifest
+        - Level 2a — Agent Index
+        - Level 2b — Agent Graph
+        - Level 3 — Query Interface
+    validations:
+      required: true
+  - type: input
+    id: section
+    attributes:
+      label: Section reference
+      description: Exact spec path or section heading, if you have one.
+      placeholder: "docs/spec/SPEC-v1.0-rc1.md — Level 2a"
+  - type: input
+    id: version
+    attributes:
+      label: Spec version
+      description: Which version are you commenting on?
+      value: "1.0-rc1"
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Version policy
+      options:
+        - label: I understand published versions are immutable — unless this is a typo fix, my suggestion will land in the next version.
+          required: true
