@@ -34,15 +34,19 @@ test.describe('changelog page (V-005)', () => {
     await expect(entries.nth(1)).toContainText('breaking change from v0.6')
   })
 
-  test('shows the maturity matrix (v4 4-card grid)', async ({ page }) => {
+  test('shows the maturity matrix (v4 5-card grid)', async ({ page }) => {
     await page.goto('/index-ai/changelog')
     const grid = page.locator('.maturity-grid')
     await expect(grid).toBeVisible()
     await expect(grid).toContainText('Normative text')
     await expect(grid).toContainText('Tested')
     await expect(grid).toContainText('Proposed')
-    // exactly four cards, one per artifact
-    await expect(grid.locator('.maturity-card')).toHaveCount(4)
+    // benchmark card: §13.4 pilot is Running, with evidence attached
+    await expect(grid).toContainText('Benchmark')
+    await expect(grid).toContainText('Running')
+    await expect(grid).toContainText('pilot dataset')
+    // exactly five cards, one per artifact
+    await expect(grid.locator('.maturity-card')).toHaveCount(5)
   })
 
   test('the rc1 entry carries the real public date (matches SPEC §18.1)', async ({ page }) => {
