@@ -1,6 +1,6 @@
 # Contributing to index-ai
 
-index-ai is an open web standard that makes websites **verifiably readable by AI agents**. The standard is in **RFC status** (`1.0-rc1`): feedback, questions, and pull requests that shape the next version are welcome.
+index-ai is an open specification proposal that makes websites **verifiably readable by AI agents**. The standard is in **RFC status** (`1.0-rc1`): feedback, questions, and pull requests that shape the next version are welcome.
 
 This guide covers the repository layout, how to report issues, how to propose spec changes, and how to contribute code or documentation. For an overview, read the [README](README.md); for the standard itself, read the [specification](docs/spec/SPEC-v1.0-rc1.md).
 

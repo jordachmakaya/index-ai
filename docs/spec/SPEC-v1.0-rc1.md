@@ -1,12 +1,12 @@
-# index-ai — A Verifiable Standard for Agent-Readable Web Content
+# index-ai — An Open Specification Proposal for Agent-Readable Web Content
 
 **Version:** 1.0-rc1  
 **Status:** REQUEST FOR COMMENTS  
-**Published:** <LAUNCH_DATE — set at public launch>  
-**Comment period ends:** <LAUNCH_DATE + 2 weeks>  
-**License:** MIT  
-**Repository:** <PUBLIC_REPO_URL — must be publicly accessible before publication>  
-**Issue tracker:** <PUBLIC_ISSUES_URL>  
+**Published:** 2026-08-12  
+**Comment period ends:** 2026-08-26  
+**Specification text:** CC-BY-4.0 · **Code and examples:** MIT  
+**Repository:** https://github.com/jordachmakaya/index-ai  
+**Issue tracker:** https://github.com/jordachmakaya/index-ai/issues  
 **Reference implementation:** `@hardmachinelabs/index-ai-validator` (maintained by Hard Machine Labs)
 
 > **Status.** This document is a public proposal under review. Normative text,
@@ -20,7 +20,7 @@
 
 ## Abstract
 
-`index-ai` is an open web standard that lets websites expose a **verifiable, agent-readable representation** of their content — structured metadata, clean content endpoints, and measured token cost. It defines what an agent can reliably **access, extract, and budget once it reaches the site**. It does not, and cannot, guarantee that any given agent or search engine will discover, index, or cite the site; those outcomes depend on third-party systems and are treated here as benefits to be measured, never as promises.
+`index-ai` is an open specification proposal that lets websites expose a **verifiable, agent-readable representation** of their content — structured metadata, clean content endpoints, and measured token cost. It defines what an agent can reliably **access, extract, and budget once it reaches the site**. It does not, and cannot, guarantee that any given agent or search engine will discover, index, or cite the site; those outcomes depend on third-party systems and are treated here as benefits to be measured, never as promises.
 
 It introduces the concept of an **Agent View**: a parallel, structured representation of a website's content, designed exclusively for machine consumption. Just as React's Virtual DOM gave developers a lightweight mirror of the HTML tree optimized for diffing, the Agent View gives LLM agents a lightweight mirror of the web optimized for querying.
 
@@ -197,7 +197,7 @@ Without standard:
            (pays full page cost including markup)
 ```
 
-The illustrative efficiency gain depends on the signal-to-markup ratio of the site. For a page where useful content represents 20–30% of total HTML size, the reduction in token consumption is significant. Exact measurements are a benchmark contribution target (see §13.4).
+The illustrative efficiency gain depends on the signal-to-markup ratio of the site. For a page where useful content represents 20–30% of total HTML size, the reduction in token consumption may be significant, but the actual gain must be measured through the public benchmark described in §13.4.
 
 ---
 
@@ -230,7 +230,7 @@ The standard's primary optimization target is token cost. Every design decision 
 
 ### 4.2 Progressive adoption
 
-Four independent conformance tiers. Level 1 alone produces measurable signal improvement. A developer SHOULD be able to implement Level 1 in under 15 minutes, Level 2a in under 2 hours.
+Four independent conformance tiers. Level 1 is designed to provide explicit, machine-readable identity, publisher, freshness, and policy signals. The current implementation target is under 15 minutes for Level 1 and under 2 hours for Level 2a. These targets require public validation.
 
 ### 4.3 Measured, not estimated
 
@@ -1571,7 +1571,7 @@ cycle. Dates reflect the design sprint, not public comment periods.
 
 | Iteration | Date | Summary |
 |---------|------|---------|
-| 1.0 | 2025-05-28 | **Stable release.** Abstract rewritten: "without relying on unstructured HTML scraping" replaces absolute claims. `content_chars_mode: "max"` contract rewritten: testable rule (MUST be ≥ validation-time count) replaces untestable "2× typical size". `spec_version` updated to `"1.0"`. |
+| 1.0 internal draft | 2025-05-28 | Internal design iteration. Never published as a stable release. Abstract rewritten: "without relying on unstructured HTML scraping" replaces absolute claims. `content_chars_mode: "max"` contract rewritten: testable rule (MUST be ≥ validation-time count) replaces untestable "2× typical size". `spec_version` updated to `"1.0"`. |
 | 1.0-rc1 | 2025-05-28 | Release Candidate. `llm_url` redirect rule (3-hop max). Paginated response 2 MB cap. `content_chars_measurement` first-generation behavior clarified. 2-week comment period. |
 | 0.7 | 2025-05-28 | `content_chars_mode` MUST. `pages` array removed. `content_chars_measurement` block. `robots.txt` 404 behavior. Offset pagination + `continuous` note. Agents MUST NOT assume `/agent-index.json`. |
 | 0.6 | 2025-05-28 | `content_chars_mode` field. Pagination standardized. Level 2b qualitative conformance. Orphan detection. `related` depth MUST 5 hops. SDK "verifies". JSON scope clarified. Minimal Level 2a example. RFC-006. |
@@ -1585,4 +1585,4 @@ cycle. Dates reflect the design sprint, not public comment periods.
 
 *index-ai is an open proposal, not affiliated with any LLM provider.*  
 *Contributions via GitHub Issues and Pull Requests.*  
-*<PUBLIC_REPO_URL — set at public launch>*
+*https://github.com/jordachmakaya/index-ai*

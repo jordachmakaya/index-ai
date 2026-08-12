@@ -1,6 +1,6 @@
 # index-ai
 
-> The open web standard that makes websites **verifiably readable by AI agents**.
+> An open specification proposal that makes websites **verifiably readable by AI agents**.
 
 **Status: `1.0-rc1` — REQUEST FOR COMMENTS** · Spec: CC-BY-4.0 · Code: MIT
 
@@ -23,6 +23,8 @@ LLMs gained web search, but every page they fetch still pays the full token cost
 
 Start at Level 1, climb as far as you need. **Partial conformance is valid to ship.**
 
+> Effort figures are current implementation **targets** — they require public validation via the benchmark in the spec (§13.4).
+
 ## In this repository
 
 - `docs/spec/SPEC-v1.0-rc1.md` — the full specification (single source of truth)
@@ -34,7 +36,7 @@ Start at Level 1, climb as far as you need. **Partial conformance is valid to sh
 
 1. **Read the spec** — [docs/spec/SPEC-v1.0-rc1.md](docs/spec/SPEC-v1.0-rc1.md)
 2. **Implement Level 1** — publish `/.well-known/index-ai.json`
-3. **Validate** — `npx @hardmachinelabs/index-ai-validator <url>` (consumed as-is, see the spec)
+3. **Validate** — `npx @hardmachinelabs/index-ai-validator validate <url>` (consumed as-is, see the spec)
 
 ## License
 
