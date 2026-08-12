@@ -373,11 +373,16 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 | CORS | `Access-Control-Allow-Origin: *` RECOMMENDED |
 | Cache-Control | `max-age` SHOULD NOT exceed 3600 |
 
-### 6.3 Full schema
+### 6.3 Full example
+
+> The canonical machine-readable JSON Schema is published at
+> `schema/v1/index-ai.schema.json` in this repository
+> (`https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json`).
+> The following is a complete example **instance** of that schema.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/index-ai/standard/main/schema/v1/index-ai.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
   "spec_version": "1.0",
   "manifest_version": 1,
 
@@ -490,7 +495,7 @@ Free-text guidance. MUST NOT exceed 500 characters. Written for the agent. Factu
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/index-ai/standard/main/schema/v1/index-ai.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
   "spec_version": "1.0",
   "identity": {
     "name": "My Technical Blog",
@@ -566,20 +571,13 @@ Same HTTP requirements as Level 1: `application/json`, UTF-8, CORS `*`.
 
 Recommended max size: 100 KB. Sites with more content SHOULD expose queryable endpoints (see §7.9).
 
-### 7.4 Full schema
+### 7.4 Full example
 
-The following example shows a Level 2b Agent View. A minimal Level 2a example follows in §7.4.1.
+The canonical machine-readable JSON Schema is published at
+`schema/v1/agent-index.schema.json` in this repository
+(`https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json`).
 
-```json
-{
-  "$schema": "https://raw.githubusercontent.com/index-ai/standard/main/schema/v1/agent-index.schema.json",
-  "generated": "2025-05-28T14:30:00Z",
-  "spec_version": "1.0",
-  "total_nodes": 4,
-
-  "nodes": [ ... ]
-}
-```
+A complete Level 2b Agent View example appears below the field tables. A minimal Level 2a example follows in §7.4.1.
 
 **Top-level fields:**
 
@@ -597,6 +595,7 @@ The following example shows a Level 2b Agent View. A minimal Level 2a example fo
 
 | Field | Requirement | Description |
 |-------|------------|-------------|
+| `llm_summary` | REQUIRED | Pre-fetch relevance signal (50–300 words per node): what the node contains, enough for an agent to decide relevance without fetching `llm_url` |
 | `llm_url` | RECOMMENDED | Clean text endpoint |
 | `content_chars` | OPTIONAL | NFC code point count at `llm_url` |
 | `content_chars_mode` | **MUST if `content_chars` present** | `"exact"` or `"max"` — see §7.6 |
@@ -623,7 +622,7 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/index-ai/standard/main/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T14:30:00Z",
   "spec_version": "1.0",
   "total_nodes": 4,
@@ -724,7 +723,7 @@ A minimal Agent Index for a blog with three articles. No relations required.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/index-ai/standard/main/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T10:00:00Z",
   "spec_version": "1.0",
   "total_nodes": 3,
@@ -952,12 +951,24 @@ Paginated response MUST include:
 ```json
 {
   "generated": "2025-05-28T14:30:00Z",
+  "spec_version": "1.0",
   "total_nodes": 247,
   "returned_nodes": 50,
   "offset": 0,
   "limit": 50,
   "next_offset": 50,
-  "nodes": [...]
+  "nodes": [
+    {
+      "id": "article-rust-lifetimes",
+      "type": "article",
+      "content": {
+        "llm_summary": "Explains Rust lifetime annotations from first principles…",
+        "llm_url": "/blog/rust-lifetimes?format=markdown",
+        "content_chars": 8400,
+        "content_chars_mode": "exact"
+      }
+    }
+  ]
 }
 ```
 
@@ -1401,9 +1412,10 @@ only with the evidence listed.
 | RFCs | Proposed / Open / Accepted | public issue + decision |
 | External implementations | Pilot / Production | verifiable URLs |
 
-At `1.0-rc1`: normative text = RC; schemas = Draft; validator L1/L2a = Tested;
-validator L2b = Implemented (launch target); L3 = Proposed; benchmark =
-Planned; RFCs = Proposed; external implementations = none yet.
+At `1.0-rc1`: normative text = RC; schemas = Draft (published at
+`schema/v1/` with AJV conformance tests over every docs example); validator
+L1/L2a = Tested; validator L2b = Implemented (launch target); L3 = Proposed;
+benchmark = Planned; RFCs = Proposed; external implementations = none yet.
 
 ## 14. Security Considerations
 
