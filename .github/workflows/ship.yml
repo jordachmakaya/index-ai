@@ -29,8 +29,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 11 # matches local toolchain that generated pnpm-lock.yaml
 
       - name: Setup Node 20
         uses: actions/setup-node@v4
