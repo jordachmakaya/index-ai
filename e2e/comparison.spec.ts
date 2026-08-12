@@ -50,6 +50,29 @@ test.describe('comparison page (V-004)', () => {
     await expect(page.getByText('All four sit on the same origin')).toBeVisible()
   })
 
+  test('demonstration section: video placeholder + retry CTA after the warning', async ({ page }) => {
+    await page.goto('/compare/llms-txt')
+    // section comes after the non-replacement warning (page-final block)
+    const heading = page.getByRole('heading', { name: 'Demonstration' })
+    await expect(heading).toBeVisible()
+    const warning = page.locator('.warning.custom-block')
+    const frame = page.locator('.demo-vid-frame')
+    await expect(frame).toBeVisible()
+    // 16:9 placeholder frame
+    const ratio = await frame.evaluate((el) => el.getBoundingClientRect().width / el.getBoundingClientRect().height)
+    expect(ratio).toBeGreaterThan(1.7)
+    expect(ratio).toBeLessThan(1.85)
+    await expect(frame).toHaveAttribute('aria-label', 'Demonstration video placeholder')
+    // retry CTA reuses the system link-cta voice → quickstart
+    const cta = page.getByRole('link', { name: /Retry it yourself now/ })
+    await expect(cta).toBeVisible()
+    expect(await cta.getAttribute('href')).toMatch(/quickstart$/)
+    // ordering: warning block above the demo section
+    const warnBox = await warning.boundingBox()
+    const frameBox = await frame.boundingBox()
+    expect(warnBox && frameBox && warnBox.y < frameBox.y).toBe(true)
+  })
+
   test('facts link to the canonical spec compatibility section', async ({ page }) => {
     await page.goto('/compare/llms-txt')
     const link = page.getByRole('link', { name: /16 Compatibility/ })
