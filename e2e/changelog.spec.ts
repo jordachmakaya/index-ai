@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test'
 // maturity matrix, and no invented versions/dates (facts from the SPEC).
 test.describe('changelog page (V-005)', () => {
   test('shows a versioned entry consistent with the SPEC', async ({ page }) => {
-    await page.goto('/changelog')
+    await page.goto('/index-ai/changelog')
     // v4 page-head (V-005 scaffold, same voice as V-002..V-004)
     await expect(page.getByText('index-ai / Changelog')).toBeVisible()
     await expect(page.getByRole('heading', { name: '1.0-rc1 — Request for Comments' })).toBeVisible()
@@ -15,7 +15,7 @@ test.describe('changelog page (V-005)', () => {
   })
 
   test('version index: two hairline-ruled entries with typed changes', async ({ page }) => {
-    await page.goto('/changelog')
+    await page.goto('/index-ai/changelog')
     // index-first rows: one per published version, RC first (newest)
     const entries = page.locator('.ventry')
     await expect(entries).toHaveCount(2)
@@ -32,7 +32,7 @@ test.describe('changelog page (V-005)', () => {
   })
 
   test('shows the maturity matrix (v4 4-card grid)', async ({ page }) => {
-    await page.goto('/changelog')
+    await page.goto('/index-ai/changelog')
     const grid = page.locator('.maturity-grid')
     await expect(grid).toBeVisible()
     await expect(grid).toContainText('Normative text')
@@ -43,7 +43,7 @@ test.describe('changelog page (V-005)', () => {
   })
 
   test('no invented dates: the rc1 entry references the SPEC frontmatter', async ({ page }) => {
-    await page.goto('/changelog')
+    await page.goto('/index-ai/changelog')
     await expect(page.getByText('exact public date is set in the SPEC frontmatter')).toBeVisible()
   })
 })

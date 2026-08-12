@@ -1586,16 +1586,3 @@ cycle. Dates reflect the design sprint, not public comment periods.
 *index-ai is an open proposal, not affiliated with any LLM provider.*  
 *Contributions via GitHub Issues and Pull Requests.*  
 *<PUBLIC_REPO_URL — set at public launch>*
-
----
-
-## Appendix A — AI-assisted design review
-
-This specification was developed through an AI-assisted design review process.
-The full record — model outputs, dates, the spec version reviewed, objections
-raised, and the human decisions taken — is kept separately in
-`history/AI_ASSISTED_DESIGN_REVIEW.md`.
-
-> Model outputs are advisory, may contain errors, and do not represent
-> endorsement by the model providers. Normative responsibility for this
-> specification rests entirely with its human maintainers (Hard Machine Labs).

@@ -10,6 +10,13 @@ export default defineConfig({
   cleanUrls: true,
   appearance: true, // light/dark toggle (VitePress built-in, themed via custom.css tokens)
   lastUpdated: false,
+  // The code surface is a dark terminal in BOTH themes (--vp-c-term-bg in
+  // custom.css), so shiki's default dual theme (github-light/github-dark)
+  // renders light-mode ink tokens unreadable in light mode. Force the dark
+  // token palette on both sides of the appearance switch.
+  markdown: {
+    theme: { light: 'github-dark', dark: 'github-dark' },
+  },
   themeConfig: {
     nav: [
       { text: 'Spec', link: '/spec/' },

@@ -4,6 +4,11 @@
 //   · Code & examples: MIT · [Spec] · [Quickstart] · [vs llms.txt] · [Changelog]
 // and the Shokunin badge centered BELOW the line, INSIDE the footer.
 // The four links map to the real site pages (the validated file used page anchors).
+// withBase: every link must resolve under the Pages base ('/index-ai/').
+// z-index: the doc aside (TOC) is position:fixed height:100vh (VitePress native);
+// without an elevated z-index the fixed aside paints OVER the footer at page end.
+// The native VPFooter uses the same contract (position:relative + z-index-footer).
+import { withBase } from 'vitepress'
 const links = [
   { label: 'Spec', href: '/spec/' },
   { label: 'Quickstart', href: '/quickstart' },
@@ -23,7 +28,7 @@ const links = [
         <span>Code &amp; examples: <b>MIT</b></span>
         <span class="foot-sep" aria-hidden="true">·</span>
         <template v-for="(l, i) in links" :key="l.href">
-          <a :href="l.href">{{ l.label }}</a>
+          <a :href="withBase(l.href)">{{ l.label }}</a>
           <span v-if="i < links.length - 1" class="foot-sep" aria-hidden="true">·</span>
         </template>
       </div>
@@ -60,6 +65,8 @@ const links = [
 
 <style scoped>
 .foot-v4 {
+  position: relative;
+  z-index: var(--vp-z-index-footer);
   border-top: 1px solid var(--vp-c-border);
   padding: 1.5rem 0 2.5rem;
   background: var(--vp-c-bg);

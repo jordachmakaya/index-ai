@@ -59,8 +59,8 @@ onBeforeUnmount(() => {
           who you are, what content exists, how big it is — measured and verified, not declared.
         </p>
         <div class="hero-cta reveal">
-          <a class="btn btn-primary" href="/spec/">Read the specification</a>
-          <a class="btn btn-soft" href="/quickstart">Follow the quickstart</a>
+          <a class="btn btn-primary" :href="withBase('/spec/')">Read the specification</a>
+          <a class="btn btn-soft" :href="withBase('/quickstart')">Follow the quickstart</a>
         </div>
         <p class="hero-meta reveal">
           <span><b>License:</b> MIT (code) · CC-BY-4.0 (spec)</span>

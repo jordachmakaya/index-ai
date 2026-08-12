@@ -34,6 +34,6 @@ index-ai is a distinct, deliberate convention — not an llms.txt variant. It ev
 <DemoVideo />
 
 <p class="demo-vid-note">The AI-readiness walkthrough — the Agent View in action.</p>
-<p class="demo-vid-cta"><a class="link-cta" href="/quickstart">Retry it yourself now <span class="arr" aria-hidden="true">→</span></a></p>
+<p class="demo-vid-cta"><a class="link-cta" href="../quickstart">Retry it yourself now <span class="arr" aria-hidden="true">→</span></a></p>
 
 </CompareScaffold>

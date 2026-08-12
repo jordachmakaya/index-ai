@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test'
 // statement, and a semantic table.
 test.describe('comparison page (V-004)', () => {
   test('shows concrete distinctions between index-ai and llms.txt', async ({ page }) => {
-    await page.goto('/compare/llms-txt')
+    await page.goto('/index-ai/compare/llms-txt')
     await expect(page.getByRole('heading', { name: 'index-ai vs llms.txt' })).toBeVisible()
     // table is semantic
     const table = page.getByRole('table')
@@ -16,7 +16,7 @@ test.describe('comparison page (V-004)', () => {
   })
 
   test('states the one-line difference and the coexistence statement', async ({ page }) => {
-    await page.goto('/compare/llms-txt')
+    await page.goto('/index-ai/compare/llms-txt')
     // v4 page-head (V-004 scaffold, same voice as V-002/V-003)
     await expect(page.getByText('index-ai / Compare')).toBeVisible()
     await expect(page.getByText('The one-line difference')).toBeVisible()
@@ -28,7 +28,7 @@ test.describe('comparison page (V-004)', () => {
   })
 
   test('coexistence map shows your site with the four conventions (index-ai accented)', async ({ page }) => {
-    await page.goto('/compare/llms-txt')
+    await page.goto('/index-ai/compare/llms-txt')
     // trunk: the site
     const trunk = page.locator('.co-trunk')
     await expect(trunk).toBeVisible()
@@ -51,7 +51,7 @@ test.describe('comparison page (V-004)', () => {
   })
 
   test('demonstration section: re-encoded AI-readiness video + retry CTA after the warning', async ({ page }) => {
-    await page.goto('/compare/llms-txt')
+    await page.goto('/index-ai/compare/llms-txt')
     // section comes after the non-replacement warning (page-final block)
     const heading = page.getByRole('heading', { name: 'Demonstration' })
     await expect(heading).toBeVisible()
@@ -80,12 +80,12 @@ test.describe('comparison page (V-004)', () => {
   })
 
   test('facts link to the canonical spec compatibility section', async ({ page }) => {
-    await page.goto('/compare/llms-txt')
+    await page.goto('/index-ai/compare/llms-txt')
     const link = page.getByRole('link', { name: /16 Compatibility/ })
     await expect(link).toBeVisible()
     expect(await link.getAttribute('href')).toMatch(/SPEC-v1\.0-rc1#_16-compatibility/)
     // target must actually exist in the rendered spec (no dead anchor)
-    const res = await page.request.get('/spec/SPEC-v1.0-rc1')
+    const res = await page.request.get('/index-ai/spec/SPEC-v1.0-rc1')
     expect(res.ok()).toBe(true)
     expect(await res.text()).toContain('id="_16-compatibility"')
   })

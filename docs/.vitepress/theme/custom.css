@@ -490,6 +490,23 @@
   --vp-code-copy-code-border-color: transparent;
   --vp-code-line-highlight-color: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
 }
+/* The code surface is a dark terminal in BOTH themes (term-bg above), so shiki's
+   light-mode tokens (github-light: dark ink like #005CC5 blue, ~2.4:1 on the
+   terminal) are unreadable. Force the dark token palette everywhere — the same
+   specificity as VitePress's native dual-theme rules, loaded later so it wins. */
+html:not(.dark) .vp-code span,
+.dark .vp-code span {
+  color: var(--shiki-dark, inherit);
+}
+/* github-dark maps comment tokens to #6A737D (its editor chrome gray, tuned for
+   the #24292e surface). On our darker terminal (#0f172a) that is only 3.71:1
+   (AA needs 4.5:1) — remap it to github's current comment gray #8B949E (~5.8:1).
+   Attribute match is exact (only spans shiki tagged with that comment color);
+   specificity must beat the forced-dark rule above (0,2,2) in light mode too. */
+html:not(.dark) .vp-code span[style*="6A737D" i],
+.dark .vp-code span[style*="6A737D" i] {
+  color: #8b949e;
+}
 
 /* Hallmark · genre: modern-minimal · macrostructure: Map/Diagram · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
  * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, hairline diagram voice, verification accent */

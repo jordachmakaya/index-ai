@@ -3,7 +3,9 @@
 // spec file (docs/spec/SPEC-v1.0-rc1.md) — never duplicates the prose.
 // Section slugs follow VitePress heading slugs in that file (leading
 // underscore + em-dash preserved, see dist ids). Full coverage of the
-// canonical h2 sections, grouped (Phase C′ 2026-08-12).
+// canonical h2 sections, grouped (Phase C′ 2026-08-12). withBase: the
+// deep links must resolve under the Pages base ('/index-ai/').
+import { withBase } from 'vitepress'
 const tocGroups = [
   {
     label: 'Overview',
@@ -60,7 +62,7 @@ const meta = [
       <h1>index-ai — A Verifiable Standard for Agent-Readable Web Content</h1>
       <p class="lede">
         The normative text of the specification, versioned and navigable. This site documents
-        <b>version 1.0-rc1</b> — check the <a href="/changelog">changelog</a> for the latest published version.
+        <b>version 1.0-rc1</b> — check the <a :href="withBase('/changelog')">changelog</a> for the latest published version.
       </p>
       <dl class="meta-row">
         <div v-for="m in meta" :key="m.k"><dt>{{ m.k }}</dt><dd>{{ m.v }}</dd></div>
@@ -75,7 +77,7 @@ const meta = [
           <a
             v-for="s in g.items"
             :key="s.label"
-            :href="s.href"
+            :href="withBase(s.href)"
             class="toc-link"
           >
             <span v-if="s.num" class="toc-num">{{ s.num }}</span>{{ s.label }}
