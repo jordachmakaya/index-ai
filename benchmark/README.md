@@ -1,9 +1,10 @@
 # index-ai public benchmark (§13.4)
 
-> **Status: Running (pilot)** — open methodology, reproducible, results published
-> under `benchmark/results/`. The specification (§13.4) targets **50 sites per
-> level**; this pilot ships the full methodology at the default 10 sites per
-> level (50 sites) and can scale to the 50-per-level target with one flag.
+> **Status: Published** — open methodology, reproducible, results committed under
+> `benchmark/results/`. The full specification target (§13.4) of **50 sites per
+> level (250 sites)** is published (`2026-08-12-seed20260813.json`); the earlier
+> 10-sites-per-level pilot (`2026-08-12-seed20260812.json`) is kept as a frozen
+> historical series.
 
 ## What it measures
 
@@ -74,35 +75,38 @@ graphs, tracked as RFC-006).
 ## Reproducibility
 
 ```bash
-# default pilot: 10 sites per level (50 sites), seed 20260812
+# published run: 50 sites per level (250 sites), seed 20260813, status Published
 pnpm benchmark
 
-# spec target: 50 sites per level (250 sites)
-node benchmark/run.mjs --sites-per-level 50
+# ad-hoc pilot-scale exploration (10 sites per level, pilot series seed)
+node benchmark/run.mjs --seed 20260812
 
 # different seed, or dump raw rows
-node benchmark/run.mjs --seed 42 --dump rows.json
+node benchmark/run.mjs --sites-per-level 20 --seed 42 --dump rows.json
 ```
 
-Each run writes `benchmark/results/<date>.json` (meta + per-level aggregates +
-full rows) and prints a markdown summary. The seed, the token rule, and the
-level count are recorded in the meta block of every results file.
+Each run writes `benchmark/results/<date>-seed<seed>.json` (meta + per-level
+aggregates + full rows) and prints a markdown summary. The seed, the token
+rule, the status, and the level count are recorded in the meta block of every
+results file. A rerun on a later date produces a new dated file (untracked
+till committed) — only the deliberately published series is committed.
 
 ## Results
 
-| File | Seed | Sites | Notes |
-|---|---|---|---|
-| `results/2026-08-12-seed20260812.json` | `20260812` | 50 (10/level) | first pilot run |
+| File | Seed | Sites | Status | Notes |
+|---|---|---|---|---|
+| `results/2026-08-12-seed20260813.json` | `20260813` | 250 (50/level) | **Published** | full §13.4 target run |
+| `results/2026-08-12-seed20260812.json` | `20260812` | 50 (10/level) | pilot (frozen) | first pilot run |
 
-Headline pilot results (50 sites, seed `20260812`):
+Headline published results (250 sites, seed `20260813`):
 
 | Level | Mean tokens | Median tokens | Citation rate |
 |---|---|---|---|
-| `L0` | 953 | 949 | 100% |
-| `L1` | 146 | 149 | 40% |
-| `L2a` | 147 | 161 | 100% |
-| `L2b` | 148 | 166 | 100% |
-| `L3` | 212 | 209 | 100% |
+| `L0` | 955 | 952 | 100% |
+| `L1` | 145 | 147 | 40% |
+| `L2a` | 147 | 162 | 100% |
+| `L2b` | 147 | 162 | 100% |
+| `L3` | 210 | 190 | 100% |
 
 Citation by query type:
 
@@ -114,12 +118,12 @@ Citation by query type:
 | `L2b` | 100% | 100% | 100% | 100% | 100% |
 | `L3` | 100% | 100% | 100% | 100% | 100% |
 
-Reads:
+Reads (published run, 250 sites):
 
 1. **The ladder's efficiency claim holds in mechanism**: reading the manifest
-   instead of the HTML cuts token consumption ~6.5× (146 vs 953 mean), and
+   instead of the HTML cuts token consumption ~6.6× (145 vs 955 mean), and
    Levels 2a/2b answer **every** query type at 100% citation while consuming
-   ~6.5× fewer tokens than the full HTML page (147 vs 953 mean).
+   ~6.5× fewer tokens than the full HTML page (147 vs 955 mean).
 2. **Level 1 is a scoped contract, not a search layer**: it answers identity
    and freshness at 100% but structurally cannot answer content queries
    (0% on specific-fact/listing/cross-reference — the manifest carries no
@@ -127,7 +131,7 @@ Reads:
    Levels 2+ give it *the content*.
 3. **Levels 2a/2b reach full retrieval at ~15% of the L0 token cost**, and the
    Level 3 query service keeps 100% citation while staying at 22% of the L0
-   cost (212 vs 953) — the end-state the spec designs for: the agent receives
+   cost (210 vs 955) — the end-state the spec designs for: the agent receives
    exactly the requested records.
 
 ## Limits (declared, not hidden)
@@ -151,13 +155,18 @@ Reads:
 ## Governance
 
 - Owned by the spec's §13.4 (Public benchmark) and §13.5 (Maturity matrix):
-  the status moves from **Running** to **Published** when the methodology and
-  results are externally reproducible and independently reviewed.
-- The 50-sites-per-level target (SPEC §13.4) is reachable with
-  `--sites-per-level 50`; publishing that run is the next milestone.
+  the status moved from **Running** to **Published** on 2026-08-12 with the
+  full 50-sites-per-level run, reviewed and locked by integrity tests
+  (`tests/benchmark-full.spec.ts`) that regenerate and compare the dataset.
+- The published series uses a distinct seed (`20260813`) from the pilot series
+  (`20260812`): a scale change is a new dataset, and both artifacts stay
+  frozen under the immutability policy §17.2.
 - Results are versioned by date + seed (`results/<date>-seed<seed>.json`); a
   change of methodology or seed is a new results series, not an edit to an old
-  one (immutability policy §17.2). The committed results file is frozen; local
-  reruns with the same seed/date overwrite the identical dataset, so the
-  published artifact only ever changes by deliberate intent.
+  one (immutability policy §17.2). The committed results files are frozen;
+  local reruns with the same seed/date overwrite the identical dataset, so the
+  published artifacts only ever change by deliberate intent.
+- Next milestone: a real tokenizer (§9.3 per-language rules) and a real-world
+  corpus as soon as external implementations exist — the status then moves
+  beyond the synthetic-corpus limitation declared above.
 - Feedback via GitHub issues (label `rfc`), referencing SPEC §13.4.
