@@ -11,8 +11,8 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+# pages: write + id-token: write are granted ONLY to the deploy job below —
+# quality/smoke and pull-request runs never need them (audit round 6).
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -63,6 +63,10 @@ jobs:
     name: Build docs + deploy to Pages
     needs: quality
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest # free-tier runner
     timeout-minutes: 15
 
@@ -117,3 +121,11 @@ jobs:
           curl -fsS -o /dev/null -w 'manifest -> HTTP %{http_code}\n' https://jordachmakaya.github.io/index-ai/.well-known/index-ai.json
           curl -fsS -o /dev/null -w 'agent-index -> HTTP %{http_code}\n' https://jordachmakaya.github.io/index-ai/agent-index.json
           curl -fsS https://jordachmakaya.github.io/index-ai/ | grep -q 'rel="agent-manifest"'
+
+      - name: index-ai dogfood — freshness is real + alias stays identical (audit round 6)
+        run: |
+          ! curl -fsS https://jordachmakaya.github.io/index-ai/.well-known/index-ai.json | grep -q 'T00:00:00Z'
+          ! curl -fsS https://jordachmakaya.github.io/index-ai/agent-index.json | grep -q 'T00:00:00Z'
+          curl -fsS https://jordachmakaya.github.io/index-ai/.well-known/index-ai.json > /tmp/live-manifest.json
+          curl -fsS https://jordachmakaya.github.io/index-ai/index-ai.json > /tmp/live-alias.json
+          diff -q /tmp/live-manifest.json /tmp/live-alias.json

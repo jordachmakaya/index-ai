@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-// T-MCP (static): the Level 3 section of the spec (SPEC-v1.0-rc1 §8.5) must
+// T-MCP (static): the Level 3 section of the spec (SPEC-v1.0-rc2 §8.5) must
 // describe a protocol-conformant, EXECUTABLE server — the full implementation
 // lives at examples/mcp-server/server.ts and is boot-tested over real HTTP by
 // tests/mcp-server.spec.ts (initialize → tools/list → tools/call). This test
@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 // back to a non-executable or non-conformant example.
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const specPath = resolve(root, 'docs/spec/SPEC-v1.0-rc1.md')
+const specPath = resolve(root, 'docs/spec/SPEC-v1.0-rc2.md')
 const spec = readFileSync(specPath, 'utf8')
 const section = spec.slice(spec.indexOf('### 8.5 Complete tool example'), spec.indexOf('### 8.6'))
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Validated v4 footer (dir_3_v4.html): ONE foot-line with · separators —
-//   index-ai · Version 1.0-rc1 (REQUEST FOR COMMENTS) · Spec text: CC-BY-4.0
+//   index-ai · Version 1.0-rc2 (REQUEST FOR COMMENTS) · Spec text: CC-BY-4.0
 //   · Code & examples: MIT · [Spec] · [Quickstart] · [vs llms.txt] · [Changelog]
 // and the Shokunin badge centered BELOW the line, INSIDE the footer.
 // The four links map to the real site pages (the validated file used page anchors).
@@ -21,7 +21,7 @@ const links = [
   <footer class="foot-v4" id="foot">
     <div class="wrap">
       <div class="foot-line">
-        <span><b>index-ai</b> · Version 1.0-rc1 (REQUEST FOR COMMENTS)</span>
+        <span><b>index-ai</b> · Version 1.0-rc2 (REQUEST FOR COMMENTS)</span>
         <span class="foot-sep" aria-hidden="true">·</span>
         <span>Spec text: <b>CC-BY-4.0</b></span>
         <span class="foot-sep" aria-hidden="true">·</span>

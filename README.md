@@ -2,7 +2,7 @@
 
 > An open specification proposal that makes websites **verifiably readable by AI agents**.
 
-**Status: `1.0-rc1` — REQUEST FOR COMMENTS** · Spec: CC-BY-4.0 · Code: MIT
+**Status: `1.0-rc2` — REQUEST FOR COMMENTS** · Spec: CC-BY-4.0 · Code: MIT
 
 `index-ai` lets a website expose a **verifiable, agent-readable representation** of its content — structured metadata, clean content endpoints, and a measured token cost. It defines what an agent can reliably **access, extract, and budget** once it reaches the site.
 
@@ -27,15 +27,15 @@ Start at Level 1, climb as far as you need. **Partial conformance is valid to sh
 
 ## In this repository
 
-- `docs/spec/SPEC-v1.0-rc1.md` — the full specification (single source of truth)
+- `docs/spec/SPEC-v1.0-rc2.md` — the full specification (single source of truth)
 - `schema/v1/` — the official JSON Schemas (manifest + Agent View)
 - `docs/public/` — media assets for the docs site
-- `ci/` — lint checks; `tests/` + `e2e/` — unit and end-to-end tests
+- `ci/` — lint checks; `ci/refresh-dogfood.mjs` regenerates the served dogfood timestamps at build; `tests/` + `e2e/` — unit and end-to-end tests
 
 ## Get started
 
-1. **Read the spec** — [docs/spec/SPEC-v1.0-rc1.md](docs/spec/SPEC-v1.0-rc1.md)
-2. **Implement Level 1** — publish `/.well-known/index-ai.json`
+1. **Read the spec** — [docs/spec/SPEC-v1.0-rc2.md](docs/spec/SPEC-v1.0-rc2.md)
+2. **Implement Level 1** — publish `/.well-known/index-ai.json` (or use scoped discovery via `rel="agent-manifest"` on sub-path hosts — see spec §5.2)
 3. **Validate** — `npx @hardmachinelabs/index-ai-validator validate <url>` (consumed as-is, see the spec)
 
 ## License
