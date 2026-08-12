@@ -16,7 +16,7 @@ Copy this minimal example and adapt it:
 
 ```json
 {
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "identity": {
     "name": "My Technical Blog",
     "description": "Personal blog on distributed systems, Rust, and backend architecture.",
@@ -57,7 +57,7 @@ the NFC code point count of the content at that endpoint, not a guess:
 ```json
 {
   "generated": "2025-05-28T10:00:00Z",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "total_nodes": 3,
   "nodes": [
     {

@@ -20,7 +20,8 @@ This guide covers the repository layout, how to report issues, how to propose sp
 - `docs/` — the VitePress documentation site: landing page, [quickstart](docs/quickstart.md), [comparison](docs/compare/llms-txt.md), [changelog](docs/changelog.md)
 - `docs/.vitepress/theme/` — site theme, tokens, and components
 - `docs/public/` — media assets for the site
-- `ci/` — quality checks (lint, GitHub Actions workflows)
+- `schema/v1/` — the official JSON Schemas (manifest + Agent View)
+- `ci/` — lint checks; `.github/workflows/` — the GitHub Actions quality + deploy workflows
 - `tests/` + `e2e/` — Vitest unit/integrity tests and Playwright end-to-end tests
 
 ## Spec version policy
@@ -43,7 +44,7 @@ Search [existing issues](https://github.com/jordachmakaya/index-ai/issues) first
 
 ## Proposing spec changes
 
-1. Open a **spec-feedback** issue describing the problem and your proposed wording, and reference the conformance level(s) affected (1 — AI Manifest, 2a — Agent Index, 2b — Agent Graph, 3 — Query Interface).
+1. Open a **rfc**-labeled issue describing the problem and your proposed wording, and reference the conformance level(s) affected (1 — AI Manifest, 2a — Agent Index, 2b — Agent Graph, 3 — Query Interface).
 2. Discuss the proposal with maintainers; a change that survives discussion lands in the **next version** of the spec.
 3. For **editorial or typo** fixes, a pull request is appropriate directly — no version bump is needed for typos.
 
