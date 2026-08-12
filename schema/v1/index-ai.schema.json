@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
+  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
   "title": "index-ai AI Manifest",
-  "description": "Level 1 manifest served at /.well-known/index-ai.json. Field requirements follow the specification (SPEC-v1.0-rc1 §6): only spec_version, identity, and freshness are required; manifest_version and entrypoints are optional.",
+  "description": "Level 1 manifest served at /.well-known/index-ai.json. Field requirements follow the specification (SPEC-v1.0-rc1 §6): only spec_version, identity, and freshness are required; manifest_version and entrypoints are optional. The $id points at the immutable v1.0-rc1 tag — published versions never change (SPEC §17.1).",
   "type": "object",
   "required": ["spec_version", "identity", "freshness"],
   "additionalProperties": true,
@@ -13,8 +13,8 @@
     },
     "spec_version": {
       "type": "string",
-      "minLength": 1,
-      "description": "MUST be present. Identifies the version of this standard the manifest targets."
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?(-[0-9A-Za-z.-]+)?$",
+      "description": "MUST be present. Identifies the version of this standard the manifest targets (e.g. \"1.0-rc1\" during the RC period, \"1.0\" once stable). Must be a version string, not free text."
     },
     "manifest_version": {
       "type": "integer",
@@ -35,7 +35,8 @@
         },
         "language": {
           "type": "array",
-          "items": { "type": "string", "minLength": 2, "maxLength": 3 }
+          "items": { "type": "string", "pattern": "^[a-z]{2}$" },
+          "description": "ISO 639-1 codes (two lowercase letters)."
         },
         "geo": { "type": "object", "additionalProperties": true }
       }
@@ -55,10 +56,10 @@
       "required": ["content_updated_at"],
       "additionalProperties": true,
       "properties": {
-        "content_updated_at": { "type": "string", "minLength": 1 },
-        "manifest_generated_at": { "type": "string" },
+        "content_updated_at": { "type": "string", "format": "date-time" },
+        "manifest_generated_at": { "type": "string", "format": "date-time" },
         "refresh_frequency": { "type": "string" },
-        "valid_until": { "type": "string" },
+        "valid_until": { "type": "string", "format": "date-time" },
         "cache_max_age_seconds": { "type": "integer", "minimum": 0 }
       }
     },

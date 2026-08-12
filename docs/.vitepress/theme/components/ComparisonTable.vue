@@ -38,7 +38,7 @@ const rows: Row[] = [
   {
     label: 'Query interface',
     ia: { b: 'Level 3 (MCP)', s: 'an optional typed API over the Agent View' },
-    lt: { b: 'None', s: 'a text file, no query interface exists or could' },
+    lt: { b: 'None', s: 'a text file, no query interface defined' },
   },
   {
     label: 'Policy',

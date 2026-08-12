@@ -6,7 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before asking, it may help to skim the [quickstart](https://github.com/jordachmakaya/index-ai/blob/develop/docs/quickstart.md) and the [specification](https://github.com/jordachmakaya/index-ai/blob/develop/docs/spec/SPEC-v1.0-rc1.md).
+        Before asking, it may help to skim the [quickstart](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/docs/quickstart.md) and the [specification](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/docs/spec/SPEC-v1.0-rc1.md).
+
+        The published `1.0-rc1` version is immutable — for feedback on the spec itself, open a **Spec feedback** issue (label `rfc`) instead.
   - type: textarea
     id: question
     attributes:
