@@ -16,7 +16,8 @@ export default defineConfig({
   head: [
     ['meta', { property: 'og:title', content: 'index-ai — An open specification proposal for agent-readable web content' }],
     ['meta', { property: 'og:description', content: 'Make your content verifiably readable by AI agents — open specification, validator guidance, docs.' }],
-    ['meta', { property: 'og:url', content: 'https://jordachmakaya.github.io/index-ai/' }],
+    // og:url is set per page by transformHead below (every page previously
+    // shared the homepage URL — audit round 4).
     ['meta', { property: 'og:image', content: 'https://jordachmakaya.github.io/index-ai/images/index-ai-og.jpg' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
@@ -26,6 +27,9 @@ export default defineConfig({
     ['meta', { name: 'twitter:title', content: 'index-ai — An open specification proposal for agent-readable web content' }],
     ['meta', { name: 'twitter:description', content: 'Make your content verifiably readable by AI agents — open specification, validator guidance, docs.' }],
     ['meta', { name: 'twitter:image', content: 'https://jordachmakaya.github.io/index-ai/images/index-ai-og.jpg' }],
+    // index-ai eats its own dog food: the sub-path discovery mechanism (§5.3)
+    // that makes a GitHub Pages deployment Level 1-discoverable.
+    ['link', { rel: 'agent-manifest', href: '/index-ai/.well-known/index-ai.json', type: 'application/json' }],
   ],
   // The code surface is a dark terminal in BOTH themes (--vp-c-term-bg in
   // custom.css), so shiki's default dual theme (github-light/github-dark)
@@ -33,6 +37,21 @@ export default defineConfig({
   // token palette on both sides of the appearance switch.
   markdown: {
     theme: { light: 'github-dark', dark: 'github-dark' },
+  },
+  // Per-page canonical + og:url (audit round 4): every page previously shared
+  // the homepage's og:url and had no canonical. cleanUrls: true strips .md.
+  transformHead({ pageData }) {
+    const rel = pageData.relativePath ?? ''
+    const base = 'https://jordachmakaya.github.io/index-ai'
+    let path: string
+    if (rel === '' || rel === 'index.md') path = ''
+    else if (rel.endsWith('index.md')) path = `/${rel.slice(0, -'index.md'.length)}`
+    else path = `/${rel.replace(/\.md$/, '')}`
+    const url = `${base}${path}`
+    return [
+      ['link', { rel: 'canonical', href: url }],
+      ['meta', { property: 'og:url', content: url }],
+    ]
   },
   themeConfig: {
     nav: [

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
+  "spec_version": "1.0-rc1",
+  "manifest_version": 1,
+  "identity": {
+    "name": "index-ai documentation",
+    "description": "The index-ai open specification proposal: specification, quickstart, llms.txt comparison, and changelog. Published on GitHub Pages under the /index-ai/ sub-path.",
+    "domain": "jordachmakaya.github.io",
+    "category": ["documentation", "specification"],
+    "language": ["en"]
+  },
+  "publisher": {
+    "name": "index-ai project",
+    "role": "specification"
+  },
+  "freshness": {
+    "content_updated_at": "2026-08-12T00:00:00Z",
+    "manifest_generated_at": "2026-08-12T00:00:00Z",
+    "refresh_frequency": "weekly"
+  },
+  "access": {
+    "agent_index": "/index-ai/agent-index.json",
+    "fetch_allowlist": ["https://raw.githubusercontent.com"]
+  },
+  "llm_instructions": "index-ai documents the index-ai open specification proposal. It does not implement the standard on behalf of the reader: use the reference validator separately. All links on this site point to pages or to the v1.0-rc1 tag of the repository — published versions are immutable."
+}

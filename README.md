@@ -17,7 +17,7 @@ LLMs gained web search, but every page they fetch still pays the full token cost
 | Level | What it provides | Effort |
 |---|---|---|
 | **1 — AI Manifest** | Identity, publisher, freshness, policy — one HTTP call answers “What is this site?” | ~15 minutes · `/.well-known/index-ai.json` |
-| **2a — Agent Index** | A flat list of content nodes with clean-text endpoints and exact measured sizes | ~1–2 hours · `/agent-index.json` |
+| **2a — Agent Index** | A flat list of content nodes with clean-text endpoints and measured content sizes where declared | ~1–2 hours · `/agent-index.json` |
 | **2b — Agent Graph** | Typed relationships between nodes — navigate without parsing HTML | +2–4 hours · relations in `/agent-index.json` |
 | **3 — Query Interface** | A typed API over the Agent View (MCP) — exactly the data requested | MCP server |
 

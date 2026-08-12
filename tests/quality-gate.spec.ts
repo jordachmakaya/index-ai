@@ -5,12 +5,13 @@ import { fileURLToPath } from 'node:url'
 
 // T3.0 quality gate: the free-tier GitHub Actions workflow must exist, trigger
 // on pull_request + push, install with a frozen lockfile, run the local gates
-// (typecheck/lint/vitest/docs build), map every invoked command to a REAL
-// package.json script, and never reference the gitignored `.shokunin/` tree
-// (public-repo rule C-001).
+// (typecheck/lint/vitest/docs build + e2e), map every invoked command to a
+// REAL package.json script, never reference the gitignored `.shokunin/` tree
+// (public-repo rule C-001) — and the Pages deploy job MUST depend on the
+// quality job (a push can never deploy while tests fail; audit round 4).
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const workflowPath = resolve(root, '.github/workflows/quality.yml')
+const workflowPath = resolve(root, '.github/workflows/ci.yml')
 const pkgPath = resolve(root, 'package.json')
 
 function workflowBody(): string {
@@ -66,5 +67,21 @@ describe('quality gate (T3.0)', () => {
   it('never references the gitignored .shokunin tree (C-001 public repo)', () => {
     const wf = workflowBody()
     expect(wf).not.toContain('.shokunin')
+  })
+
+  it('deploy is gated by quality (deploy: needs: quality) — no deploy-on-fail', () => {
+    const wf = workflowBody()
+    expect(wf).toMatch(/needs: quality/)
+    expect(wf).toMatch(/deploy-pages@v4/)
+    // the deploy job must never run on PRs
+    expect(wf).toMatch(/refs\/heads\/main/)
+  })
+
+  it('the smoke job checks the index-ai dogfood files after deploy', () => {
+    const wf = workflowBody()
+    expect(wf).toMatch(/needs: deploy/)
+    expect(wf).toMatch(/\.well-known\/index-ai\.json/)
+    expect(wf).toMatch(/agent-index\.json/)
+    expect(wf).toMatch(/rel="agent-manifest"/)
   })
 })

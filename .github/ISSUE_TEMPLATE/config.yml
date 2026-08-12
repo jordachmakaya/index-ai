@@ -4,5 +4,5 @@ contact_links:
     url: https://jordachmakaya.github.io/index-ai/
     about: The rendered documentation — spec, quickstart, comparison, and changelog.
   - name: Read the specification
-    url: https://github.com/jordachmakaya/index-ai/blob/develop/docs/spec/SPEC-v1.0-rc1.md
-    about: The full specification text, before opening an issue.
+    url: https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/docs/spec/SPEC-v1.0-rc1.md
+    about: The full specification text (published 1.0-rc1, immutable), before opening an issue.
