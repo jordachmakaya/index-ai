@@ -23,8 +23,8 @@ test.describe('changelog page (V-005)', () => {
     await expect(entries.nth(0).locator('.ventry-status')).toHaveText('RC')
     await expect(entries.nth(1).locator('.ventry-ver')).toHaveText('0.6')
     await expect(entries.nth(1).locator('.ventry-status')).toHaveText('Draft')
-    // typed change list: 7 Added, 1 Fixed (facts from the SPEC §18)
-    await expect(entries.locator('.vtag.add')).toHaveCount(7)
+    // typed change list: 6 Added (4 in rc1 + 2 in 0.6), 1 Fixed (facts from the SPEC §18)
+    await expect(entries.locator('.vtag.add')).toHaveCount(6)
     await expect(entries.locator('.vtag.fix')).toHaveCount(1)
     // the Fixed entry is the v0.6 breaking change
     await expect(entries.locator('.vtag.fix').first()).toContainText('Fixed')
