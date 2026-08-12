@@ -21,6 +21,7 @@
     "docs:preview": "vitepress preview docs",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "benchmark": "node benchmark/run.mjs",
     "typecheck": "tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --strict docs/.vitepress/theme/lib/useValidatorState.ts examples/mcp-server/server.ts vitest.config.ts playwright.config.ts",
     "lint": "node ci/lint.mjs"
   },
