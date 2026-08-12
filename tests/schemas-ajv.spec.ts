@@ -18,8 +18,8 @@ import addFormats from 'ajv-formats'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
-const MANIFEST_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json'
-const AGENT_INDEX_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json'
+const MANIFEST_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json'
+const AGENT_INDEX_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json'
 
 function readText(file: string): string {
   return readFileSync(resolve(root, file), 'utf8')
@@ -66,7 +66,7 @@ describe('official JSON Schemas (schema/v1/)', () => {
     expect((agent as Record<string, unknown>).type).toBe('object')
   })
 
-  it('schema $id URLs point at the IMMUTABLE v1.0-rc1 tag (never the mutable main branch)', () => {
+  it('schema $id URLs point at the IMMUTABLE v1.0-rc2 tag (never the mutable main branch)', () => {
     const manifest = JSON.parse(readText('schema/v1/index-ai.schema.json')) as { $id?: string }
     const agent = JSON.parse(readText('schema/v1/agent-index.schema.json')) as { $id?: string }
     expect(manifest.$id).toBe(MANIFEST_SCHEMA_URL)
@@ -76,13 +76,13 @@ describe('official JSON Schemas (schema/v1/)', () => {
   })
 
   it('no docs example still references the dead index-ai/standard URLs', () => {
-    for (const file of ['docs/spec/SPEC-v1.0-rc1.md', 'docs/quickstart.md']) {
+    for (const file of ['docs/spec/SPEC-v1.0-rc2.md', 'docs/quickstart.md']) {
       expect(readText(file), file).not.toContain('index-ai/standard')
     }
   })
 
   it('no published doc references the mutable main-branch schema URLs', () => {
-    for (const file of ['docs/spec/SPEC-v1.0-rc1.md', 'docs/quickstart.md']) {
+    for (const file of ['docs/spec/SPEC-v1.0-rc2.md', 'docs/quickstart.md']) {
       expect(readText(file), file).not.toContain('jordachmakaya/index-ai/main/schema')
     }
   })
@@ -115,7 +115,7 @@ describe('docs examples validate against the official schemas', () => {
   const validateManifest = ajv.compile(JSON.parse(readText('schema/v1/index-ai.schema.json')))
   const validateAgentIndex = ajv.compile(JSON.parse(readText('schema/v1/agent-index.schema.json')))
 
-  for (const file of ['docs/spec/SPEC-v1.0-rc1.md', 'docs/quickstart.md']) {
+  for (const file of ['docs/spec/SPEC-v1.0-rc2.md', 'docs/quickstart.md']) {
     const blocks = jsonBlocks(readText(file))
 
     it(`${file}: every JSON block is valid JSON`, () => {
@@ -156,13 +156,13 @@ describe('negative fixtures — the schemas REJECT documents the spec forbids', 
   const validateAgentIndex = ajv.compile(JSON.parse(readText('schema/v1/agent-index.schema.json')))
 
   const validManifest = {
-    spec_version: '1.0-rc1',
+    spec_version: '1.0-rc2',
     identity: { name: 'x', description: 'x' },
     freshness: { content_updated_at: '2026-08-12T10:00:00Z' },
   }
   const validAgentView = {
     generated: '2026-08-12T10:00:00Z',
-    spec_version: '1.0-rc1',
+    spec_version: '1.0-rc2',
     nodes: [
       {
         id: 'a',
@@ -189,6 +189,12 @@ describe('negative fixtures — the schemas REJECT documents the spec forbids', 
     ['spec_version must be a version string ("banana")', { ...validManifest, spec_version: 'banana' }],
     ['content_updated_at must be a date-time ("yesterday")', { ...validManifest, freshness: { content_updated_at: 'yesterday' } }],
     ['identity.language must be ISO 639-1 ("eng")', { ...validManifest, identity: { name: 'x', description: 'x', language: ['eng'] } }],
+    ['publisher.role must be a §11.2 taxonomy value or x- prefixed ("banana")', { ...validManifest, publisher: { role: 'banana' } }],
+    [
+      'refresh_frequency must be a §12.2 value ("hourly")',
+      { ...validManifest, freshness: { content_updated_at: '2026-08-12T10:00:00Z', refresh_frequency: 'hourly' } },
+    ],
+    ['access.agent_index must be a string (17)', { ...validManifest, access: { agent_index: 17 } }],
   ]
   for (const [label, doc] of negativeManifest) {
     it(`manifest: rejects ${label}`, () => {
@@ -220,6 +226,30 @@ describe('negative fixtures — the schemas REJECT documents the spec forbids', 
     ],
     ['content_sha256 not hex-64 ("zzz")', { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], content: { ...validAgentView.nodes[0].content, content_sha256: 'zzz' } }] }],
     ['language three letters ("eng")', { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], content: { ...validAgentView.nodes[0].content, language: 'eng' } }] }],
+    [
+      'content_sha256 with content_chars_mode "max" (SPEC §7.6)',
+      {
+        ...validAgentView,
+        nodes: [
+          {
+            ...validAgentView.nodes[0],
+            content: { ...validAgentView.nodes[0].content, content_chars_mode: 'max', content_sha256: 'a'.repeat(64) },
+          },
+        ],
+      },
+    ],
+    [
+      'content_sha256 without content_chars (attestation needs the measured count)',
+      {
+        ...validAgentView,
+        nodes: [
+          {
+            ...validAgentView.nodes[0],
+            content: { llm_summary: 'summary', llm_url: '/a.md', content_sha256: 'a'.repeat(64) },
+          },
+        ],
+      },
+    ],
   ]
   for (const [label, doc] of negativeAgent) {
     it(`agent view: rejects ${label}`, () => {

@@ -1,7 +1,7 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
-  "spec_version": "1.0-rc1",
-  "manifest_version": 1,
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json",
+  "spec_version": "1.0-rc2",
+  "manifest_version": 2,
   "identity": {
     "name": "index-ai documentation",
     "description": "The index-ai open specification proposal: specification, quickstart, llms.txt comparison, and changelog. Published on GitHub Pages under the /index-ai/ sub-path.",
@@ -11,16 +11,15 @@
   },
   "publisher": {
     "name": "index-ai project",
-    "role": "specification"
+    "role": "official-docs"
   },
   "freshness": {
-    "content_updated_at": "2026-08-12T00:00:00Z",
-    "manifest_generated_at": "2026-08-12T00:00:00Z",
-    "refresh_frequency": "weekly"
+    "content_updated_at": "2026-08-12T14:05:22Z",
+    "manifest_generated_at": "2026-08-12T14:05:22Z"
   },
   "access": {
     "agent_index": "/index-ai/agent-index.json",
     "fetch_allowlist": ["https://raw.githubusercontent.com"]
   },
-  "llm_instructions": "index-ai documents the index-ai open specification proposal. It does not implement the standard on behalf of the reader: use the reference validator separately. All links on this site point to pages or to the v1.0-rc1 tag of the repository — published versions are immutable."
+  "llm_instructions": "Normative specification and schema links target the immutable v1.0-rc2 release. Other navigation links may point to project and external resources."
 }

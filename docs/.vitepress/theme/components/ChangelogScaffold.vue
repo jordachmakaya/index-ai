@@ -13,7 +13,7 @@
       <h1>Changelog</h1>
       <p class="lede">
         Published versions are immutable. The docs site currently documents
-        <b>1.0-rc1</b> — if this page lists a newer version, follow it.
+        <b>1.0-rc2</b> — if this page lists a newer version, follow it.
       </p>
     </header>
     <div class="clog-body">

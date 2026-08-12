@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        index-ai is in RFC status (`1.0-rc1`) — feedback that shapes the next version is especially welcome.
+        index-ai is in RFC status (`1.0-rc2`) — feedback that shapes the next version is especially welcome.
 
         **Published spec versions are immutable.** Once a version is published, its requirements are fixed; a substantive correction ships as a new version. The one exception is typo fixes (spelling, formatting, broken links), which maintainers may apply without a version bump.
   - type: textarea
@@ -35,13 +35,13 @@ body:
     attributes:
       label: Section reference
       description: Exact spec path or section heading, if you have one.
-      placeholder: "docs/spec/SPEC-v1.0-rc1.md — Level 2a"
+      placeholder: "docs/spec/SPEC-v1.0-rc2.md — Level 2a"
   - type: input
     id: version
     attributes:
       label: Spec version
       description: Which version are you commenting on?
-      value: "1.0-rc1"
+      value: "1.0-rc2"
   - type: checkboxes
     id: policy
     attributes:

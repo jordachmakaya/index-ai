@@ -26,7 +26,7 @@ import DemoVideo from '../.vitepress/theme/components/DemoVideo.vue'
 <CoexistMap />
 
 ::: warning Not a replacement, not a fork
-index-ai is a distinct, deliberate convention — not an llms.txt variant. It even offers an optional bridge: an llms.txt file may point to the index-ai manifest. The normative statement lives in [§16 Compatibility of the specification](/spec/SPEC-v1.0-rc1#_16-compatibility).
+index-ai is a distinct, deliberate convention — not an llms.txt variant. It even offers an optional bridge: an llms.txt file may point to the index-ai manifest. The normative statement lives in [§16 Compatibility of the specification](/spec/SPEC-v1.0-rc2#_16-compatibility).
 :::
 
 ## Demonstration

@@ -1,6 +1,6 @@
 # index-ai — An Open Specification Proposal for Agent-Readable Web Content
 
-**Version:** 1.0-rc1  
+**Version:** 1.0-rc2  
 **Status:** REQUEST FOR COMMENTS  
 **Published:** 2026-08-12  
 **Comment period ends:** 2026-08-26  
@@ -10,8 +10,8 @@
 **Reference implementation:** `@hardmachinelabs/index-ai-validator` (maintained by Hard Machine Labs)
 
 > **Status.** This document is a public proposal under review. Normative text,
-> JSON Schemas, validator behavior, and examples MAY change before a stable 1.0
-> release. `STABLE` will be declared only after the criteria in §17.3 are met
+> JSON Schemas, validator behavior, and examples MAY change between published
+> releases — each published version, including each RC, is immutable (§17.2). `STABLE` will be declared only after the criteria in §17.3 are met
 > with public, verifiable evidence. Efficiency, retrieval, and citation gains
 > stated anywhere in this document are **illustrative** until the public
 > benchmark (§13.4) is completed.
@@ -157,7 +157,7 @@ The Agent View enables a two-phase consumption model that eliminates speculative
 
 **Phase 1 — Pre-fetch decision (near-zero cost)**
 
-The agent reads `llm_summary` (50–300 words per node) from the Agent View. This is enough to decide: *is this node relevant to my query?* If no — skip entirely, zero additional tokens spent. If yes — proceed to Phase 2.
+The agent reads `llm_summary` (20–300 words per node) from the Agent View. This is enough to decide: *is this node relevant to my query?* If no — skip entirely, zero additional tokens spent. If yes — proceed to Phase 2.
 
 **Phase 2 — Targeted fetch (known, bounded cost)**
 
@@ -250,17 +250,7 @@ This standard does **not**:
 
 An agent reads `index-ai.json` only if it knows to look for it. This section defines how agents discover the standard, and how sites advertise compliance.
 
-### 5.2 Canonical location
-
-The manifest MUST be served at:
-
-```
-https://example.com/.well-known/index-ai.json
-```
-
-Following [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615).
-
-A fallback alias at `/index-ai.json` SHOULD be supported.
+### 5.2 Discovery profiles and canonical location
 
 > **Discovery profiles.** A Level 1 implementation MUST satisfy one of two
 > discovery profiles:
@@ -278,6 +268,16 @@ A fallback alias at `/index-ai.json` SHOULD be supported.
 > belongs to the platform, not the project. The other §5.3 mechanisms
 > (`robots.txt` directive, `llms.txt` bridge, DNS TXT) MAY additionally
 > advertise the manifest but do not by themselves satisfy the scoped profile.
+
+Under the **canonical discovery profile**, the manifest MUST be served at:
+
+```
+https://example.com/.well-known/index-ai.json
+```
+
+Following [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615).
+
+Under the canonical profile only, a fallback alias at `/index-ai.json` SHOULD be supported.
 
 ### 5.3 Discovery mechanisms
 
@@ -326,7 +326,7 @@ _agent-manifest.example.com. IN TXT "v=1; path=/.well-known/index-ai.json"
 |--------|---------|
 | `200 OK` | Parse and use |
 | `301/302` | Follow redirect once |
-| `404 Not Found` | Try `/index-ai.json` fallback once. If also 404, site does not implement standard. |
+| `404 Not Found` | Under the canonical profile, try the `/index-ai.json` fallback once. If it is also 404, the site does not implement canonical discovery — check the scoped mechanisms of §5.3 before concluding the site does not implement the standard. |
 | `429 Too Many Requests` | Back off per `Retry-After`. Minimum 1 hour. |
 | `5xx` | Do not retry within 24 hours |
 
@@ -371,13 +371,13 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 
 > The canonical machine-readable JSON Schema is published at
 > `schema/v1/index-ai.schema.json` in this repository
-> (`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json`).
+> (`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json`).
 > The following is a complete example **instance** of that schema.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
-  "spec_version": "1.0-rc1",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json",
+  "spec_version": "1.0-rc2",
   "manifest_version": 1,
 
   "identity": {
@@ -450,7 +450,7 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 ### 6.4 Field rules
 
 #### `spec_version`
-MUST be present. String. Identifies the version of this standard the manifest targets (e.g. `"1.0-rc1"` while the current release is in RC, `"1.0"` once stable). Allows agents and validators to apply the correct parsing rules.
+MUST be present. String. Identifies the version of this standard the manifest targets (e.g. `"1.0-rc2"` while the current release is in RC, `"1.0"` once stable). Allows agents and validators to apply the correct parsing rules.
 
 #### `manifest_version`
 OPTIONAL. Integer. Incrementing counter. Bump when manifest content changes. Allows agents to detect stale cached versions without re-fetching.
@@ -489,8 +489,8 @@ Free-text guidance. MUST NOT exceed 500 characters. Written for the agent. Factu
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
-  "spec_version": "1.0-rc1",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/index-ai.schema.json",
+  "spec_version": "1.0-rc2",
   "identity": {
     "name": "My Technical Blog",
     "description": "Personal blog on distributed systems, Rust, and backend architecture. Monthly articles.",
@@ -569,7 +569,7 @@ Recommended max size: 100 KB. Sites with more content SHOULD expose queryable en
 
 The canonical machine-readable JSON Schema is published at
 `schema/v1/agent-index.schema.json` in this repository
-(`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json`).
+(`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json`).
 
 A complete Level 2b Agent View example appears below the field tables. A minimal Level 2a example follows in §7.4.1.
 
@@ -589,7 +589,7 @@ A complete Level 2b Agent View example appears below the field tables. A minimal
 
 | Field | Requirement | Description |
 |-------|------------|-------------|
-| `llm_summary` | REQUIRED | Pre-fetch relevance signal (50–300 words per node): what the node contains, enough for an agent to decide relevance without fetching `llm_url` |
+| `llm_summary` | REQUIRED | Pre-fetch relevance signal (20–300 words per node): what the node contains, enough for an agent to decide relevance without fetching `llm_url` |
 | `llm_url` | RECOMMENDED | Clean text endpoint |
 | `content_chars` | OPTIONAL | NFC code point count at `llm_url` |
 | `content_chars_mode` | **MUST if `content_chars` present** | `"exact"` or `"max"` — see §7.6 |
@@ -616,9 +616,9 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T14:30:00Z",
-  "spec_version": "1.0-rc1",
+  "spec_version": "1.0-rc2",
   "total_nodes": 3,
 
   "nodes": [
@@ -713,9 +713,9 @@ A minimal Agent Index for a blog with three articles. No relations required.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc2/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T10:00:00Z",
-  "spec_version": "1.0-rc1",
+  "spec_version": "1.0-rc2",
   "total_nodes": 3,
 
   "nodes": [
@@ -941,7 +941,7 @@ Paginated response MUST include:
 ```json
 {
   "generated": "2025-05-28T14:30:00Z",
-  "spec_version": "1.0-rc1",
+  "spec_version": "1.0-rc2",
   "total_nodes": 247,
   "returned_nodes": 50,
   "offset": 0,
@@ -1057,7 +1057,7 @@ A Level 3 conformant implementation MUST expose at least one tool satisfying:
 ### 8.5 Complete tool example
 
 The reference implementation is an **executable server** in this repository at
-[`examples/mcp-server/server.ts`](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/examples/mcp-server/server.ts).
+[`examples/mcp-server/server.ts`](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc2/examples/mcp-server/server.ts).
 It pins `@modelcontextprotocol/sdk` **v1.30** and is compiled and boot-tested in
 CI (`tests/mcp-server.spec.ts` drives it over real HTTP with JSON-RPC).
 
@@ -1445,7 +1445,7 @@ only with the evidence listed.
 | RFCs | Proposed / Open / Accepted | public issue + decision |
 | External implementations | Pilot / Production | verifiable URLs |
 
-At `1.0-rc1`: normative text = RC; schemas = Draft (published at
+At `1.0-rc2`: normative text = RC; schemas = Draft (published at
 `schema/v1/` with AJV conformance tests over every docs example); validator
 L1/L2a = Tested; validator L2b = Implemented (launch target); L3 = Proposed;
 benchmark = Planned; RFCs = Proposed; external implementations = none yet.
@@ -1587,7 +1587,7 @@ Significant changes go through a public RFC process:
 4. Decision by maintainers with documented rationale
 5. Consensus → PR to update spec + RFC closed
 
-Minor clarifications and bug fixes MAY be merged via PR without an RFC. Breaking changes to required fields require an RFC and a version bump — see the pre-release rule in §17.2.
+Minor clarifications, typo fixes, and non-substantive bug fixes MAY be merged via PR without an RFC. Substantive corrections require a version bump (§17.2) even when they skip the RFC process. Breaking changes to required fields require an RFC and a version bump — see the pre-release rule in §17.2.
 
 ### 17.2 Versioning policy
 
@@ -1596,11 +1596,17 @@ This spec follows Semantic Versioning:
 - **Minor** (e.g. `0.8`, `1.1`): new optional fields, new optional mechanisms, backward-compatible additions
 - **Major** (e.g. `1.0`, `2.0`): breaking changes to required fields or core architecture
 
-**Pre-release rule (before 1.0 stable):** a breaking change to a published
-release candidate bumps the pre-release label, NOT the major version:
-`1.0-rc1 → 1.0-rc2`. RC versions are drafts — only STABLE versions are
-immutable (§17.1). After 1.0 stable, a breaking change bumps the major
-version: `1.0 → 2.0`.
+**Immutability.** Every published version — release candidate or stable — is
+immutable. Once a version is published, its requirements are fixed; a
+substantive correction ships as a **new version**, never as an edit to the
+published one. Minor clarifications and typo fixes MAY be applied without a
+version bump (§17.1).
+
+**Pre-release rule (before 1.0 stable).** A breaking or substantive change
+after a published release candidate bumps the pre-release label, NOT the
+major version: `1.0-rc1 → 1.0-rc2`. The RC series MAY evolve between
+releases, but each published RC is immutable. After 1.0 stable, a breaking
+change bumps the major version: `1.0 → 2.0`.
 
 `spec_version` in manifests MUST be updated when the site's manifest uses features introduced in a new minor or major version.
 
@@ -1608,7 +1614,8 @@ version: `1.0 → 2.0`.
 
 `index-ai` is currently a **public proposal under review**. The normative
 text, JSON Schemas, validator behavior, and reference implementations MAY
-change before the stable 1.0 release.
+change between published releases — each published version, including each
+RC, is immutable per §17.2.
 
 Version 1.0 will be declared `STABLE` only after, with public evidence:
 
@@ -1646,6 +1653,7 @@ increment the minor version.
 
 | Release | Date | Summary |
 |---------|------|---------|
+| `1.0-rc2` | 2026-08-12 | Second public release (REQUEST FOR COMMENTS). Audit-driven corrections: discovery profiles clarified (§5.2, §5.4), `llm_summary` length unified to 20–300 words (§7.8), RC immutability policy (§17.2), build-time dogfood freshness (§12), and tightened JSON Schemas (publisher role taxonomy, refresh-frequency enum, typed `access`, `content_sha256` restricted to `exact` mode). `1.0-rc1` remains frozen and immutable. |
 | `1.0-rc1` | 2026-08-12 | First public release (REQUEST FOR COMMENTS). Published with the official JSON Schemas (`schema/v1/`) and AJV conformance tests. `STABLE` is declared only after §17.3. |
 
 ### 18.2 Internal design history

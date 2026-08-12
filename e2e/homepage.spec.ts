@@ -93,7 +93,7 @@ test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }
   const footer = page.locator('.foot-v4')
   await expect(footer).toBeVisible()
   // one-line meta with the exact validated wording
-  await expect(footer).toContainText('Version 1.0-rc1 (REQUEST FOR COMMENTS)')
+  await expect(footer).toContainText('Version 1.0-rc2 (REQUEST FOR COMMENTS)')
   await expect(footer).toContainText('Spec text:')
   await expect(footer).toContainText('Code & examples: MIT')
   // the four nav links, inside the footer

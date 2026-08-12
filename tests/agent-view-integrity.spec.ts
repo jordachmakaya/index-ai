@@ -65,7 +65,7 @@ function nodesOf(view: AgentView): Node[] {
 describe('Agent View referential integrity (spec §13 Level 2b)', () => {
   // Markdown docs embed JSON blocks; the site's own Agent View is a JSON file.
   const sources: Array<{ file: string; views: AgentView[] }> = [
-    { file: 'docs/spec/SPEC-v1.0-rc1.md', views: agentViews(readText('docs/spec/SPEC-v1.0-rc1.md')) },
+    { file: 'docs/spec/SPEC-v1.0-rc2.md', views: agentViews(readText('docs/spec/SPEC-v1.0-rc2.md')) },
     { file: 'docs/quickstart.md', views: agentViews(readText('docs/quickstart.md')) },
     {
       file: 'docs/public/agent-index.json',

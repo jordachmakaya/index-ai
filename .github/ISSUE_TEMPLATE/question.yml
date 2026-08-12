@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before asking, it may help to skim the [quickstart](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/docs/quickstart.md) and the [specification](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/docs/spec/SPEC-v1.0-rc1.md).
+        Before asking, it may help to skim the [quickstart](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc2/docs/quickstart.md) and the [specification](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc2/docs/spec/SPEC-v1.0-rc2.md).
 
-        The published `1.0-rc1` version is immutable — for feedback on the spec itself, open a **Spec feedback** issue (label `rfc`) instead.
+        The published `1.0-rc2` version is immutable — for feedback on the spec itself, open a **Spec feedback** issue (label `rfc`) instead.
   - type: textarea
     id: question
     attributes:
@@ -36,4 +36,4 @@ body:
     attributes:
       label: Related section
       description: Any page or spec section you have already read, if applicable.
-      placeholder: "e.g. docs/quickstart.md or SPEC-v1.0-rc1 §2.2"
+      placeholder: "e.g. docs/quickstart.md or SPEC-v1.0-rc2 §2.2"

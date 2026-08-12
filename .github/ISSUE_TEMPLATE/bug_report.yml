@@ -28,7 +28,7 @@ body:
     attributes:
       label: Where did it happen?
       description: Page URL, spec section, or command involved.
-      placeholder: "e.g. /quickstart — validator block, or SPEC-v1.0-rc1 §2.3"
+      placeholder: "e.g. /quickstart — validator block, or SPEC-v1.0-rc2 §2.3"
     validations:
       required: true
   - type: input
@@ -36,7 +36,7 @@ body:
     attributes:
       label: Spec version
       description: The spec version or status label shown on the page, if relevant.
-      placeholder: "1.0-rc1"
+      placeholder: "1.0-rc2"
   - type: textarea
     id: environment
     attributes:

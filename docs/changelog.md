@@ -15,6 +15,21 @@ import VersionEntry from './.vitepress/theme/components/VersionEntry.vue'
 <MaturityGrid />
 
 <VersionEntry
+  version="1.0-rc2"
+  title="Request for Comments"
+  status="RC"
+  tone="accent"
+  :meta="{ pre: 'Published 2026-08-12', post: ' — the second public release (see SPEC §18.1).' }"
+  :changes="[
+    { tag: 'Added', text: 'clarified the two discovery profiles — canonical and scoped (GitHub Project Pages) — in §5.2/§5.4.' },
+    { tag: 'Fixed', text: 'unified the llm_summary length rule to 20–300 words (§7.8) and aligned the field table and narrative.' },
+    { tag: 'Fixed', text: 'tightened the official JSON Schemas: publisher role taxonomy + x- prefix, refresh-frequency enum, typed access, content_sha256 restricted to exact mode.' },
+    { tag: 'Added', text: 'published the RC immutability policy (§17.2) — each published RC is immutable; substantive corrections ship as the next version.' },
+    { tag: 'Added', text: 'dogfood freshness is now generated at build time — the site manifest and Agent View carry real timestamps (§12).' },
+  ]"
+/>
+
+<VersionEntry
   version="1.0-rc1"
   title="Request for Comments"
   status="RC"
@@ -34,7 +49,7 @@ import VersionEntry from './.vitepress/theme/components/VersionEntry.vue'
   title="Working draft"
   status="Draft"
   tone="dim"
-  :meta="{ pre: 'Design history iteration (see ', href: '/spec/SPEC-v1.0-rc1#_18-2-internal-design-history', link: 'SPEC §18.2', post: ') — not a public release.' }"
+  :meta="{ pre: 'Design history iteration (see ', href: '/spec/SPEC-v1.0-rc2#_18-2-internal-design-history', link: 'SPEC §18.2', post: ') — not a public release.' }"
   :changes="[
     { tag: 'Added', text: 'first working draft of the Agent View schema (internal iteration, never published).' },
     { tag: 'Added', text: 'defined the two-phase consumption model (pre-fetch decision + targeted fetch).' },

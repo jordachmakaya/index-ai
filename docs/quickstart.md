@@ -16,7 +16,7 @@ Copy this minimal example and adapt it:
 
 ```json
 {
-  "spec_version": "1.0-rc1",
+  "spec_version": "1.0-rc2",
   "identity": {
     "name": "My Technical Blog",
     "description": "Personal blog on distributed systems, Rust, and backend architecture.",
@@ -30,6 +30,16 @@ Copy this minimal example and adapt it:
   }
 }
 ```
+
+::: tip Deploying under a sub-path (e.g. GitHub Project Pages)?
+A project page under `user.github.io/repo/` cannot serve `/.well-known/index-ai.json` at the origin root — that path belongs to the platform. Use **scoped discovery** (SPEC §5.2) instead: serve the manifest at any public HTTPS URL and advertise it from every page's `<head>` with a `rel="agent-manifest"` link, e.g.:
+
+```html
+<link rel="agent-manifest" href="/index-ai/.well-known/index-ai.json" type="application/json">
+```
+
+Declare the Agent View relative to the sub-path too: `"access": { "agent_index": "/index-ai/agent-index.json" }`.
+:::
 
 ## Expose clean content endpoints {#step-2}
 
@@ -57,7 +67,7 @@ the NFC code point count of the content at that endpoint, not a guess:
 ```json
 {
   "generated": "2025-05-28T10:00:00Z",
-  "spec_version": "1.0-rc1",
+  "spec_version": "1.0-rc2",
   "total_nodes": 1,
   "nodes": [
     {

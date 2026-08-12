@@ -1,6 +1,6 @@
 {
   "name": "index-ai",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0-rc2",
   "description": "An open specification proposal that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
   "type": "module",
   "packageManager": "pnpm@11.5.2",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "vitepress build docs && node ci/refresh-dogfood.mjs",
     "docs:preview": "vitepress preview docs",
     "test": "vitest run",
     "test:e2e": "playwright test",
