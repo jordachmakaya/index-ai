@@ -58,7 +58,7 @@ the NFC code point count of the content at that endpoint, not a guess:
 {
   "generated": "2025-05-28T10:00:00Z",
   "spec_version": "1.0-rc1",
-  "total_nodes": 3,
+  "total_nodes": 1,
   "nodes": [
     {
       "id": "article-rust-lifetimes",

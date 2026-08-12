@@ -59,7 +59,7 @@ const meta = [
   <div class="spec-page">
     <div class="page-head">
       <p class="crumb">index-ai / Specification</p>
-      <h1>index-ai — A Verifiable Standard for Agent-Readable Web Content</h1>
+      <h1>index-ai — An Open Specification Proposal for Agent-Readable Web Content</h1>
       <p class="lede">
         The normative text of the specification, versioned and navigable. This site documents
         <b>version 1.0-rc1</b> — check the <a :href="withBase('/changelog')">changelog</a> for the latest published version.

@@ -37,29 +37,6 @@ Level 2a and 2b share the same file. 2b extends 2a with optional relation fields
 
 ---
 
-## Table of Contents
-
-1. [The Problem This Solves](#1-the-problem-this-solves)
-2. [The Agent View Concept](#2-the-ai-agent-index-concept)
-3. [Terminology](#3-terminology)
-4. [Design Goals](#4-design-goals)
-5. [Discovery](#5-discovery)
-6. [Level 1 — AI Manifest](#6-level-1--ai-manifest)
-7. [Level 2 — Agent View](#7-level-2--ai-agent-index)
-8. [Level 3 — Query Interface](#8-level-3--query-interface)
-9. [Token Economics](#9-token-economics)
-10. [Policy & Usage Preferences](#10-policy--usage-preferences)
-11. [Publisher Roles](#11-publisher-roles)
-12. [Freshness & Versioning](#12-freshness--versioning)
-13. [Conformance](#13-conformance)
-14. [Security Considerations](#14-security-considerations)
-15. [Privacy Considerations](#15-privacy-considerations)
-16. [Compatibility](#16-compatibility)
-17. [Governance](#17-governance)
-18. [Changelog](#18-changelog)
-
----
-
 ## 1. The Problem This Solves
 
 ### 1.1 A brief history of LLM reliability
@@ -285,18 +262,16 @@ Following [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615).
 
 A fallback alias at `/index-ai.json` SHOULD be supported.
 
-> **Sub-path deployments are NOT supported for canonical discovery.**
-> `/.well-known/` is defined by RFC 8615 at the **origin root** — a site
-> deployed under a sub-path (e.g. GitHub Pages `https://user.github.io/repo/`)
-> cannot serve `/.well-known/index-ai.json` at its origin root, because that
-> path belongs to the platform, not the project. Such deployments therefore
-> do NOT satisfy the canonical-location requirement of §5.2. They MAY still
-> advertise a manifest through the alternative discovery mechanisms (§5.3):
-> an HTML/HTTP `Link` header, the `robots.txt` directive, or the `llms.txt`
-> bridge — each of which can point at an arbitrary URL, including a
-> sub-path-scoped `/.well-known/index-ai.json`. A sub-path deployment MUST
-> NOT claim Level 1 conformance via canonical discovery alone; it MUST
-> additionally expose at least one alternative discovery mechanism.
+> **Sub-path deployments (e.g. GitHub Pages `https://user.github.io/repo/`).**
+> `/.well-known/` is defined by RFC 8615 at the **origin root**, so a
+> sub-path deployment cannot serve `/.well-known/index-ai.json` at its origin
+> root — that path belongs to the platform, not the project. Level 1
+> conformance therefore does NOT require the canonical root location: a
+> manifest at ANY URL satisfies Level 1 provided it is discoverable through
+> at least one mechanism from §5.3 (HTML/HTTP `Link` header
+> `rel="agent-manifest"`, the `robots.txt` directive, or the `llms.txt`
+> bridge) and its `identity.domain` matches the serving host. Origin-root
+> deployments SHOULD still use `/.well-known/index-ai.json`.
 
 ### 5.3 Discovery mechanisms
 
@@ -390,12 +365,12 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 
 > The canonical machine-readable JSON Schema is published at
 > `schema/v1/index-ai.schema.json` in this repository
-> (`https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json`).
+> (`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json`).
 > The following is a complete example **instance** of that schema.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
   "spec_version": "1.0-rc1",
   "manifest_version": 1,
 
@@ -422,7 +397,7 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
     "content_updated_at": "2025-05-28T14:30:00Z",
     "manifest_generated_at": "2025-05-28T14:31:00Z",
     "refresh_frequency": "continuous",
-    "valid_until": "2025-12-31T23:59:59Z",
+    "valid_until": "2026-12-31T23:59:59Z",
     "cache_max_age_seconds": 300
   },
 
@@ -508,7 +483,7 @@ Free-text guidance. MUST NOT exceed 500 characters. Written for the agent. Factu
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json",
   "spec_version": "1.0-rc1",
   "identity": {
     "name": "My Technical Blog",
@@ -588,7 +563,7 @@ Recommended max size: 100 KB. Sites with more content SHOULD expose queryable en
 
 The canonical machine-readable JSON Schema is published at
 `schema/v1/agent-index.schema.json` in this repository
-(`https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json`).
+(`https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json`).
 
 A complete Level 2b Agent View example appears below the field tables. A minimal Level 2a example follows in §7.4.1.
 
@@ -635,10 +610,10 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T14:30:00Z",
   "spec_version": "1.0-rc1",
-  "total_nodes": 4,
+  "total_nodes": 3,
 
   "nodes": [
     {
@@ -668,12 +643,8 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
 
       "relations": {
         "parent": null,
-        "children": [
-          "hotels-casablanca-luxury",
-          "hotels-casablanca-midrange",
-          "hotels-casablanca-budget"
-        ],
-        "related": ["transport-casablanca", "restaurants-casablanca"]
+        "children": ["hotels-casablanca-luxury"],
+        "related": []
       }
     },
     {
@@ -704,7 +675,7 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
       "relations": {
         "parent": "hotels-casablanca",
         "children": [],
-        "related": ["hotels-marrakech-luxury"]
+        "related": []
       }
     },
     {
@@ -736,7 +707,7 @@ A minimal Agent Index for a blog with three articles. No relations required.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T10:00:00Z",
   "spec_version": "1.0-rc1",
   "total_nodes": 3,
@@ -881,7 +852,7 @@ When an agent fetches `llm_url`, the response MUST contain:
 - The node's informational content as clean text
 - No HTML wrapper, no navigation, no footer, no cookie banners, no ads
 
-Agents MUST follow HTTP 301/302 redirects when fetching `llm_url`, limited to a maximum of 3 hops. If the redirect chain exceeds 3 hops or results in an error, the agent SHOULD treat the node as temporarily unavailable and fall back to `llm_summary` only.
+Agents MUST follow HTTP 301/302 redirects when fetching `llm_url`, limited to a maximum of 3 hops, re-validating the target against the SSRF protections of §14.7 at every hop. If the redirect chain exceeds 3 hops or results in an error, the agent SHOULD treat the node as temporarily unavailable and fall back to `llm_summary` only.
 
 RECOMMENDED: a front matter block for structured metadata:
 
@@ -1079,100 +1050,94 @@ A Level 3 conformant implementation MUST expose at least one tool satisfying:
 
 ### 8.5 Complete tool example
 
-The reference implementation uses the official
-[Model Context Protocol SDK](https://github.com/modelcontextprotocol/typescript-sdk)
-(`@modelcontextprotocol/sdk`). `inputSchema` is a plain JSON Schema object
-(as the protocol requires) and the handler returns a standard `CallToolResult`
-with `content` and `structuredContent`:
+The reference implementation is an **executable server** in this repository at
+[`examples/mcp-server/server.ts`](https://github.com/jordachmakaya/index-ai/blob/v1.0-rc1/examples/mcp-server/server.ts).
+It pins `@modelcontextprotocol/sdk` **v1.30** and is compiled and boot-tested in
+CI (`tests/mcp-server.spec.ts` drives it over real HTTP with JSON-RPC).
+
+Three protocol decisions, each enforced by the example:
+
+1. **Transport: Streamable HTTP, not Stdio.** The manifest declares a remote
+   HTTPS endpoint (`access.mcp_server: "https://atlashotels.ma/mcp"`), so the
+   example hosts `StreamableHTTPServerTransport` behind Express — a
+   local-process transport such as `StdioServerTransport` would contradict a
+   remote manifest.
+2. **`inputSchema`: the SDK v1 API is Zod-based, the wire format is JSON
+   Schema.** The v1.30 `McpServer.registerTool` accepts a **Zod raw shape**
+   (a raw JSON Schema object is rejected at runtime). The SDK compiles the
+   shape to the plain JSON Schema that the MCP protocol transmits in
+   `Tool.inputSchema` — any MCP client can validate arguments without sharing
+   application code.
+3. **`_meta` is REQUIRED by index-ai (§8.4), not optional.** The handler
+   returns a protocol `CallToolResult` with `content`, `structuredContent`,
+   and `_meta` carrying `generated_at` (ISO 8601) and `source` (domain).
+
+Key excerpt (stateless mode — a fresh server + transport per request, per the
+SDK v1.30 contract):
 
 ```typescript
+import express from "express"
+import { z } from "zod"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js"
+import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js"
 
-const server = new McpServer({ name: "atlas-hotels", version: "1.0.0" })
+// Self-contained excerpt (the full file adds more data + tools).
+const hotels = [
+  { id: "h-001", name: "Four Seasons Casablanca", city: "Casablanca", stars: 5, price_mad: 3200 },
+  { id: "h-004", name: "Kempinski Marrakech", city: "Marrakech", stars: 5, price_mad: 2900 },
+]
 
-server.registerTool(
-  "search_hotels",
-  {
-    description:
-      "Search available hotels by location, dates, and filters. " +
-      "Returns hotels with prices in MAD, availability, GPS, and booking URLs. " +
-      "Call check_availability for real-time confirmation after filtering.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        location: {
-          type: "string",
-          description: "City name (e.g. 'Casablanca') or GPS coordinates ('33.5731,-7.5898')",
-        },
-        radius_km: {
-          type: "number",
-          default: 10,
-          description: "Search radius in kilometers. Default: 10",
-        },
-        checkin: {
-          type: "string",
-          format: "date",
-          description: "Check-in date in YYYY-MM-DD format",
-        },
-        checkout: {
-          type: "string",
-          format: "date",
-          description: "Check-out date in YYYY-MM-DD format",
-        },
-        budget_max_mad: {
-          type: "number",
-          description: "Maximum price per night in MAD",
-        },
-        stars_min: {
-          type: "integer",
-          minimum: 1,
-          maximum: 5,
-          description: "Minimum star rating (1–5)",
-        },
-        guests: {
-          type: "integer",
-          minimum: 1,
-          default: 1,
-          description: "Number of guests",
-        },
+function buildServer() {
+  const server = new McpServer({ name: "atlas-hotels", version: "1.0.0" })
+  server.registerTool(
+    "search_hotels",
+    {
+      description:
+        "Search available hotels by city. Returns hotels with name, star rating, " +
+        "price in MAD per night, and a booking URL.",
+      // Zod raw shape (SDK v1 API) — compiled to JSON Schema on the wire.
+      inputSchema: {
+        location: z.string().describe("City name, e.g. 'Casablanca'"),
+        stars_min: z.number().int().min(1).max(5).optional().describe("Minimum star rating (1–5)"),
+        budget_max_mad: z.number().optional().describe("Maximum price per night in MAD"),
       },
-      required: ["location"],
     },
-  },
-  async (args) => {
-    const hotels = await searchHotels(args)
-    return {
-      content: [{ type: "text", text: JSON.stringify(hotels) }],
-      structuredContent: { hotels, total: hotels.length },
-      isError: false,
-    }
-  },
-)
-
-// Minimal query function behind the tool. `hotels` is the site's data source
-// (Agent View nodes or a database); the shape below is what the tool returns.
-async function searchHotels(args: {
-  location: string
-  radius_km?: number
-  budget_max_mad?: number
-  stars_min?: number
-}): Promise<Hotel[]> {
-  return hotels
-    .filter((h) => h.city === args.location)
-    .filter((h) => h.stars >= (args.stars_min ?? 1))
-    .filter((h) => h.price <= (args.budget_max_mad ?? Number.MAX_SAFE_INTEGER))
+    async (args) => {
+      const found = hotels.filter((h) => h.city === args.location)
+      return {
+        content: [{ type: "text", text: JSON.stringify(found, null, 2) }],
+        structuredContent: { hotels: found, total: found.length },
+        isError: false,
+        // §8.4: _meta MUST carry generated_at (ISO 8601) and source (domain).
+        _meta: { generated_at: new Date().toISOString(), source: "atlashotels.ma" },
+      }
+    },
+  )
+  return server
 }
 
-const transport = new StdioServerTransport()
-await server.connect(transport)
+const app = createMcpExpressApp() // express.json() + localhost DNS-rebinding protection
+app.post("/mcp", async (req, res) => {
+  // Stateless: fresh server + transport per request (SDK v1.30 contract).
+  const server = buildServer()
+  const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined })
+  await server.connect(transport)
+  await transport.handleRequest(req, res, req.body)
+})
+```
+
+Run it and connect any MCP client to `http://localhost:3000/mcp`:
+
+```bash
+pnpm tsx examples/mcp-server/server.ts
 ```
 
 Key protocol points this example follows:
 
-- **`inputSchema` is JSON Schema** — not a Zod object, not an inline structure. Any MCP client can validate arguments against it without sharing application code.
 - **The response is a `CallToolResult`** — `content: [{ type: "text", text }]` carries the human-readable/agent-readable payload; `structuredContent` carries the same data as typed JSON for clients that prefer it.
-- **No custom `{ _meta, results }` envelope** — `_meta` (with `generated_at`, `source`, `currency`) MAY be added, but the shape of the result is fixed by the MCP protocol, not by index-ai.
+- **The shape of the result is fixed by the MCP protocol**, not by index-ai — index-ai only adds the `_meta` requirements in §8.4.
+- **No custom `{ _meta, results }` envelope** — `_meta` is a field of the standard `CallToolResult`, never a wrapper around it.
 
 ### 8.6 Recommended tool patterns
 
@@ -1381,7 +1346,9 @@ An Agent View is considered stale when `content_chars_mode` is `"exact"` and the
 ### 13.1 Levels and requirements
 
 **Level 1:**
-- Valid manifest at `/.well-known/index-ai.json`
+- Valid manifest at `/.well-known/index-ai.json` — or, for sub-path
+  deployments, at any URL discovered via a §5.3 mechanism
+  (e.g. `rel="agent-manifest"`), with `identity.domain` matching the serving host
 - Validates against JSON Schema v1
 - `spec_version` present
 - Publicly accessible without authentication
@@ -1516,6 +1483,40 @@ CORS `*` is RECOMMENDED for manifest and Agent View files.
 
 CORS `*` is NOT RECOMMENDED on MCP endpoints unless explicitly designed for browser access.
 
+### 14.7 Fetch safety (SSRF)
+
+A malicious manifest can point an agent at internal infrastructure — `llm_url`,
+`access.agent_index`, or `access.mcp_server` are URLs the agent will actually
+fetch. Agents MUST protect against Server-Side Request Forgery (SSRF):
+
+- **Same origin by default.** Agents SHOULD only fetch URLs whose origin
+  matches the origin serving the manifest. Fetching an external origin MUST be
+  explicitly allowed — e.g. by a publisher-declared allowlist or by explicit
+  configuration for the site — never implied by the manifest URL alone. A
+  publisher MAY declare allowed external origins in the manifest's
+  `access.fetch_allowlist` (an array of origin strings, e.g.
+  `["https://raw.githubusercontent.com"]`); agents MUST NOT fetch an external
+  origin that is not listed there.
+- **Block dangerous address space.** Agents MUST refuse to connect to:
+  loopback (`127.0.0.0/8`, `::1`), private ranges (`10.0.0.0/8`,
+  `172.16.0.0/12`, `192.168.0.0/16`, `fc00::/7`), link-local
+  (`169.254.0.0/16`, `fe80::/10` — including the cloud metadata address
+  `169.254.169.254`), CGNAT (`100.64.0.0/10`), and the unspecified/limited
+  ranges (`0.0.0.0/8`, `224.0.0.0/4`, IPv4-mapped `::ffff:0:0/96`).
+- **Resolve, then validate, then connect.** Agents MUST resolve the hostname
+  and validate every resolved address against the blocklist BEFORE opening a
+  connection — and again after EVERY redirect, because a same-origin URL can
+  redirect to `http://127.0.0.1` or to a domain under the attacker's control
+  (DNS rebinding). Connecting by validated IP, never by re-resolved hostname,
+  defeats rebinding.
+- **Redirect budget.** The §7.7 limit of 3 redirect hops applies to every
+  fetched URL (`llm_url`, `agent_index`, MCP endpoint), and each hop is
+  re-validated.
+- **Scope.** These rules apply to the actual download targets, which §14.3
+  (`identity.domain` matching) does NOT cover — a manifest can legitimately
+  serve content from other hosts while `identity.domain` matches the manifest
+  host.
+
 ---
 
 ## 15. Privacy Considerations
@@ -1579,14 +1580,20 @@ Significant changes go through a public RFC process:
 4. Decision by maintainers with documented rationale
 5. Consensus → PR to update spec + RFC closed
 
-Minor clarifications and bug fixes MAY be merged via PR without an RFC. Breaking changes to required fields require an RFC and a major version bump.
+Minor clarifications and bug fixes MAY be merged via PR without an RFC. Breaking changes to required fields require an RFC and a version bump — see the pre-release rule in §17.2.
 
 ### 17.2 Versioning policy
 
 This spec follows Semantic Versioning:
-- **Patch** (e.g. `0.7.1`): clarifications, typo fixes, no schema changes
-- **Minor** (e.g. `0.8`): new optional fields, new optional mechanisms, backward-compatible additions
-- **Major** (e.g. `1.0`): breaking changes to required fields or core architecture
+- **Patch** (e.g. `0.7.1`, `1.0.1`): clarifications, typo fixes, no schema changes
+- **Minor** (e.g. `0.8`, `1.1`): new optional fields, new optional mechanisms, backward-compatible additions
+- **Major** (e.g. `1.0`, `2.0`): breaking changes to required fields or core architecture
+
+**Pre-release rule (before 1.0 stable):** a breaking change to a published
+release candidate bumps the pre-release label, NOT the major version:
+`1.0-rc1 → 1.0-rc2`. RC versions are drafts — only STABLE versions are
+immutable (§17.1). After 1.0 stable, a breaking change bumps the major
+version: `1.0 → 2.0`.
 
 `spec_version` in manifests MUST be updated when the site's manifest uses features introduced in a new minor or major version.
 

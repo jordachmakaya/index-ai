@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
 
 // T-schema: the official JSON Schemas (schema/v1/) must exist, be valid JSON,
 // and validate every JSON example embedded in the documentation (the canonical
@@ -13,11 +14,12 @@ import Ajv from 'ajv'
 // Manifest examples are detected by a top-level "identity" object; Agent View
 // examples by a top-level "nodes" array. Fragment blocks (e.g. the
 // `content_chars_measurement` snippet) are ignored — they are not documents.
+// Negative fixtures prove the schemas REJECT documents the spec forbids.
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
-const manifestSchemaPath = resolve(root, 'schema/v1/index-ai.schema.json')
-const agentIndexSchemaPath = resolve(root, 'schema/v1/agent-index.schema.json')
+const MANIFEST_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/index-ai.schema.json'
+const AGENT_INDEX_SCHEMA_URL = 'https://raw.githubusercontent.com/jordachmakaya/index-ai/v1.0-rc1/schema/v1/agent-index.schema.json'
 
 function readText(file: string): string {
   return readFileSync(resolve(root, file), 'utf8')
@@ -64,11 +66,13 @@ describe('official JSON Schemas (schema/v1/)', () => {
     expect((agent as Record<string, unknown>).type).toBe('object')
   })
 
-  it('schema $id URLs point at the real public repo (no index-ai/standard 404s)', () => {
+  it('schema $id URLs point at the IMMUTABLE v1.0-rc1 tag (never the mutable main branch)', () => {
     const manifest = JSON.parse(readText('schema/v1/index-ai.schema.json')) as { $id?: string }
     const agent = JSON.parse(readText('schema/v1/agent-index.schema.json')) as { $id?: string }
-    expect(manifest.$id).toBe('https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json')
-    expect(agent.$id).toBe('https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json')
+    expect(manifest.$id).toBe(MANIFEST_SCHEMA_URL)
+    expect(agent.$id).toBe(AGENT_INDEX_SCHEMA_URL)
+    expect(manifest.$id).not.toContain('/main/')
+    expect(agent.$id).not.toContain('/main/')
   })
 
   it('no docs example still references the dead index-ai/standard URLs', () => {
@@ -76,10 +80,34 @@ describe('official JSON Schemas (schema/v1/)', () => {
       expect(readText(file), file).not.toContain('index-ai/standard')
     }
   })
+
+  it('no published doc references the mutable main-branch schema URLs', () => {
+    for (const file of ['docs/spec/SPEC-v1.0-rc1.md', 'docs/quickstart.md']) {
+      expect(readText(file), file).not.toContain('jordachmakaya/index-ai/main/schema')
+    }
+  })
+
+  it('the docs site implements index-ai (dogfood): its own manifest + Agent View pass the schemas', () => {
+    // The site is a sub-path deployment: it must serve a manifest at an
+    // arbitrary URL discoverable via rel="agent-manifest" (SPEC §5.2 Option B).
+    const ajv = new Ajv({ allErrors: true })
+    addFormats(ajv)
+    const validateManifest = ajv.compile(JSON.parse(readText('schema/v1/index-ai.schema.json')))
+    const validateAgentIndex = ajv.compile(JSON.parse(readText('schema/v1/agent-index.schema.json')))
+
+    const manifest = JSON.parse(readText('docs/public/.well-known/index-ai.json')) as Record<string, unknown>
+    const view = JSON.parse(readText('docs/public/agent-index.json')) as Record<string, unknown>
+
+    const okM = validateManifest(manifest)
+    expect(okM, `site manifest failed the official schema:\n${ajv.errorsText(validateManifest.errors)}`).toBe(true)
+    const okV = validateAgentIndex(view)
+    expect(okV, `site Agent View failed the official schema:\n${ajv.errorsText(validateAgentIndex.errors)}`).toBe(true)
+  })
 })
 
 describe('docs examples validate against the official schemas', () => {
   const ajv = new Ajv({ allErrors: true })
+  addFormats(ajv) // required: format: "date-time" is enforced, not ignored
   const validateManifest = ajv.compile(JSON.parse(readText('schema/v1/index-ai.schema.json')))
   const validateAgentIndex = ajv.compile(JSON.parse(readText('schema/v1/agent-index.schema.json')))
 
@@ -113,6 +141,85 @@ describe('docs examples validate against the official schemas', () => {
           `${file}: Agent View example at line ${b.line} failed the official schema:\n${ajv.errorsText(validateAgentIndex.errors)}`,
         ).toBe(true)
       }
+    })
+  }
+})
+
+describe('negative fixtures — the schemas REJECT documents the spec forbids', () => {
+  const ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
+  const validateManifest = ajv.compile(JSON.parse(readText('schema/v1/index-ai.schema.json')))
+  const validateAgentIndex = ajv.compile(JSON.parse(readText('schema/v1/agent-index.schema.json')))
+
+  const validManifest = {
+    spec_version: '1.0-rc1',
+    identity: { name: 'x', description: 'x' },
+    freshness: { content_updated_at: '2026-08-12T10:00:00Z' },
+  }
+  const validAgentView = {
+    generated: '2026-08-12T10:00:00Z',
+    spec_version: '1.0-rc1',
+    nodes: [
+      {
+        id: 'a',
+        type: 'article',
+        content: {
+          llm_summary: 'summary',
+          llm_url: '/a.md',
+          content_chars: 10,
+          content_chars_mode: 'exact',
+          language: 'fr',
+          content_sha256: 'a'.repeat(64),
+        },
+        relations: { parent: null, children: [], related: [] },
+      },
+    ],
+  }
+
+  it('baseline fixtures are valid (sanity check)', () => {
+    expect(validateManifest(validManifest), ajv.errorsText(validateManifest.errors)).toBe(true)
+    expect(validateAgentIndex(validAgentView), ajv.errorsText(validateAgentIndex.errors)).toBe(true)
+  })
+
+  const negativeManifest: Array<[string, Record<string, unknown>]> = [
+    ['spec_version must be a version string ("banana")', { ...validManifest, spec_version: 'banana' }],
+    ['content_updated_at must be a date-time ("yesterday")', { ...validManifest, freshness: { content_updated_at: 'yesterday' } }],
+    ['identity.language must be ISO 639-1 ("eng")', { ...validManifest, identity: { name: 'x', description: 'x', language: ['eng'] } }],
+  ]
+  for (const [label, doc] of negativeManifest) {
+    it(`manifest: rejects ${label}`, () => {
+      expect(validateManifest(doc), `expected rejection for: ${label}`).toBe(false)
+    })
+  }
+
+  const negativeAgent: Array<[string, Record<string, unknown>]> = [
+    ['spec_version "banana"', { ...validAgentView, spec_version: 'banana' }],
+    ['generated "never"', { ...validAgentView, generated: 'never' }],
+    [
+      'content_chars without llm_url',
+      {
+        ...validAgentView,
+        nodes: [{ id: 'a', type: 'article', content: { llm_summary: 's', content_chars: 10, content_chars_mode: 'exact' } }],
+      },
+    ],
+    [
+      'relations.parent as a number (17)',
+      { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], relations: { parent: 17 } }] },
+    ],
+    [
+      'relations.children containing a number ([999])',
+      { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], relations: { children: [999] } }] },
+    ],
+    [
+      'relations.related as a bare string ("x")',
+      { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], relations: { related: 'x' } }] },
+    ],
+    ['content_sha256 not hex-64 ("zzz")', { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], content: { ...validAgentView.nodes[0].content, content_sha256: 'zzz' } }] }],
+    ['language three letters ("eng")', { ...validAgentView, nodes: [{ ...validAgentView.nodes[0], content: { ...validAgentView.nodes[0].content, language: 'eng' } }] }],
+  ]
+  for (const [label, doc] of negativeAgent) {
+    it(`agent view: rejects ${label}`, () => {
+      expect(validateAgentIndex(doc), `expected rejection for: ${label}`).toBe(false)
     })
   }
 })

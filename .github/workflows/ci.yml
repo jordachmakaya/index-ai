@@ -1,0 +1,119 @@
+name: ci
+
+# Single workflow (audit round 4): the quality gate and the Pages deploy live
+# together so `deploy` has `needs: quality` — a push to `main` can never deploy
+# while tests are failing (previously ship.yml and quality.yml ran in parallel).
+# The Pages source must be "GitHub Actions" in the repo settings (HUMAN_GATE).
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Typecheck · lint · tests · build
+    runs-on: ubuntu-latest # free-tier runner
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Docs build (smoke)
+        run: pnpm docs:build
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end tests
+        run: pnpm test:e2e
+
+  deploy:
+    name: Build docs + deploy to Pages
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest # free-tier runner
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Docs build
+        run: pnpm docs:build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  smoke:
+    name: Live smoke (Pages URL)
+    needs: deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Site responds
+        run: curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' https://jordachmakaya.github.io/index-ai/
+
+      - name: Home renders the v4 gist
+        run: curl -fsS https://jordachmakaya.github.io/index-ai/ | grep -q 'verifiably readable'
+
+      - name: index-ai dogfood — manifest + Agent View served (audit round 4)
+        run: |
+          curl -fsS -o /dev/null -w 'manifest -> HTTP %{http_code}\n' https://jordachmakaya.github.io/index-ai/.well-known/index-ai.json
+          curl -fsS -o /dev/null -w 'agent-index -> HTTP %{http_code}\n' https://jordachmakaya.github.io/index-ai/agent-index.json
+          curl -fsS https://jordachmakaya.github.io/index-ai/ | grep -q 'rel="agent-manifest"'

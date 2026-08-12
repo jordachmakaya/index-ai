@@ -56,7 +56,8 @@ onBeforeUnmount(() => {
         </h1>
         <p class="hero-lede reveal">
           index-ai is an open specification that lets websites expose a structured layer for agents —
-          who you are, what content exists, how big it is — measured and verified, not declared.
+          who you are, what content exists, and — where you declare it — exactly how big each piece is,
+          measured and verified rather than guessed.
         </p>
         <div class="hero-cta reveal">
           <a class="btn btn-primary" :href="withBase('/spec/')">Read the specification</a>
