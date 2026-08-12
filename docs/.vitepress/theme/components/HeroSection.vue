@@ -50,7 +50,7 @@ onBeforeUnmount(() => {
     <ParticlesBg />
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="hero-tag reveal">A public standard for the machine web</span>
+        <span class="hero-tag reveal">An open specification proposal for the machine web</span>
         <h1 class="hero-title reveal">
           Make your content <span class="hl">verifiably readable</span> by AI agents.
         </h1>

@@ -52,8 +52,9 @@ describe('quality gate (T3.0)', () => {
     const pkg = JSON.parse(readFileSync(pkgPath, 'utf8')) as { scripts?: Record<string, string> }
     expect(pkg.scripts).toBeTruthy()
     // pnpm native commands (install/exec/run) are not package.json scripts
+    // Note: scripts may contain digits (e.g. test:e2e) — match [a-z0-9:]
     const native = new Set(['install', 'exec', 'run', 'add', 'remove'])
-    const invoked = [...wf.matchAll(/pnpm ([a-z:]+)/g)]
+    const invoked = [...wf.matchAll(/pnpm ([a-z0-9:]+)/g)]
       .map((m) => m[1])
       .filter((s) => !native.has(s))
     expect(invoked.length).toBeGreaterThan(0)

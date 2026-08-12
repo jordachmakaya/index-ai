@@ -28,9 +28,9 @@ Start at Level 1, climb as far as you need. **Partial conformance is valid to sh
 ## In this repository
 
 - `docs/spec/SPEC-v1.0-rc1.md` — the full specification (single source of truth)
+- `schema/v1/` — the official JSON Schemas (manifest + Agent View)
 - `docs/public/` — media assets for the docs site
-- `ci/` — quality and release pipelines
-- `scripts/` — repository integrity checks
+- `ci/` — lint checks; `tests/` + `e2e/` — unit and end-to-end tests
 
 ## Get started
 
@@ -45,4 +45,4 @@ Start at Level 1, climb as far as you need. **Partial conformance is valid to sh
 
 ## Contributing
 
-The standard is in RFC status — feedback, issues, and pull requests are welcome. Spec-feedback templates and contribution guidelines are landing soon.
+The standard is in RFC status — feedback, issues, and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [issue templates](https://github.com/jordachmakaya/index-ai/issues/new/choose).
