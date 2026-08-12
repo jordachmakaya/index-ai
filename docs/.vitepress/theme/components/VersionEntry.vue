@@ -5,6 +5,8 @@
 // verbatim from the markdown they replace (2026-08-12). Inline backticks are
 // stripped by design (same precedent as ComparisonTable — plain text reads
 // fine); no v-html, zero user input (z6 audit clean).
+// withBase: the meta link (SPEC section) must resolve under the Pages base.
+import { withBase } from 'vitepress'
 type Meta = { pre: string; href?: string; link?: string; post?: string }
 type Change = { tag: 'Added' | 'Fixed'; text: string }
 
@@ -25,7 +27,7 @@ defineProps<{
       <span class="ventry-status" :class="tone">{{ status }}</span>
     </h2>
     <p class="ventry-meta">
-      {{ meta.pre }}<a v-if="meta.href" :href="meta.href">{{ meta.link }}</a>{{ meta.post }}
+      {{ meta.pre }}<a v-if="meta.href" :href="meta.href ? withBase(meta.href) : undefined">{{ meta.link }}</a>{{ meta.post }}
     </p>
     <ul class="ventry-changes">
       <li v-for="c in changes" :key="c.tag + c.text">

@@ -3,6 +3,8 @@
 // document wrapper for the copy-pasteable walkthrough. The step bands and code
 // blocks are styled via `.qs-page` in custom.css (slot content can't be scoped
 // to this component). Same page-head voice as SpecToc (V-002) — site cohesion.
+// withBase: internal link must resolve under the Pages base ('/index-ai/').
+import { withBase } from 'vitepress'
 </script>
 
 <template>
@@ -13,7 +15,7 @@
       <p class="lede">
         A complete, copy-pasteable walkthrough covering <b>Level 2a</b> conformance —
         ending with a validator verdict. Levels 2b and 3 are explained in the
-        <a href="/spec/">specification</a>, but the walkthrough stops at what the validator can check today.
+        <a :href="withBase('/spec/')">specification</a>, but the walkthrough stops at what the validator can check today.
       </p>
     </header>
     <div class="qs-body">

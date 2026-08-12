@@ -7,6 +7,8 @@ node_modules
 CLAUDE.md
 spec-repository
 scripts/
+# original 49 MB AI-readiness capture — re-encoded asset lives in docs/public/videos/ai-readiness.mp4 (tracked)
+docs/public/AI_readiness.mp4
 docs/.vitepress/dist
 test-results/
 playwright-report/

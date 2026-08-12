@@ -9,7 +9,7 @@ layout: page
     <h2>One site, four rungs of conformance</h2>
     <p class="sub">Start at Level 1, climb as far as you need. Partial conformance is valid to ship.</p>
     <ConformanceLadder />
-    <p class="workflow-cta"><a class="link-cta" href="/quickstart">Start at Level 1 <span class="arr" aria-hidden="true">→</span></a></p>
+    <p class="workflow-cta"><a class="link-cta" href="./quickstart">Start at Level 1 <span class="arr" aria-hidden="true">→</span></a></p>
   </div>
 </div>
 
