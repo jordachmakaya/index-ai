@@ -1,0 +1,2694 @@
+{
+  "meta": {
+    "spec": "SPEC-v1.0-rc2 §13.4",
+    "status": "Running (pilot)",
+    "seed": 20260812,
+    "sitesPerLevel": 10,
+    "siteCount": 50,
+    "levels": [
+      "L0",
+      "L1",
+      "L2a",
+      "L2b",
+      "L3"
+    ],
+    "queryTypes": [
+      "identity",
+      "freshness",
+      "specific-fact",
+      "listing",
+      "cross-reference"
+    ],
+    "tokens": "NFC chars / 4 (SPEC §9.3 English heuristic)",
+    "generated": "2026-08-12T14:42:59.555Z"
+  },
+  "perLevel": {
+    "L0": {
+      "queries": 50,
+      "meanTokens": 953,
+      "medianTokens": 949,
+      "citationRate": 1,
+      "byType": {
+        "identity": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "freshness": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "specific-fact": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "listing": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "cross-reference": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        }
+      }
+    },
+    "L1": {
+      "queries": 50,
+      "meanTokens": 146,
+      "medianTokens": 149,
+      "citationRate": 0.4,
+      "byType": {
+        "identity": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "freshness": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "specific-fact": {
+          "count": 10,
+          "citations": 0,
+          "rate": 0
+        },
+        "listing": {
+          "count": 10,
+          "citations": 0,
+          "rate": 0
+        },
+        "cross-reference": {
+          "count": 10,
+          "citations": 0,
+          "rate": 0
+        }
+      }
+    },
+    "L2a": {
+      "queries": 50,
+      "meanTokens": 147,
+      "medianTokens": 161,
+      "citationRate": 1,
+      "byType": {
+        "identity": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "freshness": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "specific-fact": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "listing": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "cross-reference": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        }
+      }
+    },
+    "L2b": {
+      "queries": 50,
+      "meanTokens": 148,
+      "medianTokens": 166,
+      "citationRate": 1,
+      "byType": {
+        "identity": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "freshness": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "specific-fact": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "listing": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "cross-reference": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        }
+      }
+    },
+    "L3": {
+      "queries": 50,
+      "meanTokens": 212,
+      "medianTokens": 209,
+      "citationRate": 1,
+      "byType": {
+        "identity": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "freshness": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "specific-fact": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "listing": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        },
+        "cross-reference": {
+          "count": 10,
+          "citations": 10,
+          "rate": 1
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "site": "hotels-01",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Coral Residence Casablanca and what does it cover?",
+      "chars": 3921,
+      "tokens": 981,
+      "citation": true
+    },
+    {
+      "site": "hotels-01",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Coral Residence 1 last updated?",
+      "chars": 3921,
+      "tokens": 981,
+      "citation": true
+    },
+    {
+      "site": "hotels-01",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Coral Residence 1?",
+      "chars": 3921,
+      "tokens": 981,
+      "citation": true
+    },
+    {
+      "site": "hotels-01",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Coral Residence Casablanca.",
+      "chars": 3921,
+      "tokens": 981,
+      "citation": true
+    },
+    {
+      "site": "hotels-01",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Coral Residence Casablanca?",
+      "chars": 3921,
+      "tokens": 981,
+      "citation": true
+    },
+    {
+      "site": "blog-02",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Guide Marrakech and what does it cover?",
+      "chars": 3791,
+      "tokens": 948,
+      "citation": true
+    },
+    {
+      "site": "blog-02",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Guide 1 last updated?",
+      "chars": 3791,
+      "tokens": 948,
+      "citation": true
+    },
+    {
+      "site": "blog-02",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Guide 1?",
+      "chars": 3791,
+      "tokens": 948,
+      "citation": true
+    },
+    {
+      "site": "blog-02",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Guide Marrakech.",
+      "chars": 3791,
+      "tokens": 948,
+      "citation": true
+    },
+    {
+      "site": "blog-02",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Guide Marrakech?",
+      "chars": 3791,
+      "tokens": 948,
+      "citation": true
+    },
+    {
+      "site": "docs-03",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Setup Guide Rabat and what does it cover?",
+      "chars": 3990,
+      "tokens": 998,
+      "citation": true
+    },
+    {
+      "site": "docs-03",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Best Practices 1 last updated?",
+      "chars": 3990,
+      "tokens": 998,
+      "citation": true
+    },
+    {
+      "site": "docs-03",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Best Practices 1?",
+      "chars": 3990,
+      "tokens": 998,
+      "citation": true
+    },
+    {
+      "site": "docs-03",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Setup Guide Rabat.",
+      "chars": 3990,
+      "tokens": 998,
+      "citation": true
+    },
+    {
+      "site": "docs-03",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Setup Guide Rabat?",
+      "chars": 3990,
+      "tokens": 998,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-04",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Bundle Pack Tangier and what does it cover?",
+      "chars": 3794,
+      "tokens": 949,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-04",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Accessory Set 1 last updated?",
+      "chars": 3794,
+      "tokens": 949,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-04",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Accessory Set 1?",
+      "chars": 3794,
+      "tokens": 949,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-04",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Bundle Pack Tangier.",
+      "chars": 3794,
+      "tokens": 949,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-04",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Bundle Pack Tangier?",
+      "chars": 3794,
+      "tokens": 949,
+      "citation": true
+    },
+    {
+      "site": "news-05",
+      "level": "L0",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Brief Agadir and what does it cover?",
+      "chars": 3708,
+      "tokens": 927,
+      "citation": true
+    },
+    {
+      "site": "news-05",
+      "level": "L0",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Report 1 last updated?",
+      "chars": 3708,
+      "tokens": 927,
+      "citation": true
+    },
+    {
+      "site": "news-05",
+      "level": "L0",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Report 1?",
+      "chars": 3708,
+      "tokens": 927,
+      "citation": true
+    },
+    {
+      "site": "news-05",
+      "level": "L0",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Brief Agadir.",
+      "chars": 3708,
+      "tokens": 927,
+      "citation": true
+    },
+    {
+      "site": "news-05",
+      "level": "L0",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Brief Agadir?",
+      "chars": 3708,
+      "tokens": 927,
+      "citation": true
+    },
+    {
+      "site": "hotels-06",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Dune Lodge Fes and what does it cover?",
+      "chars": 3877,
+      "tokens": 970,
+      "citation": true
+    },
+    {
+      "site": "hotels-06",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Coral Residence 1 last updated?",
+      "chars": 3877,
+      "tokens": 970,
+      "citation": true
+    },
+    {
+      "site": "hotels-06",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Coral Residence 1?",
+      "chars": 3877,
+      "tokens": 970,
+      "citation": true
+    },
+    {
+      "site": "hotels-06",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Dune Lodge Fes.",
+      "chars": 3877,
+      "tokens": 970,
+      "citation": true
+    },
+    {
+      "site": "hotels-06",
+      "level": "L0",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Dune Lodge Fes?",
+      "chars": 3877,
+      "tokens": 970,
+      "citation": true
+    },
+    {
+      "site": "blog-07",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Essay Meknes and what does it cover?",
+      "chars": 3733,
+      "tokens": 934,
+      "citation": true
+    },
+    {
+      "site": "blog-07",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Tutorial 1 last updated?",
+      "chars": 3733,
+      "tokens": 934,
+      "citation": true
+    },
+    {
+      "site": "blog-07",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Tutorial 1?",
+      "chars": 3733,
+      "tokens": 934,
+      "citation": true
+    },
+    {
+      "site": "blog-07",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Essay Meknes.",
+      "chars": 3733,
+      "tokens": 934,
+      "citation": true
+    },
+    {
+      "site": "blog-07",
+      "level": "L0",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Essay Meknes?",
+      "chars": 3733,
+      "tokens": 934,
+      "citation": true
+    },
+    {
+      "site": "docs-08",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Best Practices Oujda and what does it cover?",
+      "chars": 3687,
+      "tokens": 922,
+      "citation": true
+    },
+    {
+      "site": "docs-08",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Setup Guide 1 last updated?",
+      "chars": 3687,
+      "tokens": 922,
+      "citation": true
+    },
+    {
+      "site": "docs-08",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Setup Guide 1?",
+      "chars": 3687,
+      "tokens": 922,
+      "citation": true
+    },
+    {
+      "site": "docs-08",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Best Practices Oujda.",
+      "chars": 3687,
+      "tokens": 922,
+      "citation": true
+    },
+    {
+      "site": "docs-08",
+      "level": "L0",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Best Practices Oujda?",
+      "chars": 3687,
+      "tokens": 922,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-09",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Signature Item Tetouan and what does it cover?",
+      "chars": 3817,
+      "tokens": 955,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-09",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Bundle Pack 1 last updated?",
+      "chars": 3817,
+      "tokens": 955,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-09",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Bundle Pack 1?",
+      "chars": 3817,
+      "tokens": 955,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-09",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Signature Item Tetouan.",
+      "chars": 3817,
+      "tokens": 955,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-09",
+      "level": "L0",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Signature Item Tetouan?",
+      "chars": 3817,
+      "tokens": 955,
+      "citation": true
+    },
+    {
+      "site": "news-10",
+      "level": "L0",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Report El Jadida and what does it cover?",
+      "chars": 3768,
+      "tokens": 942,
+      "citation": true
+    },
+    {
+      "site": "news-10",
+      "level": "L0",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Feature 1 last updated?",
+      "chars": 3768,
+      "tokens": 942,
+      "citation": true
+    },
+    {
+      "site": "news-10",
+      "level": "L0",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Feature 1?",
+      "chars": 3768,
+      "tokens": 942,
+      "citation": true
+    },
+    {
+      "site": "news-10",
+      "level": "L0",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Report El Jadida.",
+      "chars": 3768,
+      "tokens": 942,
+      "citation": true
+    },
+    {
+      "site": "news-10",
+      "level": "L0",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Report El Jadida?",
+      "chars": 3768,
+      "tokens": 942,
+      "citation": true
+    },
+    {
+      "site": "hotels-11",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Atlas Riad Essaouira and what does it cover?",
+      "chars": 601,
+      "tokens": 151,
+      "citation": true
+    },
+    {
+      "site": "hotels-11",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Dune Lodge 1 last updated?",
+      "chars": 601,
+      "tokens": 151,
+      "citation": true
+    },
+    {
+      "site": "hotels-11",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Dune Lodge 1?",
+      "chars": 601,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "hotels-11",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Atlas Riad Essaouira.",
+      "chars": 601,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "hotels-11",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Atlas Riad Essaouira?",
+      "chars": 601,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "blog-12",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Field Notes Ifrane and what does it cover?",
+      "chars": 573,
+      "tokens": 144,
+      "citation": true
+    },
+    {
+      "site": "blog-12",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Essay 1 last updated?",
+      "chars": 573,
+      "tokens": 144,
+      "citation": true
+    },
+    {
+      "site": "blog-12",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Essay 1?",
+      "chars": 573,
+      "tokens": 144,
+      "citation": false
+    },
+    {
+      "site": "blog-12",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Field Notes Ifrane.",
+      "chars": 573,
+      "tokens": 144,
+      "citation": false
+    },
+    {
+      "site": "blog-12",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Field Notes Ifrane?",
+      "chars": 573,
+      "tokens": 144,
+      "citation": false
+    },
+    {
+      "site": "docs-13",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Setup Guide Casablanca and what does it cover?",
+      "chars": 610,
+      "tokens": 153,
+      "citation": true
+    },
+    {
+      "site": "docs-13",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Migration Guide 1 last updated?",
+      "chars": 610,
+      "tokens": 153,
+      "citation": true
+    },
+    {
+      "site": "docs-13",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Migration Guide 1?",
+      "chars": 610,
+      "tokens": 153,
+      "citation": false
+    },
+    {
+      "site": "docs-13",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Setup Guide Casablanca.",
+      "chars": 610,
+      "tokens": 153,
+      "citation": false
+    },
+    {
+      "site": "docs-13",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Setup Guide Casablanca?",
+      "chars": 610,
+      "tokens": 153,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-14",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Everyday Kit Marrakech and what does it cover?",
+      "chars": 596,
+      "tokens": 149,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-14",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Pro Series 1 last updated?",
+      "chars": 596,
+      "tokens": 149,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-14",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Pro Series 1?",
+      "chars": 596,
+      "tokens": 149,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-14",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Everyday Kit Marrakech.",
+      "chars": 596,
+      "tokens": 149,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-14",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Everyday Kit Marrakech?",
+      "chars": 596,
+      "tokens": 149,
+      "citation": false
+    },
+    {
+      "site": "news-15",
+      "level": "L1",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Brief Rabat and what does it cover?",
+      "chars": 547,
+      "tokens": 137,
+      "citation": true
+    },
+    {
+      "site": "news-15",
+      "level": "L1",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Brief 1 last updated?",
+      "chars": 547,
+      "tokens": 137,
+      "citation": true
+    },
+    {
+      "site": "news-15",
+      "level": "L1",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Brief 1?",
+      "chars": 547,
+      "tokens": 137,
+      "citation": false
+    },
+    {
+      "site": "news-15",
+      "level": "L1",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Brief Rabat.",
+      "chars": 547,
+      "tokens": 137,
+      "citation": false
+    },
+    {
+      "site": "news-15",
+      "level": "L1",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Brief Rabat?",
+      "chars": 547,
+      "tokens": 137,
+      "citation": false
+    },
+    {
+      "site": "hotels-16",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Coral Residence Tangier and what does it cover?",
+      "chars": 603,
+      "tokens": 151,
+      "citation": true
+    },
+    {
+      "site": "hotels-16",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Coral Residence 1 last updated?",
+      "chars": 603,
+      "tokens": 151,
+      "citation": true
+    },
+    {
+      "site": "hotels-16",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Coral Residence 1?",
+      "chars": 603,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "hotels-16",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Coral Residence Tangier.",
+      "chars": 603,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "hotels-16",
+      "level": "L1",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Coral Residence Tangier?",
+      "chars": 603,
+      "tokens": 151,
+      "citation": false
+    },
+    {
+      "site": "blog-17",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Post Agadir and what does it cover?",
+      "chars": 555,
+      "tokens": 139,
+      "citation": true
+    },
+    {
+      "site": "blog-17",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Review 1 last updated?",
+      "chars": 555,
+      "tokens": 139,
+      "citation": true
+    },
+    {
+      "site": "blog-17",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Review 1?",
+      "chars": 555,
+      "tokens": 139,
+      "citation": false
+    },
+    {
+      "site": "blog-17",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Post Agadir.",
+      "chars": 555,
+      "tokens": 139,
+      "citation": false
+    },
+    {
+      "site": "blog-17",
+      "level": "L1",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Post Agadir?",
+      "chars": 555,
+      "tokens": 139,
+      "citation": false
+    },
+    {
+      "site": "docs-18",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Best Practices Fes and what does it cover?",
+      "chars": 582,
+      "tokens": 146,
+      "citation": true
+    },
+    {
+      "site": "docs-18",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Setup Guide 1 last updated?",
+      "chars": 582,
+      "tokens": 146,
+      "citation": true
+    },
+    {
+      "site": "docs-18",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Setup Guide 1?",
+      "chars": 582,
+      "tokens": 146,
+      "citation": false
+    },
+    {
+      "site": "docs-18",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Best Practices Fes.",
+      "chars": 582,
+      "tokens": 146,
+      "citation": false
+    },
+    {
+      "site": "docs-18",
+      "level": "L1",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Best Practices Fes?",
+      "chars": 582,
+      "tokens": 146,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-19",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Limited Edition Meknes and what does it cover?",
+      "chars": 600,
+      "tokens": 150,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-19",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Accessory Set 1 last updated?",
+      "chars": 600,
+      "tokens": 150,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-19",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Accessory Set 1?",
+      "chars": 600,
+      "tokens": 150,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-19",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Limited Edition Meknes.",
+      "chars": 600,
+      "tokens": 150,
+      "citation": false
+    },
+    {
+      "site": "ecommerce-19",
+      "level": "L1",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Limited Edition Meknes?",
+      "chars": 600,
+      "tokens": 150,
+      "citation": false
+    },
+    {
+      "site": "news-20",
+      "level": "L1",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Brief Oujda and what does it cover?",
+      "chars": 552,
+      "tokens": 138,
+      "citation": true
+    },
+    {
+      "site": "news-20",
+      "level": "L1",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Explainer 1 last updated?",
+      "chars": 552,
+      "tokens": 138,
+      "citation": true
+    },
+    {
+      "site": "news-20",
+      "level": "L1",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Explainer 1?",
+      "chars": 552,
+      "tokens": 138,
+      "citation": false
+    },
+    {
+      "site": "news-20",
+      "level": "L1",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Brief Oujda.",
+      "chars": 552,
+      "tokens": 138,
+      "citation": false
+    },
+    {
+      "site": "news-20",
+      "level": "L1",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Brief Oujda?",
+      "chars": 552,
+      "tokens": 138,
+      "citation": false
+    },
+    {
+      "site": "hotels-21",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Oasis Suite Tetouan and what does it cover?",
+      "chars": 425,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "hotels-21",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Marina Villa 1 last updated?",
+      "chars": 701,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "hotels-21",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Marina Villa 1?",
+      "chars": 701,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "hotels-21",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Oasis Suite Tetouan.",
+      "chars": 425,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "hotels-21",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Oasis Suite Tetouan?",
+      "chars": 753,
+      "tokens": 189,
+      "citation": true
+    },
+    {
+      "site": "blog-22",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Review El Jadida and what does it cover?",
+      "chars": 390,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "blog-22",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Guide 1 last updated?",
+      "chars": 641,
+      "tokens": 161,
+      "citation": true
+    },
+    {
+      "site": "blog-22",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Guide 1?",
+      "chars": 651,
+      "tokens": 163,
+      "citation": true
+    },
+    {
+      "site": "blog-22",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Review El Jadida.",
+      "chars": 390,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "blog-22",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Review El Jadida?",
+      "chars": 719,
+      "tokens": 180,
+      "citation": true
+    },
+    {
+      "site": "docs-23",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Setup Guide Essaouira and what does it cover?",
+      "chars": 454,
+      "tokens": 114,
+      "citation": true
+    },
+    {
+      "site": "docs-23",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was API Reference 1 last updated?",
+      "chars": 749,
+      "tokens": 188,
+      "citation": true
+    },
+    {
+      "site": "docs-23",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of API Reference 1?",
+      "chars": 741,
+      "tokens": 186,
+      "citation": true
+    },
+    {
+      "site": "docs-23",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Setup Guide Essaouira.",
+      "chars": 454,
+      "tokens": 114,
+      "citation": true
+    },
+    {
+      "site": "docs-23",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Setup Guide Essaouira?",
+      "chars": 816,
+      "tokens": 204,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-24",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Bundle Pack Ifrane and what does it cover?",
+      "chars": 426,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-24",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Bundle Pack 1 last updated?",
+      "chars": 701,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-24",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Bundle Pack 1?",
+      "chars": 701,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-24",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Bundle Pack Ifrane.",
+      "chars": 426,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-24",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Bundle Pack Ifrane?",
+      "chars": 749,
+      "tokens": 188,
+      "citation": true
+    },
+    {
+      "site": "news-25",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Analysis Casablanca and what does it cover?",
+      "chars": 388,
+      "tokens": 97,
+      "citation": true
+    },
+    {
+      "site": "news-25",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Interview 1 last updated?",
+      "chars": 641,
+      "tokens": 161,
+      "citation": true
+    },
+    {
+      "site": "news-25",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Interview 1?",
+      "chars": 661,
+      "tokens": 166,
+      "citation": true
+    },
+    {
+      "site": "news-25",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Analysis Casablanca.",
+      "chars": 388,
+      "tokens": 97,
+      "citation": true
+    },
+    {
+      "site": "news-25",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Analysis Casablanca?",
+      "chars": 709,
+      "tokens": 178,
+      "citation": true
+    },
+    {
+      "site": "hotels-26",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Marina Villa Marrakech and what does it cover?",
+      "chars": 415,
+      "tokens": 104,
+      "citation": true
+    },
+    {
+      "site": "hotels-26",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Dune Lodge 1 last updated?",
+      "chars": 684,
+      "tokens": 171,
+      "citation": true
+    },
+    {
+      "site": "hotels-26",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Dune Lodge 1?",
+      "chars": 684,
+      "tokens": 171,
+      "citation": true
+    },
+    {
+      "site": "hotels-26",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Marina Villa Marrakech.",
+      "chars": 415,
+      "tokens": 104,
+      "citation": true
+    },
+    {
+      "site": "hotels-26",
+      "level": "L2a",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Marina Villa Marrakech?",
+      "chars": 751,
+      "tokens": 188,
+      "citation": true
+    },
+    {
+      "site": "blog-27",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Field Notes Rabat and what does it cover?",
+      "chars": 375,
+      "tokens": 94,
+      "citation": true
+    },
+    {
+      "site": "blog-27",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Guide 1 last updated?",
+      "chars": 614,
+      "tokens": 154,
+      "citation": true
+    },
+    {
+      "site": "blog-27",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Guide 1?",
+      "chars": 636,
+      "tokens": 159,
+      "citation": true
+    },
+    {
+      "site": "blog-27",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Field Notes Rabat.",
+      "chars": 375,
+      "tokens": 94,
+      "citation": true
+    },
+    {
+      "site": "blog-27",
+      "level": "L2a",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Field Notes Rabat?",
+      "chars": 705,
+      "tokens": 177,
+      "citation": true
+    },
+    {
+      "site": "docs-28",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Migration Guide Tangier and what does it cover?",
+      "chars": 448,
+      "tokens": 112,
+      "citation": true
+    },
+    {
+      "site": "docs-28",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Migration Guide 1 last updated?",
+      "chars": 735,
+      "tokens": 184,
+      "citation": true
+    },
+    {
+      "site": "docs-28",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Migration Guide 1?",
+      "chars": 743,
+      "tokens": 186,
+      "citation": true
+    },
+    {
+      "site": "docs-28",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Migration Guide Tangier.",
+      "chars": 448,
+      "tokens": 112,
+      "citation": true
+    },
+    {
+      "site": "docs-28",
+      "level": "L2a",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Migration Guide Tangier?",
+      "chars": 812,
+      "tokens": 203,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-29",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Bundle Pack Agadir and what does it cover?",
+      "chars": 443,
+      "tokens": 111,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-29",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Signature Item 1 last updated?",
+      "chars": 728,
+      "tokens": 182,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-29",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Signature Item 1?",
+      "chars": 728,
+      "tokens": 182,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-29",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Bundle Pack Agadir.",
+      "chars": 443,
+      "tokens": 111,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-29",
+      "level": "L2a",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Bundle Pack Agadir?",
+      "chars": 767,
+      "tokens": 192,
+      "citation": true
+    },
+    {
+      "site": "news-30",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Report Fes and what does it cover?",
+      "chars": 368,
+      "tokens": 92,
+      "citation": true
+    },
+    {
+      "site": "news-30",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Brief 1 last updated?",
+      "chars": 604,
+      "tokens": 151,
+      "citation": true
+    },
+    {
+      "site": "news-30",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Brief 1?",
+      "chars": 621,
+      "tokens": 156,
+      "citation": true
+    },
+    {
+      "site": "news-30",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Report Fes.",
+      "chars": 368,
+      "tokens": 92,
+      "citation": true
+    },
+    {
+      "site": "news-30",
+      "level": "L2a",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Report Fes?",
+      "chars": 657,
+      "tokens": 165,
+      "citation": true
+    },
+    {
+      "site": "hotels-31",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Oasis Suite Meknes and what does it cover?",
+      "chars": 422,
+      "tokens": 106,
+      "citation": true
+    },
+    {
+      "site": "hotels-31",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Atlas Riad 1 last updated?",
+      "chars": 691,
+      "tokens": 173,
+      "citation": true
+    },
+    {
+      "site": "hotels-31",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Atlas Riad 1?",
+      "chars": 691,
+      "tokens": 173,
+      "citation": true
+    },
+    {
+      "site": "hotels-31",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Oasis Suite Meknes.",
+      "chars": 422,
+      "tokens": 106,
+      "citation": true
+    },
+    {
+      "site": "hotels-31",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Oasis Suite Meknes?",
+      "chars": 763,
+      "tokens": 191,
+      "citation": true
+    },
+    {
+      "site": "blog-32",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Essay Oujda and what does it cover?",
+      "chars": 366,
+      "tokens": 92,
+      "citation": true
+    },
+    {
+      "site": "blog-32",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Essay 1 last updated?",
+      "chars": 598,
+      "tokens": 150,
+      "citation": true
+    },
+    {
+      "site": "blog-32",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Essay 1?",
+      "chars": 621,
+      "tokens": 156,
+      "citation": true
+    },
+    {
+      "site": "blog-32",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Essay Oujda.",
+      "chars": 366,
+      "tokens": 92,
+      "citation": true
+    },
+    {
+      "site": "blog-32",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Essay Oujda?",
+      "chars": 667,
+      "tokens": 167,
+      "citation": true
+    },
+    {
+      "site": "docs-33",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Migration Guide Tetouan and what does it cover?",
+      "chars": 439,
+      "tokens": 110,
+      "citation": true
+    },
+    {
+      "site": "docs-33",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Migration Guide 1 last updated?",
+      "chars": 728,
+      "tokens": 182,
+      "citation": true
+    },
+    {
+      "site": "docs-33",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Migration Guide 1?",
+      "chars": 735,
+      "tokens": 184,
+      "citation": true
+    },
+    {
+      "site": "docs-33",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Migration Guide Tetouan.",
+      "chars": 439,
+      "tokens": 110,
+      "citation": true
+    },
+    {
+      "site": "docs-33",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Migration Guide Tetouan?",
+      "chars": 785,
+      "tokens": 197,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-34",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Pro Series El Jadida and what does it cover?",
+      "chars": 437,
+      "tokens": 110,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-34",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Bundle Pack 1 last updated?",
+      "chars": 717,
+      "tokens": 180,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-34",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Bundle Pack 1?",
+      "chars": 717,
+      "tokens": 180,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-34",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Pro Series El Jadida.",
+      "chars": 437,
+      "tokens": 110,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-34",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Pro Series El Jadida?",
+      "chars": 776,
+      "tokens": 194,
+      "citation": true
+    },
+    {
+      "site": "news-35",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Interview Essaouira and what does it cover?",
+      "chars": 392,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "news-35",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Analysis 1 last updated?",
+      "chars": 648,
+      "tokens": 162,
+      "citation": true
+    },
+    {
+      "site": "news-35",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Analysis 1?",
+      "chars": 663,
+      "tokens": 166,
+      "citation": true
+    },
+    {
+      "site": "news-35",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Interview Essaouira.",
+      "chars": 392,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "news-35",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Interview Essaouira?",
+      "chars": 719,
+      "tokens": 180,
+      "citation": true
+    },
+    {
+      "site": "hotels-36",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Atlas Riad Ifrane and what does it cover?",
+      "chars": 429,
+      "tokens": 108,
+      "citation": true
+    },
+    {
+      "site": "hotels-36",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Oasis Suite 1 last updated?",
+      "chars": 704,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "hotels-36",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Oasis Suite 1?",
+      "chars": 704,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "hotels-36",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Atlas Riad Ifrane.",
+      "chars": 429,
+      "tokens": 108,
+      "citation": true
+    },
+    {
+      "site": "hotels-36",
+      "level": "L2b",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Atlas Riad Ifrane?",
+      "chars": 757,
+      "tokens": 190,
+      "citation": true
+    },
+    {
+      "site": "blog-37",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Post Casablanca and what does it cover?",
+      "chars": 401,
+      "tokens": 101,
+      "citation": true
+    },
+    {
+      "site": "blog-37",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Tutorial 1 last updated?",
+      "chars": 664,
+      "tokens": 166,
+      "citation": true
+    },
+    {
+      "site": "blog-37",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Tutorial 1?",
+      "chars": 669,
+      "tokens": 168,
+      "citation": true
+    },
+    {
+      "site": "blog-37",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Post Casablanca.",
+      "chars": 401,
+      "tokens": 101,
+      "citation": true
+    },
+    {
+      "site": "blog-37",
+      "level": "L2b",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Post Casablanca?",
+      "chars": 721,
+      "tokens": 181,
+      "citation": true
+    },
+    {
+      "site": "docs-38",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Migration Guide Marrakech and what does it cover?",
+      "chars": 458,
+      "tokens": 115,
+      "citation": true
+    },
+    {
+      "site": "docs-38",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Best Practices 1 last updated?",
+      "chars": 759,
+      "tokens": 190,
+      "citation": true
+    },
+    {
+      "site": "docs-38",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Best Practices 1?",
+      "chars": 753,
+      "tokens": 189,
+      "citation": true
+    },
+    {
+      "site": "docs-38",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Migration Guide Marrakech.",
+      "chars": 458,
+      "tokens": 115,
+      "citation": true
+    },
+    {
+      "site": "docs-38",
+      "level": "L2b",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Migration Guide Marrakech?",
+      "chars": 826,
+      "tokens": 207,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-39",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Signature Item Rabat and what does it cover?",
+      "chars": 427,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-39",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Bundle Pack 1 last updated?",
+      "chars": 703,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-39",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Bundle Pack 1?",
+      "chars": 703,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-39",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Signature Item Rabat.",
+      "chars": 427,
+      "tokens": 107,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-39",
+      "level": "L2b",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Signature Item Rabat?",
+      "chars": 759,
+      "tokens": 190,
+      "citation": true
+    },
+    {
+      "site": "news-40",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Brief Tangier and what does it cover?",
+      "chars": 389,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "news-40",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Explainer 1 last updated?",
+      "chars": 637,
+      "tokens": 160,
+      "citation": true
+    },
+    {
+      "site": "news-40",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Explainer 1?",
+      "chars": 657,
+      "tokens": 165,
+      "citation": true
+    },
+    {
+      "site": "news-40",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Brief Tangier.",
+      "chars": 389,
+      "tokens": 98,
+      "citation": true
+    },
+    {
+      "site": "news-40",
+      "level": "L2b",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Brief Tangier?",
+      "chars": 701,
+      "tokens": 176,
+      "citation": true
+    },
+    {
+      "site": "hotels-41",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Marina Villa Agadir and what does it cover?",
+      "chars": 643,
+      "tokens": 161,
+      "citation": true
+    },
+    {
+      "site": "hotels-41",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Dune Lodge 1 last updated?",
+      "chars": 1161,
+      "tokens": 291,
+      "citation": true
+    },
+    {
+      "site": "hotels-41",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Dune Lodge 1?",
+      "chars": 1160,
+      "tokens": 290,
+      "citation": true
+    },
+    {
+      "site": "hotels-41",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Marina Villa Agadir.",
+      "chars": 635,
+      "tokens": 159,
+      "citation": true
+    },
+    {
+      "site": "hotels-41",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Marina Villa Agadir?",
+      "chars": 629,
+      "tokens": 158,
+      "citation": true
+    },
+    {
+      "site": "blog-42",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Tutorial Fes and what does it cover?",
+      "chars": 545,
+      "tokens": 137,
+      "citation": true
+    },
+    {
+      "site": "blog-42",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Guide 1 last updated?",
+      "chars": 1023,
+      "tokens": 256,
+      "citation": true
+    },
+    {
+      "site": "blog-42",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Guide 1?",
+      "chars": 1023,
+      "tokens": 256,
+      "citation": true
+    },
+    {
+      "site": "blog-42",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Tutorial Fes.",
+      "chars": 539,
+      "tokens": 135,
+      "citation": true
+    },
+    {
+      "site": "blog-42",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Tutorial Fes?",
+      "chars": 533,
+      "tokens": 134,
+      "citation": true
+    },
+    {
+      "site": "docs-43",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes FAQ Meknes and what does it cover?",
+      "chars": 735,
+      "tokens": 184,
+      "citation": true
+    },
+    {
+      "site": "docs-43",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was Best Practices 1 last updated?",
+      "chars": 1088,
+      "tokens": 272,
+      "citation": true
+    },
+    {
+      "site": "docs-43",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of Best Practices 1?",
+      "chars": 748,
+      "tokens": 187,
+      "citation": true
+    },
+    {
+      "site": "docs-43",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on FAQ Meknes.",
+      "chars": 727,
+      "tokens": 182,
+      "citation": true
+    },
+    {
+      "site": "docs-43",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to FAQ Meknes?",
+      "chars": 721,
+      "tokens": 181,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-44",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Everyday Kit Oujda and what does it cover?",
+      "chars": 651,
+      "tokens": 163,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-44",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Accessory Set 1 last updated?",
+      "chars": 1176,
+      "tokens": 294,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-44",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Accessory Set 1?",
+      "chars": 1175,
+      "tokens": 294,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-44",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Everyday Kit Oujda.",
+      "chars": 645,
+      "tokens": 162,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-44",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Everyday Kit Oujda?",
+      "chars": 639,
+      "tokens": 160,
+      "citation": true
+    },
+    {
+      "site": "news-45",
+      "level": "L3",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Analysis Tetouan and what does it cover?",
+      "chars": 923,
+      "tokens": 231,
+      "citation": true
+    },
+    {
+      "site": "news-45",
+      "level": "L3",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Analysis 1 last updated?",
+      "chars": 1076,
+      "tokens": 269,
+      "citation": true
+    },
+    {
+      "site": "news-45",
+      "level": "L3",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Analysis 1?",
+      "chars": 902,
+      "tokens": 226,
+      "citation": true
+    },
+    {
+      "site": "news-45",
+      "level": "L3",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Analysis Tetouan.",
+      "chars": 915,
+      "tokens": 229,
+      "citation": true
+    },
+    {
+      "site": "news-45",
+      "level": "L3",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Analysis Tetouan?",
+      "chars": 909,
+      "tokens": 228,
+      "citation": true
+    },
+    {
+      "site": "hotels-46",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "identity",
+      "query": "Who publishes Oasis Suite El Jadida and what does it cover?",
+      "chars": 812,
+      "tokens": 203,
+      "citation": true
+    },
+    {
+      "site": "hotels-46",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "freshness",
+      "query": "When was Oasis Suite 1 last updated?",
+      "chars": 1141,
+      "tokens": 286,
+      "citation": true
+    },
+    {
+      "site": "hotels-46",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "specific-fact",
+      "query": "What is the price of Oasis Suite 1?",
+      "chars": 1140,
+      "tokens": 285,
+      "citation": true
+    },
+    {
+      "site": "hotels-46",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "listing",
+      "query": "List all hotels available on Oasis Suite El Jadida.",
+      "chars": 804,
+      "tokens": 201,
+      "citation": true
+    },
+    {
+      "site": "hotels-46",
+      "level": "L3",
+      "vertical": "hotels",
+      "type": "cross-reference",
+      "query": "Which hotels relate to Oasis Suite El Jadida?",
+      "chars": 798,
+      "tokens": 200,
+      "citation": true
+    },
+    {
+      "site": "blog-47",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "identity",
+      "query": "Who publishes Post Essaouira and what does it cover?",
+      "chars": 595,
+      "tokens": 149,
+      "citation": true
+    },
+    {
+      "site": "blog-47",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "freshness",
+      "query": "When was Field Notes 1 last updated?",
+      "chars": 1101,
+      "tokens": 276,
+      "citation": true
+    },
+    {
+      "site": "blog-47",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "specific-fact",
+      "query": "What is the length of Field Notes 1?",
+      "chars": 935,
+      "tokens": 234,
+      "citation": true
+    },
+    {
+      "site": "blog-47",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "listing",
+      "query": "List all articles available on Post Essaouira.",
+      "chars": 589,
+      "tokens": 148,
+      "citation": true
+    },
+    {
+      "site": "blog-47",
+      "level": "L3",
+      "vertical": "blog",
+      "type": "cross-reference",
+      "query": "Which articles relate to Post Essaouira?",
+      "chars": 583,
+      "tokens": 146,
+      "citation": true
+    },
+    {
+      "site": "docs-48",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "identity",
+      "query": "Who publishes Migration Guide Ifrane and what does it cover?",
+      "chars": 861,
+      "tokens": 216,
+      "citation": true
+    },
+    {
+      "site": "docs-48",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "freshness",
+      "query": "When was API Reference 1 last updated?",
+      "chars": 1201,
+      "tokens": 301,
+      "citation": true
+    },
+    {
+      "site": "docs-48",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "specific-fact",
+      "query": "What is the length of API Reference 1?",
+      "chars": 835,
+      "tokens": 209,
+      "citation": true
+    },
+    {
+      "site": "docs-48",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "listing",
+      "query": "List all guides available on Migration Guide Ifrane.",
+      "chars": 853,
+      "tokens": 214,
+      "citation": true
+    },
+    {
+      "site": "docs-48",
+      "level": "L3",
+      "vertical": "docs",
+      "type": "cross-reference",
+      "query": "Which guides relate to Migration Guide Ifrane?",
+      "chars": 847,
+      "tokens": 212,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-49",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "identity",
+      "query": "Who publishes Accessory Set Casablanca and what does it cover?",
+      "chars": 837,
+      "tokens": 210,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-49",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "freshness",
+      "query": "When was Pro Series 1 last updated?",
+      "chars": 1160,
+      "tokens": 290,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-49",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "specific-fact",
+      "query": "What is the price of Pro Series 1?",
+      "chars": 1159,
+      "tokens": 290,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-49",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "listing",
+      "query": "List all products available on Accessory Set Casablanca.",
+      "chars": 831,
+      "tokens": 208,
+      "citation": true
+    },
+    {
+      "site": "ecommerce-49",
+      "level": "L3",
+      "vertical": "ecommerce",
+      "type": "cross-reference",
+      "query": "Which products relate to Accessory Set Casablanca?",
+      "chars": 825,
+      "tokens": 207,
+      "citation": true
+    },
+    {
+      "site": "news-50",
+      "level": "L3",
+      "vertical": "news",
+      "type": "identity",
+      "query": "Who publishes Brief Marrakech and what does it cover?",
+      "chars": 578,
+      "tokens": 145,
+      "citation": true
+    },
+    {
+      "site": "news-50",
+      "level": "L3",
+      "vertical": "news",
+      "type": "freshness",
+      "query": "When was Interview 1 last updated?",
+      "chars": 1078,
+      "tokens": 270,
+      "citation": true
+    },
+    {
+      "site": "news-50",
+      "level": "L3",
+      "vertical": "news",
+      "type": "specific-fact",
+      "query": "What is the length of Interview 1?",
+      "chars": 733,
+      "tokens": 184,
+      "citation": true
+    },
+    {
+      "site": "news-50",
+      "level": "L3",
+      "vertical": "news",
+      "type": "listing",
+      "query": "List all storys available on Brief Marrakech.",
+      "chars": 570,
+      "tokens": 143,
+      "citation": true
+    },
+    {
+      "site": "news-50",
+      "level": "L3",
+      "vertical": "news",
+      "type": "cross-reference",
+      "query": "Which storys relate to Brief Marrakech?",
+      "chars": 564,
+      "tokens": 141,
+      "citation": true
+    }
+  ]
+}

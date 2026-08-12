@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // v4 MaturityGrid (V-005): the validated 4-card maturity matrix (Phase B
 // reference pages/changelog.html `.maturity`) rebuilt on the v4 token system.
-// One card per artifact with a status badge — RC/Draft/Tested/Proposed.
+// One card per artifact with a status badge — RC/Draft/Tested/Proposed/Running.
 // Badge colors are AA-safe on light surfaces (review fix 2026-08-12): the
 // terminal ok/warn tokens are dark-surface only — replaced by brand-2 (tested)
 // and text-2 (draft) on light tints.
@@ -12,6 +12,7 @@ const items: Item[] = [
   { artifact: 'Schemas', status: 'Draft', evidence: 'URL + conformance tests', tone: 'warn' },
   { artifact: 'Validator L1/L2a', status: 'Tested', evidence: 'package + fixtures', tone: 'ok' },
   { artifact: 'Level 3 (MCP)', status: 'Proposed', evidence: 'runnable example', tone: 'dim' },
+  { artifact: 'Benchmark (§13.4)', status: 'Running', evidence: 'protocol + pilot dataset + results', tone: 'accent' },
 ]
 </script>
 
