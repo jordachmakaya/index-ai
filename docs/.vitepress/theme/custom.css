@@ -1,0 +1,614 @@
+/* ============================================================
+   index-ai — Signal v4 theme tokens (validated 2026-08-11)
+   Source of truth: .shokunin/design/tokens.json (Mintlify-derived,
+   verification-green palette, WCAG-AA pairs validated by check-contrast.mjs)
+   ============================================================ */
+
+:root {
+  /* Primitive → semantic mapping (light) */
+  --vp-c-brand-1: #00b386; /* accent green-500 */
+  --vp-c-brand-2: #008f6e; /* accent-deep green-600 */
+  --vp-c-brand-3: #00715a; /* accent-text green-700 */
+  --vp-c-brand-soft: #e6f7ef; /* accent-soft green-100 */
+  --vp-c-bg: #ffffff; /* canvas */
+  --vp-c-bg-soft: #f7f7f7; /* surface */
+  --vp-c-bg-alt: #fafafa; /* surface-soft */
+  --vp-c-text-1: #0a0a0a; /* ink */
+  --vp-c-text-2: #5a5a5c; /* steel */
+  --vp-c-text-3: #6e6e73; /* muted */
+  --vp-c-border: #e5e5e5; /* hairline */
+  --vp-c-border-soft: #ededed; /* hairline-soft */
+  --vp-c-divider: #e5e5e5;
+  --vp-c-brand-tint: rgba(0, 179, 134, 0.08);
+  --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
+  --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
+  --vp-c-term-ink: #e2e8f0; /* terminal text */
+  --vp-c-term-dim: #94a3b8; /* terminal muted */
+  --vp-c-term-ok: #34d399; /* terminal ok */
+  --vp-c-term-warn: #fbbf24; /* terminal warn */
+  --vp-c-term-err: #f87171; /* terminal err */
+  --vp-c-term-shimmer: #1e293b; /* shimmer base */
+  --vp-c-term-shimmer-2: #334155; /* shimmer highlight */
+  --vp-c-dot-r: #f87171;
+  --vp-c-dot-y: #fbbf24;
+  --vp-c-dot-g: #34d399;
+
+  /* Typography */
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vp-font-family-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Layout */
+  --vp-nav-height: 60px;
+  --vp-sidebar-width: 0px;
+}
+
+.dark {
+  --vp-c-brand-1: #00d4a4; /* accent green-400 */
+  --vp-c-brand-2: #00b386; /* accent-deep green-500 */
+  --vp-c-brand-3: #00d4a4;
+  --vp-c-brand-soft: #10322b; /* accent-soft green-800 */
+  --vp-c-bg: #0a0a0a; /* canvas gray-950 */
+  --vp-c-bg-soft: #1c1c1e; /* surface gray-900 */
+  --vp-c-bg-alt: #3a3a3c; /* surface-soft gray-800 */
+  --vp-c-text-1: #fafafa; /* ink gray-50 */
+  --vp-c-text-2: #8a8a92; /* steel gray-500 */
+  --vp-c-text-3: #6e6e73; /* muted gray-600 */
+  --vp-c-border: #3a3a3c; /* hairline gray-800 */
+  --vp-c-border-soft: #1c1c1e;
+  --vp-c-divider: #3a3a3c;
+  --vp-c-brand-tint: rgba(0, 212, 164, 0.1);
+  --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
+  --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
+  --vp-c-term-ink: #e2e8f0; /* terminal text */
+  --vp-c-term-dim: #94a3b8; /* terminal muted */
+  --vp-c-term-ok: #34d399; /* terminal ok */
+  --vp-c-term-warn: #fbbf24; /* terminal warn */
+  --vp-c-term-err: #f87171; /* terminal err */
+  --vp-c-term-shimmer: #1e293b; /* shimmer base */
+  --vp-c-term-shimmer-2: #334155; /* shimmer highlight */
+  --vp-c-dot-r: #f87171;
+  --vp-c-dot-y: #fbbf24;
+  --vp-c-dot-g: #34d399;
+}
+
+/* ---------- Two-panel (Human/Agent) — home view (v4 split) ---------- */
+.two-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+.panel {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--vp-c-text-1) 3%, transparent),
+    0 12px 32px color-mix(in srgb, var(--vp-c-text-1) 5%, transparent);
+}
+.panel__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.875rem;
+}
+.panel__mark {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+  flex: none;
+}
+.panel.human .panel__mark {
+  background: var(--vp-c-text-3);
+}
+.panel.agent .panel__mark {
+  background: var(--vp-c-brand-1);
+}
+.panel h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.panel li {
+  font-size: 0.84375rem;
+  color: var(--vp-c-text-2);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--vp-c-border);
+  display: flex;
+  gap: 0.625rem;
+  align-items: baseline;
+}
+.panel li:last-child {
+  border-bottom: none;
+}
+.panel li b {
+  min-width: 6rem;
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  font-weight: 600;
+  font-family: var(--vp-font-family-mono);
+}
+.panel-quote {
+  margin-top: 1rem;
+  font-size: 0.84375rem;
+  color: var(--vp-c-text-3);
+  font-style: italic;
+  border-left: 3px solid var(--vp-c-brand-1);
+  padding-left: 1rem;
+  max-width: 48ch;
+}
+
+/* ---------- Home sections ---------- */
+.home-section {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+.home-section .card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 16px;
+  padding: 2.5rem;
+}
+.home-section .card h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.375rem;
+}
+.home-section .card .sub {
+  color: var(--vp-c-text-3);
+  font-size: 0.9375rem;
+  margin-bottom: 1.75rem;
+}
+.home-section .card h2 {
+  font-family: var(--vp-font-family-base);
+  font-size: 1.625rem;
+  letter-spacing: -0.025em;
+  font-weight: 650;
+}
+
+/* Visual metaphor — image after the two-panel split (home, 2026-08-12) */
+.home-fig {
+  margin: 2.25rem 0 0;
+}
+.home-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--vp-c-border);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--vp-c-text-1) 3%, transparent),
+    0 12px 32px color-mix(in srgb, var(--vp-c-text-1) 5%, transparent);
+}
+
+/* Workflow CTA (v4 link-cta) */
+.workflow-cta {
+  margin-top: 1.5rem;
+}
+.link-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+}
+.link-cta .arr {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-cta:hover {
+  text-decoration: none;
+  color: var(--vp-c-brand-1);
+}
+.link-cta:hover .arr {
+  transform: translateX(4px);
+}
+
+/* Hallmark · genre: modern-minimal · macrostructure: Long Document · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, ladder motif, CTA voice preserved */
+/* ---------- Spec page — level ladder (V-002, hallmark Long Document) ---------- */
+/* The four levels as a vertical numbered ladder — the site's identity motif
+   (echo of the home ConformanceLadder): XL tabular number, title, blurb, mono
+   file path, arrow affordance. Hairline-ruled rows, no card boxes. */
+.level-ladder {
+  margin: 1.75rem 0 3.5rem;
+}
+.lvl {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.375rem 0.25rem;
+  border-top: 1px solid var(--vp-c-border);
+  text-decoration: none;
+  transition: background-color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lvl:focus-visible,
+.btn-spec:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+.lvl:last-child {
+  border-bottom: 1px solid var(--vp-c-border);
+}
+.lvl:hover {
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+}
+.lvl-num {
+  font-family: var(--vp-font-family-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--vp-c-brand-1);
+  padding-top: 0.125rem;
+}
+.lvl-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lvl:hover .lvl-title {
+  color: var(--vp-c-brand-1);
+}
+.lvl-body {
+  min-width: 0;
+}
+.lvl-blurb {
+  display: block;
+  font-size: 0.84375rem;
+  line-height: 1.55;
+  color: var(--vp-c-text-2);
+  margin-top: 0.375rem;
+  max-width: 48ch;
+  overflow-wrap: anywhere;
+}
+.lvl-file {
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  margin-top: 0.5rem;
+}
+.lvl-go {
+  color: var(--vp-c-text-3);
+  align-self: center;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lvl:hover .lvl-go {
+  transform: translateX(4px);
+  color: var(--vp-c-brand-1);
+}
+
+/* Document-end CTA — validated black-pill voice (dir_3_v4.html) */
+.spec-cta {
+  margin: 1.5rem 0 2.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.spec-cta p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-3);
+  max-width: 36rem;
+}
+.btn-spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+  background: var(--vp-c-text-1);
+  color: var(--vp-c-bg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: 9999px;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-spec:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+@media (max-width: 480px) {
+  .lvl {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+  }
+  .lvl-go {
+    display: none;
+  }
+}
+
+/* ---------- Nav v4 (validated dir_3_v4.html) ---------- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+/* Hide the native VitePress appearance switch — ThemeToggleV4 replaces it */
+.VPNavBarAppearance {
+  display: none !important;
+}
+/* Underline animation + active state on nav links (validated .nav__link) */
+.VPNavBarMenuLink {
+  position: relative;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.VPNavBarMenuLink::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.3rem;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.VPNavBarMenuLink:hover::after,
+.VPNavBarMenuLink.active::after {
+  transform: scaleX(1);
+}
+.VPNavBarMenuLink.active {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+/* ---------- Inner pages — v4 page-head (V-002..V-005, Phase C′) ---------- */
+/* Validated page-head typography (dir_3_v4.html `.page-head`): 32px display h1,
+   lede in text-2 with a bounded measure. Applied to markdown content pages; the
+   home hero and SpecToc (scoped) are unaffected. */
+.vp-doc h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2rem);
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  margin-top: 0.25rem;
+}
+.vp-doc > p:first-of-type {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  max-width: 42.5rem;
+}
+.vp-doc > p:first-of-type b {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+/* Hallmark · genre: modern-minimal · macrostructure: Component Playground · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, step-band voice, terminal code surface */
+/* ---------- Quickstart — step bands (V-003, hallmark Component Playground) ---------- */
+/* Copy-pasteable walkthrough: numbered step bands with mono chips, hairline
+   separators, and code blocks aligned to the v4 validator terminal. */
+.qs-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  counter-reset: qs-step 0;
+}
+.qs-body {
+  padding: 0 0 4rem;
+}
+/* Closing tips: homogeneous breathing room before the page-final blocks
+   (client request 2026-08-12 — same 3.5rem rhythm as the spec page's gap
+   before its CTA section). `:last-child` is safe: the canonical SPEC page
+   and the home have no custom-blocks. */
+.qs-body .custom-block {
+  margin-top: 3.5rem;
+}
+.custom-block:last-child {
+  margin-top: 3.5rem;
+}
+/* Step bands */
+.qs-page h2 {
+  counter-increment: qs-step;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 3rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-border);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
+}
+.qs-page h2:first-of-type {
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: none;
+}
+.qs-page h2::before {
+  content: counter(qs-step, decimal-leading-zero);
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  background: var(--vp-c-brand-tint);
+  color: var(--vp-c-brand-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  transform: translateY(0.25rem);
+}
+.qs-page h2 .header-anchor {
+  display: none;
+}
+/* Body typography (this page has no .vp-doc wrapper — self-sufficient).
+   Scoped to DIRECT children (`> p`) so the ::: tip / ::: warning custom blocks
+   keep their own rhythm, and to `p code` so the fenced <pre><code> blocks are
+   never tinted (review fix 2026-08-12). */
+.qs-body > p {
+  max-width: 48rem;
+  line-height: 1.65;
+  margin: 0.75rem 0 1.25rem;
+}
+.qs-body a {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+.qs-body > p code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8125em;
+  background: var(--vp-c-brand-tint);
+  color: var(--vp-c-brand-3);
+  border-radius: 5px;
+  padding: 0.125rem 0.375rem;
+}
+
+/* VitePress code blocks → v4 validator terminal surface (site-wide cohesion) */
+:root,
+.dark {
+  --vp-code-block-bg: var(--vp-c-term-bg);
+  --vp-code-block-color: var(--vp-c-term-ink);
+  --vp-code-lang-color: var(--vp-c-term-dim);
+  --vp-code-copy-code-bg: color-mix(in srgb, var(--vp-c-term-bg) 82%, var(--vp-c-term-dim) 18%);
+  --vp-code-copy-code-hover-bg: var(--vp-c-term-shimmer-2);
+  --vp-code-copy-code-color: var(--vp-c-term-ink);
+  --vp-code-copy-code-border-color: transparent;
+  --vp-code-line-highlight-color: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+}
+
+/* Hallmark · genre: modern-minimal · macrostructure: Map/Diagram · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, hairline diagram voice, verification accent */
+/* ---------- Comparison — hub-and-spoke coexistence map (V-004, hallmark Map/Diagram) ---------- */
+/* This page has no .vp-doc wrapper (same situation as quickstart) — the
+   typography below is self-sufficient and scoped to DIRECT children, so the
+   custom-blocks (tip/warning) and the table keep their own rhythm. */
+.cmp-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.cmp-body {
+  padding: 0 0 4rem;
+}
+.cmp-body h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-border);
+  scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
+}
+.cmp-body h2:first-of-type {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: none;
+}
+.cmp-body > p {
+  max-width: 48rem;
+  line-height: 1.65;
+  margin: 0.75rem 0 1.25rem;
+}
+.cmp-body a {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+.cmp-body > p code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8125em;
+  background: var(--vp-c-brand-tint);
+  color: var(--vp-c-brand-3);
+  border-radius: 5px;
+  padding: 0.125rem 0.375rem;
+}
+/* Homogeneous breathing room before both custom blocks (3.5rem rhythm,
+   client request 2026-08-12); the last-child rule already covers the warning. */
+.cmp-body .custom-block {
+  margin-top: 3.5rem;
+}
+
+/* Hallmark · genre: modern-minimal · macrostructure: Index-First · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, hairline index voice, ladder version numbers */
+/* ---------- Changelog — version index (V-005, hallmark Index-First) ---------- */
+/* No .vp-doc wrapper (same situation as quickstart/comparison) — self-sufficient
+   typography scoped to DIRECT children; the version rows (VersionEntry) carry
+   their own scoped styles. The Maturity heading gets the hairline section rhythm. */
+.clog-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.clog-body {
+  padding: 0 0 4rem;
+}
+.clog-body > h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-border);
+  scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
+}
+.clog-body a {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+.clog-body .custom-block {
+  margin-top: 3.5rem;
+}
+
+/* ---------- Footer badge (Shokunin Harness) ---------- */
+.footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 9999px;
+  padding: 0.3125rem 0.75rem;
+  text-decoration: none;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.footer-badge:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .two-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-section .card {
+    padding: 1.5rem;
+  }
+}

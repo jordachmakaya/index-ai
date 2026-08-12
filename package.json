@@ -3,6 +3,7 @@
   "version": "1.0.0-rc1",
   "description": "The open web standard that makes websites verifiably readable by AI agents — specification, validator guidance, and docs.",
   "type": "module",
+  "packageManager": "pnpm@11.5.2",
   "keywords": [
     "ai",
     "llm",
@@ -14,8 +15,18 @@
   ],
   "author": "Hard Machine Labs",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --strict docs/.vitepress/theme/lib/useValidatorState.ts vitest.config.ts playwright.config.ts",
+    "lint": "node ci/lint.mjs"
+  },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@tsparticles/engine": "^4.3.2",
     "@types/node": "^26.1.1",
     "animejs": "^4.5.0",
     "apexcharts": "^6.7.0",
@@ -36,6 +47,8 @@
     "tsparticles": "^4.3.2",
     "tsx": "^4.23.1",
     "typescript": "^7.0.2",
-    "vanta": "^0.5.24"
+    "vanta": "^0.5.24",
+    "vitepress": "^1.6.4",
+    "vitest": "^3.2.7"
   }
 }
