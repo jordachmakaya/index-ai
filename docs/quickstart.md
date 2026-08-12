@@ -3,15 +3,13 @@ layout: page
 ---
 
 <script setup>
+import QuickstartScaffold from './.vitepress/theme/components/QuickstartScaffold.vue'
 import ValidatorBlock from './.vitepress/theme/components/ValidatorBlock.vue'
 </script>
 
-# Implement index-ai on your site
+<QuickstartScaffold>
 
-A complete, copy-pasteable walkthrough covering **Level 2a** conformance — ending with a validator verdict.
-Levels 2b and 3 are explained in the [specification](/spec/), but the walkthrough stops at what the validator can check today.
-
-## Step 1 — Add the AI Manifest {#step-1}
+## Add the AI Manifest {#step-1}
 
 Create `/.well-known/index-ai.json` at your site root with your identity, publisher, and freshness.
 Copy this minimal example and adapt it:
@@ -33,7 +31,7 @@ Copy this minimal example and adapt it:
 }
 ```
 
-## Step 2 — Expose clean content endpoints
+## Expose clean content endpoints {#step-2}
 
 For each page you want agents to reach, serve a **clean text version** — no HTML, no navigation.
 The convention is a `?format=markdown` query parameter returning `Content-Type: text/markdown`:
@@ -51,7 +49,7 @@ updated: 2025-04-15
 Explains Rust lifetime annotations from first principles... (8400 chars)
 ```
 
-## Step 3 — Build the Agent Index
+## Build the Agent Index {#step-3}
 
 Create `/agent-index.json` declaring your nodes, their `llm_url`, and their **measured** `content_chars` —
 the NFC code point count of the content at that endpoint, not a guess:
@@ -76,7 +74,7 @@ the NFC code point count of the content at that endpoint, not a guess:
 }
 ```
 
-## Step 4 — Run the validator
+## Run the validator {#step-4}
 
 Deploy, then validate your implementation with the reference validator. The validator is **never embedded
 in this site** — `npx` runs in your terminal against your deployed URL:
@@ -91,3 +89,5 @@ which level you reached.
 ::: warning Already running llms.txt or robots.txt?
 index-ai coexists with both — it is additive, never a replacement. See [the comparison](/compare/llms-txt).
 :::
+
+</QuickstartScaffold>

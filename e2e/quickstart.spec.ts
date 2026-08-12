@@ -6,13 +6,18 @@ import { test, expect } from '@playwright/test'
 test.describe('quickstart page (V-003)', () => {
   test('the copyable sequence ends with the npx validator command', async ({ page }) => {
     await page.goto('/quickstart')
-    await expect(page.getByRole('heading', { name: 'Step 4 — Run the validator' })).toBeVisible()
+    // page head (v4 crumb + title)
+    await expect(page.locator('.crumb')).toContainText('Quickstart')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Implement index-ai on your site')
+    // four numbered step bands, ending with the validator
+    const steps = ['Add the AI Manifest', 'Expose clean content endpoints', 'Build the Agent Index', 'Run the validator']
+    for (const h of steps) {
+      await expect(page.getByRole('heading', { name: new RegExp(h) }).first()).toBeVisible()
+    }
     await expect(page.getByText('@hardmachinelabs/index-ai-validator')).toBeVisible()
     await expect(page.getByText('validate https://your-site.com')).toBeVisible()
-    // three earlier steps present
-    for (const h of ['Step 1 — Add the AI Manifest', 'Step 2 — Expose clean content endpoints', 'Step 3 — Build the Agent Index']) {
-      await expect(page.getByRole('heading', { name: h })).toBeVisible()
-    }
+    // copy-pasteable: every step code block carries a native Copy button
+    await expect(page.locator('.vp-adaptive-theme button.copy')).toHaveCount(3)
   })
 
   test('validator block shows the verdict state by default (valid to ship)', async ({ page }) => {
