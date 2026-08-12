@@ -285,6 +285,19 @@ Following [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615).
 
 A fallback alias at `/index-ai.json` SHOULD be supported.
 
+> **Sub-path deployments are NOT supported for canonical discovery.**
+> `/.well-known/` is defined by RFC 8615 at the **origin root** — a site
+> deployed under a sub-path (e.g. GitHub Pages `https://user.github.io/repo/`)
+> cannot serve `/.well-known/index-ai.json` at its origin root, because that
+> path belongs to the platform, not the project. Such deployments therefore
+> do NOT satisfy the canonical-location requirement of §5.2. They MAY still
+> advertise a manifest through the alternative discovery mechanisms (§5.3):
+> an HTML/HTTP `Link` header, the `robots.txt` directive, or the `llms.txt`
+> bridge — each of which can point at an arbitrary URL, including a
+> sub-path-scoped `/.well-known/index-ai.json`. A sub-path deployment MUST
+> NOT claim Level 1 conformance via canonical discovery alone; it MUST
+> additionally expose at least one alternative discovery mechanism.
+
 ### 5.3 Discovery mechanisms
 
 In recommended priority order:
@@ -383,7 +396,7 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "manifest_version": 1,
 
   "identity": {
@@ -456,7 +469,7 @@ One HTTP call. The agent learns the site's identity, what it covers, who is resp
 ### 6.4 Field rules
 
 #### `spec_version`
-MUST be present. String. Identifies the version of this standard the manifest targets (e.g. `"1.0"`). Allows agents and validators to apply the correct parsing rules.
+MUST be present. String. Identifies the version of this standard the manifest targets (e.g. `"1.0-rc1"` while the current release is in RC, `"1.0"` once stable). Allows agents and validators to apply the correct parsing rules.
 
 #### `manifest_version`
 OPTIONAL. Integer. Incrementing counter. Bump when manifest content changes. Allows agents to detect stale cached versions without re-fetching.
@@ -496,7 +509,7 @@ Free-text guidance. MUST NOT exceed 500 characters. Written for the agent. Factu
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "identity": {
     "name": "My Technical Blog",
     "description": "Personal blog on distributed systems, Rust, and backend architecture. Monthly articles.",
@@ -624,7 +637,7 @@ For the **first generation** of an Agent View (no prior `generated` timestamp ex
 {
   "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T14:30:00Z",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "total_nodes": 4,
 
   "nodes": [
@@ -725,7 +738,7 @@ A minimal Agent Index for a blog with three articles. No relations required.
 {
   "$schema": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
   "generated": "2025-05-28T10:00:00Z",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "total_nodes": 3,
 
   "nodes": [
@@ -951,7 +964,7 @@ Paginated response MUST include:
 ```json
 {
   "generated": "2025-05-28T14:30:00Z",
-  "spec_version": "1.0",
+  "spec_version": "1.0-rc1",
   "total_nodes": 247,
   "returned_nodes": 50,
   "offset": 0,
@@ -973,6 +986,10 @@ Paginated response MUST include:
 ```
 
 `next_offset` MUST be `null` when no further results exist. Cursor-based pagination is deferred to RFC-006 (appropriate for Level 3 MCP tools on large live datasets).
+
+**Referential validation across pages.** Level 2b relations (`parent`, `children`, `related`) MAY reference nodes that appear on a different page of a paginated response. Referential validation (orphan detection, DAG constraint, §7.10) is defined over the **full paginated set** — a validator that has only fetched one page MUST NOT report a missing target as an orphan unless it has fetched every page of the current generation.
+
+**Snapshot consistency.** Each page carries its own `generated` timestamp; it is the snapshot timestamp for that page. Pages MAY be generated at different instants on a continuously updated site. To read a consistent view, an agent SHOULD fetch all pages and compare `generated` values, treating a page whose `generated` differs from the page it started from as a snapshot boundary. A validator that checks `content_chars` against `llm_url` SHOULD record which `generated` snapshot it verified against, because content may change between page fetches.
 
 Paginated responses SHOULD NOT exceed 2 MB total. If a request with a given `limit` would produce a response exceeding 2 MB, the server SHOULD reduce the effective limit and set `next_offset` accordingly.
 
@@ -1062,58 +1079,100 @@ A Level 3 conformant implementation MUST expose at least one tool satisfying:
 
 ### 8.5 Complete tool example
 
+The reference implementation uses the official
+[Model Context Protocol SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+(`@modelcontextprotocol/sdk`). `inputSchema` is a plain JSON Schema object
+(as the protocol requires) and the handler returns a standard `CallToolResult`
+with `content` and `structuredContent`:
+
 ```typescript
-// NestJS + Mastra implementation
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 
-{
-  name: "search_hotels",
-  description:
-    "Search available hotels by location, dates, and filters. " +
-    "Returns hotels with prices in MAD, availability, GPS, and booking URLs. " +
-    "Call check_availability for real-time confirmation after filtering.",
+const server = new McpServer({ name: "atlas-hotels", version: "1.0.0" })
 
-  inputSchema: z.object({
-    location: z.string()
-      .describe("City name (e.g. 'Casablanca') or GPS coordinates ('33.5731,-7.5898')"),
-    radius_km: z.number().default(10)
-      .describe("Search radius in kilometers. Default: 10"),
-    checkin: z.string().optional()
-      .describe("Check-in date in YYYY-MM-DD format"),
-    checkout: z.string().optional()
-      .describe("Check-out date in YYYY-MM-DD format"),
-    budget_max_mad: z.number().optional()
-      .describe("Maximum price per night in MAD"),
-    stars_min: z.number().int().min(1).max(5).optional()
-      .describe("Minimum star rating (1–5)"),
-    guests: z.number().int().min(1).default(1)
-      .describe("Number of guests")
-  }),
-
-  execute: async (input) => ({
-    _meta: {
-      generated_at: new Date().toISOString(),
-      source: "atlashotels.ma",
-      currency: "MAD",
-      total: results.length
-    },
-    results: results.map(hotel => ({
-      id: hotel.id,
-      name: hotel.name,
-      stars: hotel.stars,
-      location: {
-        city: hotel.city,
-        district: hotel.district,
-        coordinates: { lat: hotel.lat, lng: hotel.lng },
-        distance_km: hotel.distanceKm
+server.registerTool(
+  "search_hotels",
+  {
+    description:
+      "Search available hotels by location, dates, and filters. " +
+      "Returns hotels with prices in MAD, availability, GPS, and booking URLs. " +
+      "Call check_availability for real-time confirmation after filtering.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        location: {
+          type: "string",
+          description: "City name (e.g. 'Casablanca') or GPS coordinates ('33.5731,-7.5898')",
+        },
+        radius_km: {
+          type: "number",
+          default: 10,
+          description: "Search radius in kilometers. Default: 10",
+        },
+        checkin: {
+          type: "string",
+          format: "date",
+          description: "Check-in date in YYYY-MM-DD format",
+        },
+        checkout: {
+          type: "string",
+          format: "date",
+          description: "Check-out date in YYYY-MM-DD format",
+        },
+        budget_max_mad: {
+          type: "number",
+          description: "Maximum price per night in MAD",
+        },
+        stars_min: {
+          type: "integer",
+          minimum: 1,
+          maximum: 5,
+          description: "Minimum star rating (1–5)",
+        },
+        guests: {
+          type: "integer",
+          minimum: 1,
+          default: 1,
+          description: "Number of guests",
+        },
       },
-      price_per_night_mad: hotel.price,
-      availability: hotel.available,
-      booking_url: `https://atlashotels.ma/hotels/${hotel.slug}`,
-      cancellation_policy: hotel.cancellationPolicy
-    }))
-  })
+      required: ["location"],
+    },
+  },
+  async (args) => {
+    const hotels = await searchHotels(args)
+    return {
+      content: [{ type: "text", text: JSON.stringify(hotels) }],
+      structuredContent: { hotels, total: hotels.length },
+      isError: false,
+    }
+  },
+)
+
+// Minimal query function behind the tool. `hotels` is the site's data source
+// (Agent View nodes or a database); the shape below is what the tool returns.
+async function searchHotels(args: {
+  location: string
+  radius_km?: number
+  budget_max_mad?: number
+  stars_min?: number
+}): Promise<Hotel[]> {
+  return hotels
+    .filter((h) => h.city === args.location)
+    .filter((h) => h.stars >= (args.stars_min ?? 1))
+    .filter((h) => h.price <= (args.budget_max_mad ?? Number.MAX_SAFE_INTEGER))
 }
+
+const transport = new StdioServerTransport()
+await server.connect(transport)
 ```
+
+Key protocol points this example follows:
+
+- **`inputSchema` is JSON Schema** — not a Zod object, not an inline structure. Any MCP client can validate arguments against it without sharing application code.
+- **The response is a `CallToolResult`** — `content: [{ type: "text", text }]` carries the human-readable/agent-readable payload; `structuredContent` carries the same data as typed JSON for clients that prefer it.
+- **No custom `{ _meta, results }` envelope** — `_meta` (with `generated_at`, `source`, `currency`) MAY be added, but the shape of the result is fixed by the MCP protocol, not by index-ai.
 
 ### 8.6 Recommended tool patterns
 
@@ -1514,7 +1573,7 @@ Sites in healthcare, legal, financial, insurance, and HR verticals SHOULD exerci
 
 Significant changes go through a public RFC process:
 
-1. Open a GitHub issue with label `RFC`
+1. Open a GitHub issue with label `rfc`
 2. Describe the problem, proposed change, and trade-offs
 3. Minimum 2-week public comment period
 4. Decision by maintainers with documented rationale
@@ -1571,9 +1630,9 @@ increment the minor version.
 
 ### 18.1 Public releases
 
-_None yet._ The first public release is `1.0-rc1` (REQUEST FOR COMMENTS),
-published at launch — see the frontmatter for its real date. `STABLE` is
-declared only after §17.3.
+| Release | Date | Summary |
+|---------|------|---------|
+| `1.0-rc1` | 2026-08-12 | First public release (REQUEST FOR COMMENTS). Published with the official JSON Schemas (`schema/v1/`) and AJV conformance tests. `STABLE` is declared only after §17.3. |
 
 ### 18.2 Internal design history
 
@@ -1583,7 +1642,7 @@ cycle. Dates reflect the design sprint, not public comment periods.
 
 | Iteration | Date | Summary |
 |---------|------|---------|
-| 1.0 internal draft | 2025-05-28 | Internal design iteration. Never published as a stable release. Abstract rewritten: "without relying on unstructured HTML scraping" replaces absolute claims. `content_chars_mode: "max"` contract rewritten: testable rule (MUST be ≥ validation-time count) replaces untestable "2× typical size". `spec_version` updated to `"1.0"`. |
+| 1.0 internal draft | 2025-05-28 | Internal design iteration. Never published as a stable release. Abstract rewritten: "without relying on unstructured HTML scraping" replaces absolute claims. `content_chars_mode: "max"` contract rewritten: testable rule (MUST be ≥ validation-time count) replaces untestable "2× typical size". `spec_version` updated to `"1.0"` (the internal draft targeted the future stable version; published RC manifests use `"1.0-rc1"`, see §18.1). |
 | 1.0-rc1 | 2025-05-28 | Release Candidate. `llm_url` redirect rule (3-hop max). Paginated response 2 MB cap. `content_chars_measurement` first-generation behavior clarified. 2-week comment period. |
 | 0.7 | 2025-05-28 | `content_chars_mode` MUST. `pages` array removed. `content_chars_measurement` block. `robots.txt` 404 behavior. Offset pagination + `continuous` note. Agents MUST NOT assume `/agent-index.json`. |
 | 0.6 | 2025-05-28 | `content_chars_mode` field. Pagination standardized. Level 2b qualitative conformance. Orphan detection. `related` depth MUST 5 hops. SDK "verifies". JSON scope clarified. Minimal Level 2a example. RFC-006. |

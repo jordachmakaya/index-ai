@@ -19,7 +19,7 @@ import VersionEntry from './.vitepress/theme/components/VersionEntry.vue'
   title="Request for Comments"
   status="RC"
   tone="accent"
-  :meta="{ pre: 'Published at launch; the exact public date is set in the ', href: '/spec/SPEC-v1.0-rc1', link: 'SPEC frontmatter', post: ' (§18.1).' }"
+  :meta="{ pre: 'Published 2026-08-12', post: ' — the first public release (see SPEC §18.1).' }"
   :changes="[
     { tag: 'Added', text: 'published the full specification as a public RFC, versioned in docs/spec/.' },
     { tag: 'Added', text: 'defined the conformance ladder: Level 1 (AI Manifest), 2a (Agent Index), 2b (Agent Graph), 3 (Query Interface).' },
@@ -36,7 +36,7 @@ import VersionEntry from './.vitepress/theme/components/VersionEntry.vue'
   tone="dim"
   :meta="{ pre: 'Design history iteration (see ', href: '/spec/SPEC-v1.0-rc1#_18-2-internal-design-history', link: 'SPEC §18.2', post: ') — not a public release.' }"
   :changes="[
-    { tag: 'Added', text: 'first public working draft of the Agent View schema.' },
+    { tag: 'Added', text: 'first working draft of the Agent View schema (internal iteration, never published).' },
     { tag: 'Added', text: 'defined the two-phase consumption model (pre-fetch decision + targeted fetch).' },
   ]"
 />

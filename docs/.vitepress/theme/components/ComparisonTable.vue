@@ -10,24 +10,24 @@ type Row = { label: string; ia: Cell; lt: Cell }
 const rows: Row[] = [
   {
     label: 'What it is',
-    ia: { b: 'A structured, verifiable standard', s: 'Machine-readable JSON schema, validated by a reference validator' },
+    ia: { b: 'A structured, open specification proposal', s: 'Machine-readable JSON Schema, published and tested with the spec' },
     lt: { b: 'A human-readable text file', s: 'Markdown text with links, suggested by a blog post' },
   },
   {
     label: 'Format',
     // Note: backticks stripped — this component renders plain text, the old
     // markdown pipe table rendered them as <code>. Paths read fine as text.
-    ia: { b: 'Valid JSON', s: '/.well-known/index-ai.json + /agent-index.json, both schema-validated' },
+    ia: { b: 'Valid JSON', s: '/.well-known/index-ai.json + /agent-index.json, both validated against the official JSON Schemas' },
     lt: { b: 'Plain text / Markdown', s: '/llms.txt, no schema, no validation, no structure contract' },
   },
   {
     label: 'Verification',
-    ia: { b: 'Measured and checked', s: 'content_chars is an exact NFC code point count verified against the served content; conformance is graded by a validator' },
+    ia: { b: 'Measured and checked', s: 'content_chars is an NFC code point count (exact or bounded max) verified against the served content; conformance is graded by a validator' },
     lt: { b: 'Declared, never verified', s: 'nothing in the file is checked against the actual site content' },
   },
   {
     label: 'Budget signal',
-    ia: { b: 'Known before fetch', s: 'every node declares its exact content size; the agent budgets tokens before fetching' },
+    ia: { b: 'Known before fetch', s: 'every measured node declares its content size (exact or max bound); the agent budgets tokens before fetching' },
     lt: { b: 'Unknown until fetched', s: 'an agent must fetch each linked page to learn its size' },
   },
   {

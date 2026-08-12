@@ -42,8 +42,10 @@ test.describe('changelog page (V-005)', () => {
     await expect(grid.locator('.maturity-card')).toHaveCount(4)
   })
 
-  test('no invented dates: the rc1 entry references the SPEC frontmatter', async ({ page }) => {
+  test('the rc1 entry carries the real public date (matches SPEC §18.1)', async ({ page }) => {
     await page.goto('/index-ai/changelog')
-    await expect(page.getByText('exact public date is set in the SPEC frontmatter')).toBeVisible()
+    // real release date now published (SPEC §18.1 table) — no invented placeholder
+    await expect(page.getByText('Published 2026-08-12')).toBeVisible()
+    await expect(page.getByText('SPEC §18.1')).toBeVisible()
   })
 })
