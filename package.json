@@ -43,7 +43,6 @@
     "paper": "^0.12.18",
     "pixi.js": "^8.19.0",
     "three": "^0.185.1",
-    "trianglify": "^4.1.1",
     "tsparticles": "^4.3.2",
     "tsx": "^4.23.1",
     "typescript": "^7.0.2",
