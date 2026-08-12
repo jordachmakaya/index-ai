@@ -395,6 +395,16 @@
 .qs-body {
   padding: 0 0 4rem;
 }
+/* Closing tips: homogeneous breathing room before the page-final blocks
+   (client request 2026-08-12 — same 3.5rem rhythm as the spec page's gap
+   before its CTA section). `:last-child` is safe: the canonical SPEC page
+   and the home have no custom-blocks. */
+.qs-body .custom-block {
+  margin-top: 3.5rem;
+}
+.custom-block:last-child {
+  margin-top: 3.5rem;
+}
 /* Step bands */
 .qs-page h2 {
   counter-increment: qs-step;
