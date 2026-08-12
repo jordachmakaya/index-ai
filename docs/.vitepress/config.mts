@@ -1,8 +1,9 @@
 import { defineConfig } from 'vitepress'
 
 // index-ai — static docs site under the validated Signal v4 direction.
-// base: '/index-ai/' is deliberately NOT set here — it lands with the Pages deploy (T3.1).
+// base matches the project Pages URL (T3.1): username.github.io/index-ai/.
 export default defineConfig({
+  base: '/index-ai/',
   lang: 'en-US',
   title: 'index-ai',
   description: 'Make your content verifiably readable by AI agents — open specification, validator guidance, docs.',
