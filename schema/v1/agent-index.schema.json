@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/agent-index.schema.json",
+  "title": "index-ai Agent Index",
+  "description": "Level 2 Agent View served at the URL declared in access.agent_index (default /agent-index.json). Field requirements follow the specification (SPEC-v1.0-rc1 §7): generated, spec_version, and nodes are required; node label, description, meta, and content summary_method/language are optional.",
+  "type": "object",
+  "required": ["generated", "spec_version", "nodes"],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional JSON Schema reference URL."
+    },
+    "generated": {
+      "type": "string",
+      "minLength": 1,
+      "description": "REQUIRED. ISO 8601 datetime of Agent View generation."
+    },
+    "spec_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "REQUIRED. index-ai spec version this Agent View targets."
+    },
+    "total_nodes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "RECOMMENDED. Total node count across all pages (including paginated)."
+    },
+    "returned_nodes": { "type": "integer", "minimum": 0 },
+    "offset": { "type": "integer", "minimum": 0 },
+    "limit": { "type": "integer", "minimum": 1 },
+    "next_offset": { "type": ["integer", "null"] },
+    "nodes": {
+      "type": "array",
+      "description": "REQUIRED. Array of content nodes.",
+      "items": { "$ref": "#/definitions/node" }
+    }
+  },
+  "definitions": {
+    "node": {
+      "type": "object",
+      "required": ["id", "type", "content"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "description": "OPTIONAL." },
+        "description": { "type": "string", "description": "OPTIONAL." },
+        "content": {
+          "type": "object",
+          "required": ["llm_summary"],
+          "additionalProperties": true,
+          "properties": {
+            "llm_summary": { "type": "string", "minLength": 1 },
+            "llm_url": { "type": "string", "minLength": 1, "description": "RECOMMENDED. Clean text endpoint." },
+            "content_chars": { "type": "integer", "minimum": 1, "description": "OPTIONAL. NFC code point count at llm_url." },
+            "content_chars_mode": { "enum": ["exact", "max"], "description": "MUST be present when content_chars is present." },
+            "content_sha256": { "type": "string", "description": "OPTIONAL. Lowercase hex SHA-256 of the NFC-normalized content." },
+            "content_version": { "type": "string", "description": "OPTIONAL. Opaque content-version label." },
+            "content_chars_measurement": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "window_seconds": { "type": "integer", "minimum": 1 },
+                "measured_at": { "type": "string" }
+              }
+            },
+            "summary_method": { "enum": ["manual", "truncate", "llm"], "description": "RECOMMENDED." },
+            "language": { "type": "string", "minLength": 2, "maxLength": 3, "description": "OPTIONAL. ISO 639-1 code." }
+          },
+          "dependencies": {
+            "content_chars": ["content_chars_mode"]
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "OPTIONAL."
+        },
+        "relations": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "OPTIONAL (Level 2b only)."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/jordachmakaya/index-ai/main/schema/v1/index-ai.schema.json",
+  "title": "index-ai AI Manifest",
+  "description": "Level 1 manifest served at /.well-known/index-ai.json. Field requirements follow the specification (SPEC-v1.0-rc1 §6): only spec_version, identity, and freshness are required; manifest_version and entrypoints are optional.",
+  "type": "object",
+  "required": ["spec_version", "identity", "freshness"],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional JSON Schema reference URL."
+    },
+    "spec_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "MUST be present. Identifies the version of this standard the manifest targets."
+    },
+    "manifest_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "OPTIONAL. Incrementing counter; allows agents to detect stale cached versions."
+    },
+    "identity": {
+      "type": "object",
+      "required": ["name", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "domain": { "type": "string", "minLength": 1 },
+        "category": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+        },
+        "language": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 2, "maxLength": 3 }
+        },
+        "geo": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "verification_hint": { "type": "string" }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "required": ["content_updated_at"],
+      "additionalProperties": true,
+      "properties": {
+        "content_updated_at": { "type": "string", "minLength": 1 },
+        "manifest_generated_at": { "type": "string" },
+        "refresh_frequency": { "type": "string" },
+        "valid_until": { "type": "string" },
+        "cache_max_age_seconds": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "policy": { "type": "object", "additionalProperties": true },
+    "entrypoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["topic", "description", "url"],
+        "additionalProperties": true,
+        "properties": {
+          "topic": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 },
+          "params": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "access": { "type": "object", "additionalProperties": true },
+    "llm_instructions": { "type": "string", "maxLength": 500 }
+  }
+}
