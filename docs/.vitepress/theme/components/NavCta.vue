@@ -1,10 +1,12 @@
 <script setup lang="ts">
 // v4 nav CTA (validated dir_3_v4.html `.nav__cta`): "Read the spec" — black-pill
 // primary link in the nav bar, next to the status pill and the theme toggle.
+// withBase: the link must resolve under the Pages base ('/index-ai/').
+import { withBase } from 'vitepress'
 </script>
 
 <template>
-  <a class="nav-cta" href="/spec/">Read the spec</a>
+  <a class="nav-cta" :href="withBase('/spec/')">Read the spec</a>
 </template>
 
 <style scoped>

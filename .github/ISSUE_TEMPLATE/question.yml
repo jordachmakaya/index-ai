@@ -1,0 +1,37 @@
+name: Question
+description: Ask how to implement, validate, or conform to index-ai — or clarify something in the docs.
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking, it may help to skim the [quickstart](https://github.com/jordachmakaya/index-ai/blob/develop/docs/quickstart.md) and the [specification](https://github.com/jordachmakaya/index-ai/blob/develop/docs/spec/SPEC-v1.0-rc1.md).
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to do, and what is unclear?
+      placeholder: "I'm implementing Level 1 and want to know whether …"
+    validations:
+      required: true
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      description: What area does your question concern?
+      options:
+        - Level 1 — AI Manifest
+        - Level 2a — Agent Index
+        - Level 2b — Agent Graph
+        - Level 3 — Query Interface
+        - Validator (npx)
+        - Docs site / general
+    validations:
+      required: true
+  - type: input
+    id: context
+    attributes:
+      label: Related section
+      description: Any page or spec section you have already read, if applicable.
+      placeholder: "e.g. docs/quickstart.md or SPEC-v1.0-rc1 §2.2"

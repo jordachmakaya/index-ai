@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a problem with the index-ai site, spec rendering, or tooling in this repository.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please search [existing issues](https://github.com/jordachmakaya/index-ai/issues) first — your problem may already be known.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear, concise description of the bug.
+      placeholder: "When I do X, the page shows Y instead of Z."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+      placeholder: "I expected the validator block to show a verdict."
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Where did it happen?
+      description: Page URL, spec section, or command involved.
+      placeholder: "e.g. /quickstart — validator block, or SPEC-v1.0-rc1 §2.3"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Spec version
+      description: The spec version or status label shown on the page, if relevant.
+      placeholder: "1.0-rc1"
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/OS or tool versions, when the bug is not site-related.
+      placeholder: "Browser: …  OS: …  Node: …"
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true

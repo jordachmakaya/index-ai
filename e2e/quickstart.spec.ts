@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test'
 // reader's terminal (never embedded).
 test.describe('quickstart page (V-003)', () => {
   test('the copyable sequence ends with the npx validator command', async ({ page }) => {
-    await page.goto('/quickstart')
+    await page.goto('/index-ai/quickstart')
     // page head (v4 crumb + title)
     await expect(page.locator('.crumb')).toContainText('Quickstart')
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Implement index-ai on your site')
@@ -21,14 +21,14 @@ test.describe('quickstart page (V-003)', () => {
   })
 
   test('validator block shows the verdict state by default (valid to ship)', async ({ page }) => {
-    await page.goto('/quickstart')
+    await page.goto('/index-ai/quickstart')
     const block = page.getByRole('tabpanel', { name: /Validator/ })
     await expect(block).toContainText('Conformance: Level 2a')
     await expect(block).toContainText('valid to ship')
   })
 
   test('all four states are switchable and deterministic', async ({ page }) => {
-    await page.goto('/quickstart')
+    await page.goto('/index-ai/quickstart')
     const tabs = page.getByRole('tablist', { name: 'Validator output states' })
     const block = page.getByRole('tabpanel', { name: /Validator/ })
 
@@ -54,7 +54,7 @@ test.describe('quickstart page (V-003)', () => {
   })
 
   test('coexistence and partial-conformance notes are present (edge cases)', async ({ page }) => {
-    await page.goto('/quickstart')
+    await page.goto('/index-ai/quickstart')
     await expect(page.getByText('Partial conformance is valid to ship')).toBeVisible()
     await expect(page.getByText('index-ai coexists with both')).toBeVisible()
   })
