@@ -262,16 +262,22 @@ Following [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615).
 
 A fallback alias at `/index-ai.json` SHOULD be supported.
 
-> **Sub-path deployments (e.g. GitHub Pages `https://user.github.io/repo/`).**
-> `/.well-known/` is defined by RFC 8615 at the **origin root**, so a
-> sub-path deployment cannot serve `/.well-known/index-ai.json` at its origin
-> root — that path belongs to the platform, not the project. Level 1
-> conformance therefore does NOT require the canonical root location: a
-> manifest at ANY URL satisfies Level 1 provided it is discoverable through
-> at least one mechanism from §5.3 (HTML/HTTP `Link` header
-> `rel="agent-manifest"`, the `robots.txt` directive, or the `llms.txt`
-> bridge) and its `identity.domain` matches the serving host. Origin-root
-> deployments SHOULD still use `/.well-known/index-ai.json`.
+> **Discovery profiles.** A Level 1 implementation MUST satisfy one of two
+> discovery profiles:
+>
+> 1. **Canonical discovery** — the manifest is served at
+>    `/.well-known/index-ai.json` (RFC 8615, origin root);
+> 2. **Scoped discovery** — the manifest is served at another public HTTPS URL
+>    and is advertised through an HTML or HTTP `Link` header with
+>    `rel="agent-manifest"` (§5.3).
+>
+> Canonical discovery is RECOMMENDED when the publisher controls the origin
+> root. Scoped discovery is permitted for sub-path deployments such as GitHub
+> Project Pages: a project page under `https://user.github.io/repo/` cannot
+> serve `/.well-known/index-ai.json` at the origin root, because that path
+> belongs to the platform, not the project. The other §5.3 mechanisms
+> (`robots.txt` directive, `llms.txt` bridge, DNS TXT) MAY additionally
+> advertise the manifest but do not by themselves satisfy the scoped profile.
 
 ### 5.3 Discovery mechanisms
 
@@ -1346,9 +1352,10 @@ An Agent View is considered stale when `content_chars_mode` is `"exact"` and the
 ### 13.1 Levels and requirements
 
 **Level 1:**
-- Valid manifest at `/.well-known/index-ai.json` — or, for sub-path
-  deployments, at any URL discovered via a §5.3 mechanism
-  (e.g. `rel="agent-manifest"`), with `identity.domain` matching the serving host
+- Valid manifest satisfying one of the two discovery profiles of §5.2:
+  canonical (`/.well-known/index-ai.json`) or scoped (another public HTTPS
+  URL advertised via an HTML or HTTP `Link` header with `rel="agent-manifest"`)
+- For scoped discovery, `identity.domain` MUST match the serving host
 - Validates against JSON Schema v1
 - `spec_version` present
 - Publicly accessible without authentication

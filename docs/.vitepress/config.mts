@@ -38,16 +38,22 @@ export default defineConfig({
   markdown: {
     theme: { light: 'github-dark', dark: 'github-dark' },
   },
+  // Native VitePress sitemap (audit round 4b): the manual sitemap.xml is gone;
+  // the plugin writes sitemap.xml at build time. VitePress does NOT append
+  // `base` to generated locs, so hostname must include the /index-ai/ base path.
+  sitemap: {
+    hostname: 'https://jordachmakaya.github.io/index-ai/',
+  },
   // Per-page canonical + og:url (audit round 4): every page previously shared
   // the homepage's og:url and had no canonical. cleanUrls: true strips .md.
   transformHead({ pageData }) {
     const rel = pageData.relativePath ?? ''
-    const base = 'https://jordachmakaya.github.io/index-ai'
+    const origin = 'https://jordachmakaya.github.io'
     let path: string
-    if (rel === '' || rel === 'index.md') path = ''
+    if (rel === '' || rel === 'index.md') path = '/'
     else if (rel.endsWith('index.md')) path = `/${rel.slice(0, -'index.md'.length)}`
     else path = `/${rel.replace(/\.md$/, '')}`
-    const url = `${base}${path}`
+    const url = new URL(`/index-ai${path === '/' ? '/' : path}`, origin).href
     return [
       ['link', { rel: 'canonical', href: url }],
       ['meta', { property: 'og:url', content: url }],
