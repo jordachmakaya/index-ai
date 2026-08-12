@@ -542,6 +542,37 @@
   margin-top: 3.5rem;
 }
 
+/* Hallmark · genre: modern-minimal · macrostructure: Index-First · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, hairline index voice, ladder version numbers */
+/* ---------- Changelog — version index (V-005, hallmark Index-First) ---------- */
+/* No .vp-doc wrapper (same situation as quickstart/comparison) — self-sufficient
+   typography scoped to DIRECT children; the version rows (VersionEntry) carry
+   their own scoped styles. The Maturity heading gets the hairline section rhythm. */
+.clog-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.clog-body {
+  padding: 0 0 4rem;
+}
+.clog-body > h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-border);
+  scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
+}
+.clog-body a {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+.clog-body .custom-block {
+  margin-top: 3.5rem;
+}
+
 /* ---------- Footer badge (Shokunin Harness) ---------- */
 .footer-badge {
   display: inline-flex;
