@@ -6,6 +6,7 @@ layout: page
 import CompareScaffold from '../.vitepress/theme/components/CompareScaffold.vue'
 import ComparisonTable from '../.vitepress/theme/components/ComparisonTable.vue'
 import CoexistMap from '../.vitepress/theme/components/CoexistMap.vue'
+import DemoVideo from '../.vitepress/theme/components/DemoVideo.vue'
 </script>
 
 <CompareScaffold>
@@ -30,14 +31,9 @@ index-ai is a distinct, deliberate convention — not an llms.txt variant. It ev
 
 ## Demonstration
 
-<div class="demo-vid">
-  <div class="demo-vid-frame" role="img" aria-label="Demonstration video placeholder">
-    <span class="demo-vid-play" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
-    </span>
-  </div>
-  <p class="demo-vid-note">Demonstration video placeholder — the Agent View in action.</p>
-  <p class="demo-vid-cta"><a class="link-cta" href="/quickstart">Retry it yourself now <span class="arr" aria-hidden="true">→</span></a></p>
-</div>
+<DemoVideo />
+
+<p class="demo-vid-note">The AI-readiness walkthrough — the Agent View in action.</p>
+<p class="demo-vid-cta"><a class="link-cta" href="/quickstart">Retry it yourself now <span class="arr" aria-hidden="true">→</span></a></p>
 
 </CompareScaffold>

@@ -50,7 +50,7 @@ test.describe('comparison page (V-004)', () => {
     await expect(page.getByText('All four sit on the same origin')).toBeVisible()
   })
 
-  test('demonstration section: video placeholder + retry CTA after the warning', async ({ page }) => {
+  test('demonstration section: re-encoded AI-readiness video + retry CTA after the warning', async ({ page }) => {
     await page.goto('/compare/llms-txt')
     // section comes after the non-replacement warning (page-final block)
     const heading = page.getByRole('heading', { name: 'Demonstration' })
@@ -58,10 +58,17 @@ test.describe('comparison page (V-004)', () => {
     const warning = page.locator('.warning.custom-block')
     const frame = page.locator('.demo-vid-frame')
     await expect(frame).toBeVisible()
-    // the frame carries the placeholder semantics (16:9 ratio is a CSS
-    // concern — guaranteed by .demo-vid-frame aspect-ratio, not asserted here
-    // to stay robust under the base-path preview context)
-    await expect(frame).toHaveAttribute('aria-label', 'Demonstration video placeholder')
+    // the real re-encoded video plays inside the frame (withBase → base path)
+    const video = page.locator('.demo-vid-frame video')
+    await expect(video).toBeVisible()
+    expect(await video.getAttribute('src')).toMatch(/ai-readiness\.mp4$/)
+    await expect(video).toHaveAttribute('aria-label', /AI-readiness demonstration/)
+    const controls = await video.getAttribute('controls')
+    expect(controls).not.toBeNull()
+    expect(await video.getAttribute('preload')).toBe('metadata')
+    // the asset must resolve (no 404 under the base path)
+    const res = await page.request.get((await video.getAttribute('src'))!)
+    expect(res.ok()).toBe(true)
     // retry CTA reuses the system link-cta voice → quickstart
     const cta = page.getByRole('link', { name: /Retry it yourself now/ })
     await expect(cta).toBeVisible()

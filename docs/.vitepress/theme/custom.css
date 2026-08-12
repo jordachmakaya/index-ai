@@ -541,37 +541,9 @@
 .cmp-body .custom-block {
   margin-top: 3.5rem;
 }
-/* Demonstration video placeholder — letterbox echo of the v4 hero (V-004,
-   client request 2026-08-12). 16:9 frame on --vp-c-video-bg, centered play
-   affordance; the CTA reuses the system link-cta voice. */
-.demo-vid {
-  margin-top: 1.5rem;
-}
-.demo-vid-frame {
-  aspect-ratio: 16 / 9;
-  display: grid;
-  place-items: center;
-  background: var(--vp-c-video-bg);
-  border: 1px solid var(--vp-c-border);
-  border-radius: 16px;
-}
-.demo-vid-play {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--vp-c-term-shimmer-2) 55%, transparent);
-  color: var(--vp-c-term-ink);
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.demo-vid-play svg {
-  width: 26px;
-  height: 26px;
-}
-.demo-vid-frame:hover .demo-vid-play {
-  transform: scale(1.05);
-}
+/* Demonstration — re-encoded AI-readiness video (V-004, 2026-08-12). The
+   16:9 frame and the <video> itself live in DemoVideo.vue (scoped styles);
+   here only the caption note and the retry CTA (system link-cta voice). */
 .demo-vid-note {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
