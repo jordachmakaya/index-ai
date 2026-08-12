@@ -102,6 +102,10 @@ describe('official JSON Schemas (schema/v1/)', () => {
     expect(okM, `site manifest failed the official schema:\n${ajv.errorsText(validateManifest.errors)}`).toBe(true)
     const okV = validateAgentIndex(view)
     expect(okV, `site Agent View failed the official schema:\n${ajv.errorsText(validateAgentIndex.errors)}`).toBe(true)
+
+    // §5.2 fallback alias must never drift from the canonical manifest.
+    const alias = JSON.parse(readText('docs/public/index-ai.json'))
+    expect(alias).toEqual(manifest)
   })
 })
 
