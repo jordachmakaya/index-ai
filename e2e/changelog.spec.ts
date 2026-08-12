@@ -41,10 +41,10 @@ test.describe('changelog page (V-005)', () => {
     await expect(grid).toContainText('Normative text')
     await expect(grid).toContainText('Tested')
     await expect(grid).toContainText('Proposed')
-    // benchmark card: §13.4 pilot is Running, with evidence attached
+    // benchmark card: §13.4 full run is Published, with the 250-site dataset attached
     await expect(grid).toContainText('Benchmark')
-    await expect(grid).toContainText('Running')
-    await expect(grid).toContainText('pilot dataset')
+    await expect(grid).toContainText('Published')
+    await expect(grid).toContainText('250-site dataset')
     // exactly five cards, one per artifact
     await expect(grid.locator('.maturity-card')).toHaveCount(5)
   })

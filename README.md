@@ -23,24 +23,26 @@ LLMs gained web search, but every page they fetch still pays the full token cost
 
 Start at Level 1, climb as far as you need. **Partial conformance is valid to ship.**
 
-> Effort figures are current implementation **targets** — they require public validation via the benchmark in the spec (§13.4).
+> Effort figures are current implementation **targets**; the retrieval mechanism
+> itself is now measured by the published benchmark (§13.4) — effort still needs
+> real-world validation.
 
-## Benchmark (§13.4) — Running
+## Benchmark (§13.4) — Published
 
 The public benchmark that measures the retrieval benefit of each level is
-**Running (pilot)**: deterministic synthetic corpus, token consumption per
-query, and correct-citation rate across five query types. Reproduce it locally:
+**Published**: deterministic synthetic corpus, token consumption per query,
+and correct-citation rate across five query types. Reproduce it locally:
 
 ```bash
 pnpm benchmark
 ```
 
-Pilot results (50 synthetic sites, seed `20260812`): Level 1 cuts token
-consumption ~6.5× vs full HTML while answering identity/freshness (40%
+Published results (250 synthetic sites, seed `20260813`): Level 1 cuts token
+consumption ~6.6× vs full HTML while answering identity/freshness (40%
 overall citation); on this corpus Levels 2a/2b answer **all** query types at
 100% citation with ~6.5× fewer tokens than the page; Level 3 keeps 100% at
-22% of the L0 cost. Methodology, corpus, limits, and the 50-sites-per-level
-scaling path are documented in [benchmark/README.md](benchmark/README.md).
+22% of the L0 cost. Methodology, corpus, limits, and governance are documented
+in [benchmark/README.md](benchmark/README.md).
 
 ## In this repository
 

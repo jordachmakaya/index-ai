@@ -25,8 +25,11 @@
  * - Citation: the ground-truth answer substring is present in the consumed
  *   payload (deterministic containment check).
  *
- * CLI: `node benchmark/run.mjs [--sites-per-level N] [--seed N] [--dump corpus.json]`
+ * CLI: `node benchmark/run.mjs [--sites-per-level N] [--seed N] [--status LABEL] [--dump corpus.json]`
  * Writes `benchmark/results/<date>-seed<seed>.json` and prints a markdown summary.
+ * The `--status` label is recorded in the results meta (default 'Running (pilot)').
+ * Valid labels used by committed datasets: 'Running (pilot)' (pilot series) and
+ * 'Published' (the 50-sites-per-level run, `pnpm benchmark`).
  */
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
@@ -124,7 +127,7 @@ async function measure(site, query, base) {
  * @param {{ sitesPerLevel?: number, seed?: number }} [opts]
  * @returns {Promise<{ meta: object, rows: Array }>}
  */
-export async function runBenchmark({ sitesPerLevel = 10, seed = 20260812 } = {}) {
+export async function runBenchmark({ sitesPerLevel = 10, seed = 20260812, status = 'Running (pilot)' } = {}) {
   const sites = generateCorpus({ sitesPerLevel, seed })
   const server = await serveCorpus(sites)
   try {
@@ -147,7 +150,7 @@ export async function runBenchmark({ sitesPerLevel = 10, seed = 20260812 } = {})
     return {
       meta: {
         spec: 'SPEC-v1.0-rc2 §13.4',
-        status: 'Running (pilot)',
+        status,
         seed,
         sitesPerLevel,
         siteCount: sites.length,
@@ -218,9 +221,10 @@ async function main() {
   }
   const sitesPerLevel = Number(opt('--sites-per-level') ?? 10)
   const seed = Number(opt('--seed') ?? 20260812)
+  const status = opt('--status') ?? 'Running (pilot)'
   const dump = opt('--dump')
 
-  const result = await runBenchmark({ sitesPerLevel, seed })
+  const result = await runBenchmark({ sitesPerLevel, seed, status })
   if (dump) {
     writeFileSync(resolve(dirname(fileURLToPath(import.meta.url)), dump), `${JSON.stringify(result.rows, null, 2)}\n`)
   }
