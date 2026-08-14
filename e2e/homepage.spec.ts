@@ -88,14 +88,23 @@ test('visual metaphor image sits after the two interface panels', async ({ page 
   expect(gridBox && figBox && gridBox.y < figBox.y).toBe(true)
 })
 
-test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }) => {
+// V-009 amended this test. It used to lock the v4 foot-line — one `·`-joined run
+// ending in "(REQUEST FOR COMMENTS)" — which is exactly the shape the job removes.
+// What survives here is the CONTENT contract (version, licences, the four links,
+// the attribution); the shape, the type and the layout are pinned in footer.spec.ts.
+test('footer carries the identity, the licences and the navigation (V-009 footer)', async ({ page }) => {
   await page.goto('/index-ai/')
   const footer = page.locator('.foot-v4')
   await expect(footer).toBeVisible()
-  // one-line meta with the exact validated wording
-  await expect(footer).toContainText('Version 1.0-rc2 (REQUEST FOR COMMENTS)')
-  await expect(footer).toContainText('Spec text:')
-  await expect(footer).toContainText('Code & examples: MIT')
+  // Identity: the version, and the status in sentence case — never shouted.
+  await expect(footer).toContainText('1.0-rc2')
+  await expect(footer).toContainText('Release candidate')
+  await expect(footer).not.toContainText('(REQUEST FOR COMMENTS)')
+  // Legal: both licences, still named.
+  await expect(footer).toContainText(/Spec text/)
+  await expect(footer).toContainText('CC-BY-4.0')
+  await expect(footer).toContainText(/Code\s*&\s*examples/)
+  await expect(footer).toContainText('MIT')
   // the four nav links, inside the footer
   for (const [label, href] of [
     ['Spec', '/index-ai/spec/'],
@@ -107,9 +116,12 @@ test('footer matches the validated v4 foot-line (V-001 footer)', async ({ page }
     await expect(link).toBeVisible()
     expect(await link.getAttribute('href')).toBe(href)
   }
-  // the Shokunin badge lives INSIDE the footer (not a detached layout-bottom element)
-  const badge = footer.getByRole('link', { name: 'Built with Shokunin Harness' })
-  await expect(badge).toBeVisible()
-  expect(await badge.getAttribute('rel')).toBe('noopener noreferrer')
-  expect(await badge.getAttribute('target')).toBe('_blank')
+  // The Shokunin attribution lives INSIDE the footer (not a detached layout-bottom
+  // element) and stays external-safe. V-009 demotes it to plain text — the accessible
+  // name is matched loosely so the coder owns the wording, and the styling is
+  // asserted in footer.spec.ts, not here.
+  const attribution = footer.getByRole('link', { name: /Shokunin Harness/i })
+  await expect(attribution).toBeVisible()
+  expect(await attribution.getAttribute('rel')).toBe('noopener noreferrer')
+  expect(await attribution.getAttribute('target')).toBe('_blank')
 })
