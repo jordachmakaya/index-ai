@@ -9,7 +9,7 @@ test.describe('benchmark page (V-006)', () => {
     await page.goto('/index-ai/benchmark')
     await expect(page.getByText('index-ai / Benchmark')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Public benchmark' })).toBeVisible()
-    await expect(page.getByText('1,250 queries', { exact: false })).toBeVisible()
+    await expect(page.getByText('1,250 queries', { exact: false }).first()).toBeVisible()
     await expect(page.getByText('250 synthetic sites', { exact: false }).first()).toBeVisible()
   })
 
@@ -42,11 +42,18 @@ test.describe('benchmark page (V-006)', () => {
     }
   })
 
-  test('efficiency ratios vs L0 are stated', async ({ page }) => {
+  test('stat band leads with the headline results (Stat-Led, each figure worded)', async ({ page }) => {
     await page.goto('/index-ai/benchmark')
-    await expect(page.getByText('6.6×', { exact: true })).toBeVisible()
-    await expect(page.getByText('6.5×', { exact: true })).toBeVisible()
-    await expect(page.getByText('4.6×', { exact: true })).toBeVisible()
+    const band = page.locator('.bmk-stats')
+    await expect(band).toBeVisible()
+    await expect(band.locator('.bmk-stat')).toHaveCount(4)
+    // the three efficiency ratios + the corpus size, each with its words
+    await expect(band.getByText('6.6×', { exact: true })).toBeVisible()
+    await expect(band.getByText('6.5×', { exact: true })).toBeVisible()
+    await expect(band.getByText('4.6×', { exact: true })).toBeVisible()
+    await expect(band.getByText('250', { exact: true })).toBeVisible()
+    await expect(band).toContainText('Token cut vs raw HTML')
+    await expect(band).toContainText('Synthetic sites, 50 per level')
   })
 
   test('page never overflows at 320px (wide tables scroll inside their containers)', async ({ page }) => {

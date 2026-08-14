@@ -1,13 +1,22 @@
 <script setup lang="ts">
-// v4 BenchmarkResults (V-006): the published §13.4 numbers, hardcoded from
-// `benchmark/results/2026-08-12-seed20260813.json` (regenerated deterministically
-// and locked by tests/benchmark-full.spec.ts — see benchmark/README.md for the
-// methodology). Same hairline table voice as ComparisonTable (V-004): mono row
-// labels, tabular numbers, and the verification accent on full citation.
-// Every number here is a fact from the published run, not an estimate.
+// v4 BenchmarkResults (V-006, hallmark Stat-Led): the published §13.4 numbers,
+// hardcoded from `benchmark/results/2026-08-12-seed20260813.json` (regenerated
+// deterministically and locked by tests/benchmark-full.spec.ts — see
+// benchmark/README.md for the methodology). Stat-Led: the hero IS the data — a
+// band of the four headline facts leads, the two tables support them. One data
+// voice across the page: mono labels, tabular numerals, hairline rules. Every
+// number here is a fact from the published run, not an estimate.
 
 type LevelRow = { level: string; label: string; mean: number; median: number; min: number; max: number; p90: number; cite: number }
 type CiteRow = { level: string; rate: [number, number, number, number, number] }
+
+// Stat-Led hero band — each figure carries its words (never a bare number).
+const stats = [
+  { value: '6.6×', label: 'Token cut vs raw HTML', sub: 'the L1 manifest answers identity & freshness at 100 % citation' },
+  { value: '6.5×', label: 'Full retrieval at ~15 % of the cost', sub: 'L2a/L2b cite all five query types at 100 %' },
+  { value: '4.6×', label: 'Query interface at ~22 % of the cost', sub: 'L3 keeps 100 % citation on every type' },
+  { value: '250', label: 'Synthetic sites, 50 per level', sub: '1,250 queries · deterministic, seed-locked' },
+]
 
 const levels: LevelRow[] = [
   { level: 'L0', label: 'HTML', mean: 955, median: 952, min: 908, max: 1021, p90: 989, cite: 100 },
@@ -26,81 +35,112 @@ const citeRows: CiteRow[] = [
 ]
 
 const types = ['identity', 'freshness', 'specific-fact', 'listing', 'cross-reference']
-
-// Efficiency ratios vs the L0 reference (mean tokens).
-const ratios = [
-  { a: 'L0 / L1', b: '6.6×', c: 'the manifest costs 15% of the raw HTML' },
-  { a: 'L0 / L2a', b: '6.5×', c: 'the index costs 15% of the raw HTML' },
-  { a: 'L0 / L3', b: '4.6×', c: 'the query interface costs 22% of the raw HTML' },
-]
 </script>
 
 <template>
   <div class="bmk-tables">
-    <div class="bmk-t-wrap">
-    <table class="bmk-t" aria-label="Per-level results — tokens and citation rate">
-      <thead>
-        <tr>
-          <th class="dim" scope="col" aria-label="Level"></th>
-          <th class="num" scope="col">Mean tokens</th>
-          <th class="num" scope="col">Median</th>
-          <th class="num" scope="col">Min</th>
-          <th class="num" scope="col">Max</th>
-          <th class="num" scope="col">p90</th>
-          <th class="num" scope="col">Citation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="r in levels" :key="r.level" :class="{ ref: r.level === 'L0' }">
-          <th class="row-label" scope="row">
-            <span class="lvl">{{ r.level }}</span>
-            <span class="lvl-sub">{{ r.label }}</span>
-          </th>
-          <td class="num strong">{{ r.mean }}</td>
-          <td class="num">{{ r.median }}</td>
-          <td class="num dim-num">{{ r.min }}</td>
-          <td class="num dim-num">{{ r.max }}</td>
-          <td class="num dim-num">{{ r.p90 }}</td>
-          <td class="num">
-            <span class="cite" :class="{ ok: r.cite === 100, partial: r.cite < 100 }">{{ r.cite }}%</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-    <div class="bmk-t-wrap">
-    <table class="bmk-t cite-t" aria-label="Citation rate by query type and level">
-      <thead>
-        <tr>
-          <th class="dim" scope="col" aria-label="Level"></th>
-          <th v-for="t in types" :key="t" class="num" scope="col">{{ t }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="r in citeRows" :key="r.level">
-          <th class="row-label" scope="row">{{ r.level }}</th>
-          <td v-for="(rate, i) in r.rate" :key="i" class="num">
-            <span class="cite" :class="{ ok: rate === 100, partial: rate < 100 }">{{ rate }}%</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-    <ul class="bmk-ratios">
-      <li v-for="r in ratios" :key="r.a">
-        <span class="rat-a">{{ r.a }}</span>
-        <span class="rat-b">{{ r.b }}</span>
-        <span class="rat-c">{{ r.c }}</span>
+    <ul class="bmk-stats" aria-label="Headline results from the published run">
+      <li v-for="s in stats" :key="s.value" class="bmk-stat">
+        <div class="bmk-stat-value">{{ s.value }}</div>
+        <div class="bmk-stat-label">{{ s.label }}</div>
+        <p class="bmk-stat-sub">{{ s.sub }}</p>
       </li>
     </ul>
+
+    <div class="bmk-t-wrap">
+      <table class="bmk-t" aria-label="Per-level results — tokens and citation rate">
+        <thead>
+          <tr>
+            <th class="dim" scope="col" aria-label="Level"></th>
+            <th class="num" scope="col">Mean tokens</th>
+            <th class="num" scope="col">Median</th>
+            <th class="num" scope="col">Min</th>
+            <th class="num" scope="col">Max</th>
+            <th class="num" scope="col">p90</th>
+            <th class="num" scope="col">Citation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="r in levels" :key="r.level" :class="{ ref: r.level === 'L0' }">
+            <th class="row-label" scope="row">
+              <span class="lvl">{{ r.level }}</span>
+              <span class="lvl-sub">{{ r.label }}</span>
+            </th>
+            <td class="num strong">{{ r.mean }}</td>
+            <td class="num">{{ r.median }}</td>
+            <td class="num dim-num">{{ r.min }}</td>
+            <td class="num dim-num">{{ r.max }}</td>
+            <td class="num dim-num">{{ r.p90 }}</td>
+            <td class="num">
+              <span class="cite" :class="{ ok: r.cite === 100, partial: r.cite < 100 }">{{ r.cite }}%</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bmk-t-wrap">
+      <table class="bmk-t cite-t" aria-label="Citation rate by query type and level">
+        <thead>
+          <tr>
+            <th class="dim" scope="col" aria-label="Level"></th>
+            <th v-for="t in types" :key="t" class="num" scope="col">{{ t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="r in citeRows" :key="r.level">
+            <th class="row-label" scope="row">{{ r.level }}</th>
+            <td v-for="(rate, i) in r.rate" :key="i" class="num">
+              <span class="cite" :class="{ ok: rate === 100, partial: rate < 100 }">{{ rate }}%</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .bmk-tables {
   margin: 1.5rem 0 0;
+}
+/* ---- Stat-Led hero band (hallmark) — panel voice, XL tabular figures ---- */
+.bmk-stats {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.bmk-stat {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--vp-c-text-1) 3%, transparent);
+}
+.bmk-stat-value {
+  font-family: var(--vp-font-family-mono);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--vp-c-text-1);
+  font-variant-numeric: tabular-nums;
+}
+.bmk-stat-label {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+}
+.bmk-stat-sub {
+  margin: 0.375rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
 }
 /* The 40rem tables must never overflow the page (v4 320px lesson — same
    scroll-container treatment as the comparison table V-004). */
@@ -183,9 +223,9 @@ const ratios = [
   color: var(--vp-c-brand-2);
   background: var(--vp-c-brand-tint);
 }
-/* Partial citation (L1's scoped contract) — warn-text = amber-800 per
-   tokens.json (VitePress warning-3 is the same value); warning-2 is amber-700
-   at ~4:1 on the tint, below AA for 0.75rem text (review lesson V-005). */
+/* Partial citation (L1's scoped contract) — warn-text per tokens.json
+   (amber-800 light / amber-600 dark, declared in custom.css :root/.dark),
+   both ≥ 5.2:1 on the warning-soft tint (AA verified 2026-08-14). */
 .cite.partial {
   color: var(--vp-c-warning-3);
   background: var(--vp-c-warning-soft);
@@ -197,53 +237,14 @@ const ratios = [
 .cite-t {
   margin-top: 0.5rem;
 }
-.bmk-ratios {
-  list-style: none;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  border: 1px solid var(--vp-c-border);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.bmk-ratios li {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.875rem 1.25rem;
-  border-bottom: 1px solid var(--vp-c-border);
-}
-.bmk-ratios li:last-child {
-  border-bottom: none;
-}
-.rat-a {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--vp-c-text-3);
-  width: 6.5rem;
-  flex-shrink: 0;
-}
-.rat-b {
-  font-family: var(--vp-font-family-mono);
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--vp-c-brand-1);
-  font-variant-numeric: tabular-nums;
-  width: 4rem;
-  flex-shrink: 0;
-}
-.rat-c {
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2);
-  line-height: 1.5;
+@media (max-width: 1100px) {
+  .bmk-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 640px) {
-  .bmk-ratios li {
-    flex-wrap: wrap;
-    gap: 0.25rem 1rem;
-  }
-  .rat-c {
-    flex-basis: 100%;
+  .bmk-stats {
+    grid-template-columns: 1fr;
   }
 }
 </style>

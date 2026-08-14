@@ -20,6 +20,12 @@
   --vp-c-border-soft: #ededed; /* hairline-soft */
   --vp-c-divider: #e5e5e5;
   --vp-c-brand-tint: rgba(0, 179, 134, 0.08);
+  /* Warn pair (V-006 badge partial) — tokens.json semantic warn: warn-text =
+     amber-800 on light, warn-ink = amber-400/600 on dark. Explicit per theme
+     so the badge passes WCAG AA (VitePress's default warning-3 renders lighter
+     than amber-800 — measured 3.87:1, below the 4.5:1 floor). */
+  --vp-c-warning-3: #92400e; /* warn-text amber-800 — 5.69:1 on warning-soft */
+  --vp-c-warning-soft: rgba(234, 179, 8, 0.14);
   --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
   --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
   --vp-c-term-ink: #e2e8f0; /* terminal text */
@@ -57,6 +63,9 @@
   --vp-c-border-soft: #1c1c1e;
   --vp-c-divider: #3a3a3c;
   --vp-c-brand-tint: rgba(0, 212, 164, 0.1);
+  /* Warn pair (dark) — warn-ink amber-600, 5.22:1 on the dark warning-soft. */
+  --vp-c-warning-3: #d97706;
+  --vp-c-warning-soft: rgba(234, 179, 8, 0.16);
   --vp-c-video-bg: #0a0a0a; /* video letterbox (near-black in both modes) */
   --vp-c-term-bg: #0f172a; /* terminal surface (quickstart validator) */
   --vp-c-term-ink: #e2e8f0; /* terminal text */
@@ -602,13 +611,15 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   margin-top: 3.5rem;
 }
 
-/* Hallmark · genre: modern-minimal · macrostructure: Data Table · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
- * Pre-emit critique: P5 H5 E5 S5 R4 V5 — design-system: locked tokens, hairline data voice, verification accent */
-/* ---------- Benchmark — published §13.4 results (V-006, hallmark Data Table) ---------- */
+/* Hallmark · genre: modern-minimal · macrostructure: Stat-Led · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S4 R5 V5 — design-system: locked tokens, stat-led data voice, one mono table language */
+/* ---------- Benchmark — published §13.4 results (V-006, hallmark Stat-Led) ---------- */
 /* No .vp-doc wrapper (same situation as quickstart/comparison/changelog) —
-   self-sufficient typography scoped to DIRECT children. The two results tables
-   and the ratio list live in BenchmarkResults.vue (scoped styles + scroll
-   containers); here only the slot prose and the section rhythm. */
+   self-sufficient typography scoped to DIRECT children. The hero stat band and
+   the two results tables live in BenchmarkResults.vue (scoped styles + scroll
+   containers); here only the slot prose, the section rhythm, and the markdown
+   tables (Corpus/Methodology), which share the ONE table voice of the page:
+   mono thead, mono label column, tabular numerals, hairline rows. */
 .bmk-page {
   width: 100%;
   max-width: 72rem;
@@ -648,11 +659,11 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   border-radius: 5px;
   padding: 0.125rem 0.375rem;
 }
-/* Markdown tables (Corpus / Methodology sections). No .vp-doc wrapper on this
-   page, so VitePress's native `display: block; overflow-x: auto` table guard
-   does NOT apply — without it the wide cells overflow the 320px viewport
-   (v4 lesson, same scroll treatment as the component tables above). Hairline
-   voice mirrors the BenchmarkResults tables. */
+/* Markdown tables (Corpus / Methodology) — the SAME visual voice as the
+   component tables in BenchmarkResults.vue: hairline box + radius, mono thead
+   on bg-soft, mono label column, row hairlines, 12/20 cell padding. No .vp-doc
+   wrapper on this page, so the native VitePress `display: block;
+   overflow-x: auto` guard is restated here (320px scroll safety). */
 .bmk-body table {
   display: block;
   width: 100%;
@@ -661,13 +672,19 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.55;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 14px;
 }
 .bmk-body th,
 .bmk-body td {
-  border: 1px solid var(--vp-c-border);
-  padding: 0.625rem 1rem;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--vp-c-border);
+}
+.bmk-body tr:last-child th,
+.bmk-body tr:last-child td {
+  border-bottom: none;
 }
 .bmk-body thead th {
   font-family: var(--vp-font-family-mono);
@@ -675,6 +692,13 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   letter-spacing: 0.02em;
   color: var(--vp-c-text-3);
   background: var(--vp-c-bg-soft);
+  white-space: nowrap;
+}
+.bmk-body tbody td:first-child {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
   white-space: nowrap;
 }
 .bmk-body th code,
