@@ -64,6 +64,7 @@ export default defineConfig({
       { text: 'Spec', link: '/spec/' },
       { text: 'Quickstart', link: '/quickstart' },
       { text: 'vs llms.txt', link: '/compare/llms-txt' },
+      { text: 'Benchmark', link: '/benchmark' },
       { text: 'Changelog', link: '/changelog' },
     ],
     // footer is deliberately NOT set: the validated v4 foot-line (meta row +
