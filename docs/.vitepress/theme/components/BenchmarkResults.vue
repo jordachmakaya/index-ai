@@ -191,7 +191,12 @@ const types = ['identity', 'freshness', 'specific-fact', 'listing', 'cross-refer
   -webkit-overflow-scrolling: touch;
 }
 .bmk-t {
-  width: 100%;
+  /* fit-content: the box hugs the columns (natural width, aligned with the
+     48rem prose column) instead of stretching to the 72rem page width — the
+     dead-space-on-the-right fix, same as the markdown tables. The wrap
+     (.bmk-t-wrap) keeps the 320px scroll safety via min-width below. */
+  width: fit-content;
+  max-width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
   margin: 1rem 0;

@@ -663,10 +663,18 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
    component tables in BenchmarkResults.vue: hairline box + radius, mono thead
    on bg-soft, mono label column, row hairlines, 12/20 cell padding. No .vp-doc
    wrapper on this page, so the native VitePress `display: block;
-   overflow-x: auto` guard is restated here (320px scroll safety). */
-.bmk-body table {
+   overflow-x: auto` guard is restated here (320px scroll safety).
+   Scoped to DIRECT children only (`> table`): the component tables
+   (BenchmarkResults.vue, nested in .bmk-t-wrap) keep their own display/width
+   from the scoped stylesheet. `width: fit-content` + `max-width: 100%` makes
+   the box hug the columns — without it, `width: 100%` on a `display: block`
+   table stretches the border/thead band to the full 72rem page while the
+   columns stop at their natural width, leaving 400+ px of dead space inside
+   the box on the right (measured 2026-08-14, fixed). */
+.bmk-body > table {
   display: block;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   border-collapse: collapse;
   margin: 1rem 0 1.5rem;
   overflow-x: auto;
