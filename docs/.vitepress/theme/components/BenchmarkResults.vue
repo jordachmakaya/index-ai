@@ -3,20 +3,60 @@
 // hardcoded from `benchmark/results/2026-08-12-seed20260813.json` (regenerated
 // deterministically and locked by tests/benchmark-full.spec.ts — see
 // benchmark/README.md for the methodology). Stat-Led: the hero IS the data — a
-// band of the four headline facts leads, the two tables support them. One data
-// voice across the page: mono labels, tabular numerals, hairline rules. Every
-// number here is a fact from the published run, not an estimate.
+// band of the four headline facts leads (counted up on scroll), the token-cost
+// chart (TokenBars) and the two tables support them. One data voice across the
+// page: mono labels, tabular numerals, hairline rules. Every number here is a
+// fact from the published run, not an estimate.
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import TokenBars from './TokenBars.vue'
 
 type LevelRow = { level: string; label: string; mean: number; median: number; min: number; max: number; p90: number; cite: number }
 type CiteRow = { level: string; rate: [number, number, number, number, number] }
 
 // Stat-Led hero band — each figure carries its words (never a bare number).
 const stats = [
-  { value: '6.6×', label: 'Token cut vs raw HTML', sub: 'the L1 manifest answers identity & freshness at 100 % citation' },
-  { value: '6.5×', label: 'Full retrieval at ~15 % of the cost', sub: 'L2a/L2b cite all five query types at 100 %' },
-  { value: '4.6×', label: 'Query interface at ~22 % of the cost', sub: 'L3 keeps 100 % citation on every type' },
-  { value: '250', label: 'Synthetic sites, 50 per level', sub: '1,250 queries · deterministic, seed-locked' },
+  { value: 6.6, suffix: '×', label: 'Token cut vs raw HTML', sub: 'the L1 manifest answers identity & freshness at 100 % citation' },
+  { value: 6.5, suffix: '×', label: 'Full retrieval at ~15 % of the cost', sub: 'L2a/L2b cite all five query types at 100 %' },
+  { value: 4.6, suffix: '×', label: 'Query interface at ~22 % of the cost', sub: 'L3 keeps 100 % citation on every type' },
+  { value: 250, suffix: '', label: 'Synthetic sites, 50 per level', sub: '1,250 queries · deterministic, seed-locked' },
 ]
+
+// Count-up on scroll (number landing = data feedback, 700 ms ease-out cubic;
+// reduced-motion: final value shown statically). Values stay facts: they land
+// on exactly the published figures.
+const displays = stats.map((s) => ref(s.value.toFixed(s.value % 1 ? 1 : 0)))
+const band = ref<HTMLElement | null>(null)
+let io: IntersectionObserver | null = null
+let raf = 0
+
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  io = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io?.disconnect()
+        const t0 = performance.now()
+        const dur = 700
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - t0) / dur)
+          const eased = 1 - Math.pow(1 - t, 3)
+          stats.forEach((s, i) => {
+            displays[i].value = (s.value * eased).toFixed(s.value % 1 ? 1 : 0)
+          })
+          if (t < 1) raf = requestAnimationFrame(tick)
+        }
+        raf = requestAnimationFrame(tick)
+      }
+    },
+    { threshold: 0.3 },
+  )
+  if (band.value) io.observe(band.value)
+})
+
+onBeforeUnmount(() => {
+  io?.disconnect()
+  cancelAnimationFrame(raf)
+})
 
 const levels: LevelRow[] = [
   { level: 'L0', label: 'HTML', mean: 955, median: 952, min: 908, max: 1021, p90: 989, cite: 100 },
@@ -39,13 +79,15 @@ const types = ['identity', 'freshness', 'specific-fact', 'listing', 'cross-refer
 
 <template>
   <div class="bmk-tables">
-    <ul class="bmk-stats" aria-label="Headline results from the published run">
-      <li v-for="s in stats" :key="s.value" class="bmk-stat">
-        <div class="bmk-stat-value">{{ s.value }}</div>
+    <ul class="bmk-stats" ref="band" aria-label="Headline results from the published run">
+      <li v-for="(s, i) in stats" :key="s.label" class="bmk-stat">
+        <div class="bmk-stat-value">{{ displays[i].value }}{{ s.suffix }}</div>
         <div class="bmk-stat-label">{{ s.label }}</div>
         <p class="bmk-stat-sub">{{ s.sub }}</p>
       </li>
     </ul>
+
+    <TokenBars />
 
     <div class="bmk-t-wrap">
       <table class="bmk-t" aria-label="Per-level results — tokens and citation rate">

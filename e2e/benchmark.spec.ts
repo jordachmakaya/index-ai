@@ -56,6 +56,21 @@ test.describe('benchmark page (V-006)', () => {
     await expect(band).toContainText('Synthetic sites, 50 per level')
   })
 
+  test('token-cost chart renders the published means (hand-built, accessible)', async ({ page }) => {
+    await page.goto('/index-ai/benchmark')
+    const chart = page.getByRole('img', { name: /Token consumption per query/ })
+    await expect(chart).toBeVisible()
+    await expect(chart.locator('.tok-row')).toHaveCount(5)
+    // the published mean tokens, level by level
+    await expect(chart.locator('.tok-level').nth(0)).toContainText('L0')
+    await expect(chart.locator('.tok-val').nth(0)).toHaveText('955')
+    await expect(chart.locator('.tok-val').nth(1)).toHaveText('145')
+    await expect(chart.locator('.tok-val').nth(4)).toHaveText('210')
+    // L0 is the reference baseline: its bar is the widest
+    const widths = await chart.locator('.tok-bar').evaluateAll((bars) => bars.map((b) => b.getBoundingClientRect().width))
+    expect(Math.max(...widths)).toBe(widths[0])
+  })
+
   test('page never overflows at 320px (wide tables scroll inside their containers)', async ({ page }) => {
     await page.goto('/index-ai/benchmark')
     await page.setViewportSize({ width: 320, height: 720 })
