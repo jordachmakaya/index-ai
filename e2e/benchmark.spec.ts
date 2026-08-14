@@ -56,19 +56,27 @@ test.describe('benchmark page (V-006)', () => {
     await expect(band).toContainText('Synthetic sites, 50 per level')
   })
 
-  test('token-cost chart renders the published means (hand-built, accessible)', async ({ page }) => {
-    await page.goto('/index-ai/benchmark')
+  test('token-cost funnel renders the published means (chart.js, Frappe stages style, accessible)', async ({ page }) => {
+    // networkidle: the fonts/layout must be settled before scrolling, or the
+    // scroll target is a provisional document height (flaky under parallel load)
+    await page.goto('/index-ai/benchmark', { waitUntil: 'networkidle' })
     const chart = page.getByRole('img', { name: /Token consumption per query/ })
     await expect(chart).toBeVisible()
-    await expect(chart.locator('.tok-row')).toHaveCount(5)
-    // the published mean tokens, level by level
-    await expect(chart.locator('.tok-level').nth(0)).toContainText('L0')
-    await expect(chart.locator('.tok-val').nth(0)).toHaveText('955')
-    await expect(chart.locator('.tok-val').nth(1)).toHaveText('145')
-    await expect(chart.locator('.tok-val').nth(4)).toHaveText('210')
-    // L0 is the reference baseline: its bar is the widest
-    const widths = await chart.locator('.tok-bar').evaluateAll((bars) => bars.map((b) => b.getBoundingClientRect().width))
-    expect(Math.max(...widths)).toBe(widths[0])
+    // the chart.js canvas is mounted inside the accessible wrapper
+    const canvas = chart.locator('canvas')
+    await expect(canvas).toHaveCount(1)
+    // the accessible label carries the published facts, level by level
+    const label = await chart.getAttribute('aria-label')
+    expect(label).toContain('L0 HTML 955')
+    expect(label).toContain('L1 manifest 145')
+    expect(label).toContain('L2a index 147')
+    expect(label).toContain('L2b graph 147')
+    expect(label).toContain('L3 query 210')
+    // scroll-reveal (CoexistMap pattern): scroll the funnel into the viewport
+    // so the IntersectionObserver fires deterministically, then the chart builds
+    await chart.scrollIntoViewIfNeeded()
+    await expect(chart).toBeInViewport()
+    await expect(chart).toHaveAttribute('data-state', 'drawn', { timeout: 10_000 })
   })
 
   test('page never overflows at 320px (wide tables scroll inside their containers)', async ({ page }) => {
