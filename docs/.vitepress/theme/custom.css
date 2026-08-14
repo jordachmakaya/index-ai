@@ -611,39 +611,49 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   margin-top: 3.5rem;
 }
 
-/* Hallmark · genre: modern-minimal · macrostructure: Stat-Led · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
- * Pre-emit critique: P5 H5 E5 S4 R5 V5 — design-system: locked tokens, stat-led data voice, one mono table language */
-/* ---------- Benchmark — published §13.4 results (V-006, hallmark Stat-Led) ---------- */
+/* Hallmark · genre: modern-minimal · macrostructure: Catalogue · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
+ * Pre-emit critique: P5 H5 E5 S5 R5 V5 — design-system: locked tokens, one table voice, five-step type scale */
+/* ---------- Benchmark — published §13.4 results (V-007, hallmark Catalogue) ---------- */
 /* No .vp-doc wrapper (same situation as quickstart/comparison/changelog) —
-   self-sufficient typography scoped to DIRECT children. The hero stat band and
-   the two results tables live in BenchmarkResults.vue (scoped styles + scroll
-   containers); here only the slot prose, the section rhythm, and the markdown
-   tables (Corpus/Methodology), which share the ONE table voice of the page:
-   mono thead, mono label column, tabular numerals, hairline rows. */
+   self-sufficient typography scoped to DIRECT children. The figure and the one
+   results table live in BenchmarkResults.vue / TokenBars.vue (scoped styles +
+   scroll container); here only the slot prose, the section rhythm, and the
+   markdown tables (Corpus/Methodology), which share the ONE table voice of the
+   page: mono column headers, mono label column, hairline rows.
+
+   TYPE SCALE (tokens.json global.font.size-*, five steps, nothing between):
+     36px h1 · 24px h2 · 16px prose · 14px table cells & legend · 12px mono micro.
+   Mono is reserved for data — level codes, numbers, column headers, the crumb.
+   It never touches prose. */
+/* One column, one left edge, one right edge. The 1.5rem gutter lives in the
+   COLUMN's own width, not in its padding: `.bmk-page` stays the measured
+   column, so every block inside it still fills 100 % of it (no dead space),
+   while the text stops touching the viewport edge below 67rem. It matches the
+   24px inset of the site nav above it. */
 .bmk-page {
-  width: 100%;
-  max-width: 72rem;
+  width: calc(100% - 3rem);
+  max-width: 64rem;
   margin-inline: auto;
 }
 .bmk-body {
   padding: 0 0 4rem;
 }
-.bmk-body h2 {
-  font-size: 1.25rem;
+/* DIRECT children only: `.bmk-body h2` would capture a component's own <h2>
+   (V-006 trap #1). The figure now leads the page, so the first prose h2 keeps
+   its rule — it is what separates the figure from the text. */
+.bmk-body > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.3;
-  margin: 2.5rem 0 1rem;
-  padding-top: 2rem;
+  line-height: 1.25;
+  margin: 1.75rem 0 0.75rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--vp-c-border);
   scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
 }
-.bmk-body h2:first-of-type {
-  margin-top: 0.5rem;
-  padding-top: 0;
-  border-top: none;
-}
 .bmk-body > p {
-  max-width: 48rem;
+  max-width: 46rem;
+  font-size: 1rem;
   line-height: 1.65;
   margin: 0.75rem 0 1.25rem;
 }
@@ -651,30 +661,46 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   color: var(--vp-c-brand-1);
   font-weight: 500;
 }
+/* No .vp-doc wrapper means no list styling either — the Limits section would
+   render as an undifferentiated block of lines. Same measure and step as the
+   prose it belongs to. */
+.bmk-body > ul {
+  max-width: 46rem;
+  margin: 0.75rem 0 1.25rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.bmk-body > ul > li {
+  margin: 0.375rem 0;
+  line-height: 1.65;
+}
+.bmk-body > ul > li::marker {
+  color: var(--vp-c-text-3);
+}
 .bmk-body > p code {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125em;
+  font-size: 0.875em;
   background: var(--vp-c-brand-tint);
   color: var(--vp-c-brand-3);
   border-radius: 5px;
   padding: 0.125rem 0.375rem;
 }
-/* Markdown tables (Corpus / Methodology) — the SAME visual voice as the
-   component tables in BenchmarkResults.vue: hairline box + radius, mono thead
-   on bg-soft, mono label column, row hairlines, 12/20 cell padding. No .vp-doc
-   wrapper on this page, so the native VitePress `display: block;
-   overflow-x: auto` guard is restated here (320px scroll safety).
-   Scoped to DIRECT children only (`> table`): the component tables
-   (BenchmarkResults.vue, nested in .bmk-t-wrap) keep their own display/width
-   from the scoped stylesheet. `width: fit-content` + `max-width: 100%` makes
-   the box hug the columns — without it, `width: 100%` on a `display: block`
-   table stretches the border/thead band to the full 72rem page while the
-   columns stop at their natural width, leaving 400+ px of dead space inside
-   the box on the right (measured 2026-08-14, fixed). */
+/* Markdown tables (Corpus / Methodology) — the SAME visual voice as the results
+   table in BenchmarkResults.vue. No .vp-doc wrapper on this page and no wrapper
+   element to hang a scroll container on, so the <table> itself is the scroll
+   container (`display: block; overflow-x: auto`) and `width: 100%` makes it
+   fill the column. `width: 100%` alone is not enough: on a display:block table
+   the rows fall into a shrink-to-fit anonymous table and only the border/header
+   band stretches (V-006 trap #3). thead/tbody are therefore promoted to real
+   tables at 100 % with `table-layout: fixed` and one declared label-column
+   width, so the two now-independent tables keep their columns on the same
+   vertical lines; the min-width lives on them, so narrow viewports scroll
+   INSIDE the box and never move the document.
+   Scoped to DIRECT children (`> table`): the results table keeps its own
+   layout from the component's scoped stylesheet. */
 .bmk-body > table {
   display: block;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
   border-collapse: collapse;
   margin: 1rem 0 1.5rem;
   overflow-x: auto;
@@ -683,35 +709,50 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   border: 1px solid var(--vp-c-border);
   border-radius: 14px;
 }
-.bmk-body th,
-.bmk-body td {
-  text-align: left;
-  vertical-align: middle;
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid var(--vp-c-border);
+.bmk-body > table thead,
+.bmk-body > table tbody {
+  display: table;
+  width: 100%;
+  min-width: 34rem;
+  table-layout: fixed;
 }
-.bmk-body tr:last-child th,
-.bmk-body tr:last-child td {
+.bmk-body > table thead th:first-child,
+.bmk-body > table tbody td:first-child {
+  width: 8.5rem;
+}
+.bmk-body > table th,
+.bmk-body > table td {
+  text-align: left;
+  vertical-align: baseline;
+  padding: 0.6875rem 1rem;
+  border-bottom: 1px solid var(--vp-c-border);
+  font-weight: 400;
+}
+.bmk-body > table tbody tr:last-child th,
+.bmk-body > table tbody tr:last-child td {
   border-bottom: none;
 }
-.bmk-body thead th {
+.bmk-body > table thead th {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.71875rem;
-  letter-spacing: 0.02em;
-  color: var(--vp-c-text-3);
+  font-size: 0.75rem;
+  font-weight: 500;
+  /* text-2: text-3 on the bg-soft header band is 3.34:1 in dark mode. */
+  color: var(--vp-c-text-2);
   background: var(--vp-c-bg-soft);
   white-space: nowrap;
 }
-.bmk-body tbody td:first-child {
+.bmk-body > table tbody td:first-child {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--vp-c-text-1);
   white-space: nowrap;
 }
-.bmk-body th code,
-.bmk-body td code {
-  font-size: 0.8125em;
+/* Inline code inherits its cell's step (14px in a body cell, 12px in the mono
+   label column) — never a sixth size. */
+.bmk-body > table code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 1em;
   background: var(--vp-c-brand-tint);
   color: var(--vp-c-brand-3);
   border-radius: 5px;
@@ -724,10 +765,18 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
 .bmk-body div[class*='language-'] {
   overflow-x: auto;
 }
-/* Closing tip: homogeneous breathing room (3.5rem rhythm, same as the other
-   inner pages); the last-child rule already covers the warning. */
+/* Closing tip: the page's section rhythm, never more (no gap above 3.5rem
+   between two adjacent blocks). VitePress ships its own 13px/13.33px chrome
+   here (block code, the code-block copy button) — both are pulled onto the
+   five-step scale so the page has no sixth size. */
 .bmk-body .custom-block {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
+}
+.bmk-body .custom-block code {
+  font-size: 1em;
+}
+.bmk-body button.copy {
+  font-size: 0.75rem;
 }
 
 /* ---------- Footer badge (Shokunin Harness) ---------- */

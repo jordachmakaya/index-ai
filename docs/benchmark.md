@@ -9,15 +9,15 @@ import BenchmarkResults from './.vitepress/theme/components/BenchmarkResults.vue
 
 <BenchmarkScaffold>
 
+<BenchmarkResults />
+
 ## What it measures
 
 The benchmark quantifies what each conformance level of the index-ai ladder (SPEC §13.1) buys an agent: **token consumption per query** and **correct citation rate**, across five benchmark query types. For every site, the harness consumes exactly the payloads the protocol requires an agent to read at that level — the full HTML at L0, the AI Manifest at L1, the Agent Index plus a targeted fetch at L2a/L2b, the query response at L3 — then measures the token cost (SPEC §9.3 heuristic — NFC characters ÷ 4) and whether the payload contains the ground-truth answer (a deterministic citation check).
 
-Every number on this page is a fact from the published run: **250 synthetic sites, 1,250 queries**, regenerated deterministically and locked by integrity tests.
+Every number above is a fact from the published run: **250 synthetic sites, 1,250 queries**, regenerated deterministically and locked by integrity tests.
 
-<BenchmarkResults />
-
-The shape of the result is stable across levels: reading the manifest instead of the HTML cuts token consumption **~6.6×**, Levels 2a/2b reach **100 % citation at ~15 % of the L0 cost**, and Level 3 keeps 100 % citation at 22 %. Level 1 remains a scoped contract — it answers *who* publishes a site and *when* it changed (100 %), and by design carries no content (0 % on content queries). That is the ladder working as specified.
+The shape of the result is stable across levels: reading the manifest instead of the HTML cuts token consumption **~6.6×**, Levels 2a/2b reach **100 % citation at ~15 % of the L0 cost**, and Level 3 keeps 100 % citation at 22 %. Level 1 remains a scoped contract — it answers *who* publishes a site and *when* it changed (100 %), and by design carries no content, which is why it cites 40 % and not more. That is the ladder working as specified.
 
 ## Corpus
 

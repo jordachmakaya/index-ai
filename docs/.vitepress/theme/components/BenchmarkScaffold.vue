@@ -1,8 +1,10 @@
 <script setup lang="ts">
-// v4 BenchmarkScaffold (V-006): page head + document wrapper for the public
+// v4 BenchmarkScaffold (V-007): page head + document wrapper for the public
 // benchmark page. Same page-head voice as SpecToc (V-002), QuickstartScaffold
 // (V-003), CompareScaffold (V-004) and ChangelogScaffold (V-005) — site
-// cohesion. The results tables are styled via `.bmk-body` in custom.css and
+// cohesion. Type sizes are pinned to the tokens.json scale (36 / 24 / 16 / 14 /
+// 12 px): h1 = size-800 clamping down to size-700, lede = size-400, crumb =
+// size-100 mono. The results table is styled via `.bmk-body` in custom.css and
 // the scoped styles of BenchmarkResults (slot content can't be scoped here).
 </script>
 
@@ -33,19 +35,22 @@
 .crumb {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
+  font-weight: 500;
   color: var(--vp-c-text-3);
   margin-bottom: 0.75rem;
 }
 .page-head h1 {
-  font-size: clamp(1.625rem, 3.5vw, 2rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 600;
   letter-spacing: -0.022em;
-  line-height: 1.15;
+  line-height: 1.12;
   margin: 0 0 0.75rem;
 }
 .lede {
   font-size: 1rem;
+  line-height: 1.6;
   color: var(--vp-c-text-2);
-  max-width: 42.5rem;
+  max-width: 46rem;
   margin: 0;
 }
 .lede b {
