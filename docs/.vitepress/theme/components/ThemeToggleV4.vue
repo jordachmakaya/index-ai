@@ -63,6 +63,7 @@ onBeforeUnmount(() => cleanup?.())
   <button
     type="button"
     class="theme-toggle"
+    :class="{ dark }"
     role="switch"
     :aria-checked="dark"
     aria-label="Toggle dark mode"

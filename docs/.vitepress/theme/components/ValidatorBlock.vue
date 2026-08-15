@@ -89,13 +89,13 @@ const command = `npx @hardmachinelabs/index-ai-validator validate ${DEMO_URL}`
   margin: 1.5rem 0;
 }
 .vblock-hint {
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-2);
   margin: 0 0 0.75rem;
 }
 .code-block {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.7;
   background: var(--vp-c-term-bg);
   color: var(--vp-c-term-ink);
@@ -140,7 +140,7 @@ const command = `npx @hardmachinelabs/index-ai-validator validate ${DEMO_URL}`
 }
 .state-tab {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.71875rem;
+  font-size: 0.75rem;
   padding: 0.3125rem 0.75rem;
   border-radius: 100px;
   border: 1px solid var(--vp-c-border);
@@ -184,13 +184,13 @@ const command = `npx @hardmachinelabs/index-ai-validator validate ${DEMO_URL}`
 .dot.g { background: var(--vp-c-dot-g); }
 .term-title {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.71875rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
   margin-left: 0.5rem;
 }
 .term-body {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.8;
   padding: 1.125rem 1.25rem;
   background: var(--vp-c-term-bg);
@@ -239,11 +239,11 @@ const command = `npx @hardmachinelabs/index-ai-validator validate ${DEMO_URL}`
   place-items: center;
   margin: 0 auto 0.75rem;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.9375rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
 }
 .empty-state p {
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-2);
   margin: 0 0 0.75rem;
 }
@@ -251,7 +251,7 @@ const command = `npx @hardmachinelabs/index-ai-validator validate ${DEMO_URL}`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 8px;

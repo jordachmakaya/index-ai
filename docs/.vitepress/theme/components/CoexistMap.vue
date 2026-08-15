@@ -74,8 +74,7 @@ onBeforeUnmount(() => io?.disconnect())
   margin: 1.75rem 0 0;
 }
 .co-orient {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.78125rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-3);
   margin: 0 0 1.25rem;
   text-align: center;
@@ -100,7 +99,7 @@ onBeforeUnmount(() => io?.disconnect())
   flex: none;
 }
 .co-trunk b {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
 }
@@ -147,7 +146,7 @@ onBeforeUnmount(() => io?.disconnect())
   align-items: center;
   gap: 0.5rem;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   white-space: nowrap;
@@ -161,7 +160,7 @@ onBeforeUnmount(() => io?.disconnect())
 }
 .co-cap {
   display: block;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--vp-c-text-2);
   margin-top: 0.375rem;
@@ -182,8 +181,7 @@ onBeforeUnmount(() => io?.disconnect())
   color: var(--vp-c-brand-3);
 }
 .co-legend {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: var(--vp-c-text-3);
   margin: 1.5rem auto 0;

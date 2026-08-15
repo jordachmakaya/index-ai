@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
   border-top: none;
 }
 .ladder-title {
-  font-size: 1.0625rem;
+  font-size: 1rem;
   letter-spacing: -0.015em;
   font-weight: 600;
   margin: 0;
@@ -83,8 +83,8 @@ const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
 }
 .ladder-num {
   font-family: var(--vp-font-family-mono);
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 600;
+  font-size: 1.5rem;
   letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
   line-height: 1;
@@ -115,7 +115,7 @@ const props = withDefaults(defineProps<{ rungs?: LadderRung[] }>(), {
   font-weight: 500;
 }
 .ladder-blurb {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-2);
   line-height: 1.55;
   margin: 0.5rem 0 0;
