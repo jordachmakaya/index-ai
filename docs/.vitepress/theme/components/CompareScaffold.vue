@@ -35,7 +35,8 @@
   margin-bottom: 0.75rem;
 }
 .page-head h1 {
-  font-size: clamp(1.625rem, 3.5vw, 2rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
   letter-spacing: -0.022em;
   line-height: 1.15;
   margin: 0 0 0.75rem;

@@ -139,10 +139,10 @@ onBeforeUnmount(() => {
   display: inline-block;
 }
 .hero-title {
-  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
-  font-weight: 650;
+  font-weight: 600;
   margin: 0;
   max-width: 16ch;
   overflow-wrap: anywhere;
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
   color: var(--vp-c-brand-1);
 }
 .hero-lede {
-  font-size: 1.0625rem;
+  font-size: 1rem;
   color: var(--vp-c-text-2);
   line-height: 1.55;
   margin: 1rem 0 0;
@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.90625rem;
+  font-size: 0.875rem;
   font-weight: 600;
   padding: 0.75rem 1.375rem;
   border-radius: 10px;
@@ -201,7 +201,7 @@ onBeforeUnmount(() => {
 }
 .hero-meta {
   margin-top: 1.5rem;
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
   display: flex;
   flex-wrap: wrap;
@@ -278,7 +278,7 @@ onBeforeUnmount(() => {
   margin-left: 3px;
 }
 .vid-note {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-family: var(--vp-font-family-mono);
   color: var(--vp-c-term-ink);
   opacity: 0.85;
@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
 }
 .vid-cap {
   margin-top: 0.5rem;
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
   max-width: 56ch;
 }
@@ -331,7 +331,7 @@ onBeforeUnmount(() => {
     margin-right: 0;
   }
   .hero-title {
-    font-size: clamp(2rem, 8vw, 2.5rem);
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
   }
 }
 </style>

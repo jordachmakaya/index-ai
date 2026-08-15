@@ -52,14 +52,15 @@ defineProps<{
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.3;
 }
 .ventry-ver {
   font-family: var(--vp-font-family-mono);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   color: var(--vp-c-brand-1);
@@ -76,8 +77,8 @@ defineProps<{
 }
 .ventry-status {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.65625rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 0.1875rem 0.5625rem;
@@ -122,8 +123,8 @@ defineProps<{
 .vtag {
   flex: none;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.6875rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   padding: 0.125rem 0.5rem;

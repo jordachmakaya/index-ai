@@ -114,7 +114,7 @@
   background: var(--vp-c-brand-1);
 }
 .panel h3 {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0;
@@ -125,7 +125,7 @@
   padding: 0;
 }
 .panel li {
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-2);
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--vp-c-border);
@@ -145,7 +145,7 @@
 }
 .panel-quote {
   margin-top: 1rem;
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-3);
   font-style: italic;
   border-left: 3px solid var(--vp-c-brand-1);
@@ -166,20 +166,16 @@
   padding: 2.5rem;
 }
 .home-section .card h2 {
+  font-family: var(--vp-font-family-base);
   font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   margin: 0 0 0.375rem;
 }
 .home-section .card .sub {
   color: var(--vp-c-text-3);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   margin-bottom: 1.75rem;
-}
-.home-section .card h2 {
-  font-family: var(--vp-font-family-base);
-  font-size: 1.625rem;
-  letter-spacing: -0.025em;
-  font-weight: 650;
 }
 
 /* Visual metaphor — image after the two-panel split (home, 2026-08-12) */
@@ -253,7 +249,7 @@
 .lvl-num {
   font-family: var(--vp-font-family-mono);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   color: var(--vp-c-brand-1);
@@ -275,7 +271,7 @@
 }
 .lvl-blurb {
   display: block;
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   color: var(--vp-c-text-2);
   margin-top: 0.375rem;
@@ -314,7 +310,7 @@
 }
 .spec-cta p {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--vp-c-text-3);
   max-width: 36rem;
@@ -385,11 +381,13 @@
 }
 
 /* ---------- Inner pages — v4 page-head (V-002..V-005, Phase C′) ---------- */
-/* Validated page-head typography (dir_3_v4.html `.page-head`): 32px display h1,
+/* Validated page-head typography (dir_3_v4.html `.page-head`): 36px display h1
+   clamping down to 28px (V-008 §3 role map — tokens.json size-800/size-700),
    lede in text-2 with a bounded measure. Applied to markdown content pages; the
    home hero and SpecToc (scoped) are unaffected. */
 .vp-doc h1 {
-  font-size: clamp(1.75rem, 3.5vw, 2rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
   letter-spacing: -0.022em;
   line-height: 1.15;
   margin-top: 0.25rem;
@@ -402,6 +400,30 @@
 .vp-doc > p:first-of-type b {
   color: var(--vp-c-text-1);
   font-weight: 600;
+}
+
+/* ---------- Spec page — section headings (V-002, V-008 §1bis) ---------- */
+/* SpecToc.vue's own template (`.spec-layout`/`.spec-body`) is scoped, but the
+   <h2>s in its slot content (spec/index.md) belong to the PARENT and are
+   invisible to that scoped stylesheet (Vue does not reach slotted content
+   without `:slotted()`) — they fell through to the bare heading reset (16px,
+   weight 400), indistinguishable from body text. This is the exact case V-008
+   §1bis names as the worst single defect on the site. Same hairline-section
+   rhythm as `.qs-body`/`.cmp-body`/`.clog-body`'s own `> h2` rules below. */
+.spec-body > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-border);
+  scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
+}
+.spec-body > h2:first-of-type {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: none;
 }
 
 /* Hallmark · genre: modern-minimal · macrostructure: Component Playground · theme: system (Mintlify tokens.json) · enrichment: none · nav: N1b · footer: Ft2
@@ -437,7 +459,8 @@
   margin: 3rem 0 1rem;
   padding-top: 2rem;
   border-top: 1px solid var(--vp-c-border);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.3;
   scroll-margin-top: calc(var(--vp-nav-height) + 1.5rem);
@@ -458,8 +481,8 @@
   background: var(--vp-c-brand-tint);
   color: var(--vp-c-brand-1);
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 600;
   transform: translateY(0.25rem);
 }
 .qs-page h2 .header-anchor {
@@ -480,7 +503,7 @@
 }
 .qs-body > p code {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125em;
+  font-size: 0.875em;
   background: var(--vp-c-brand-tint);
   color: var(--vp-c-brand-3);
   border-radius: 5px;
@@ -500,6 +523,13 @@
 /* VitePress code blocks → v4 validator terminal surface (site-wide cohesion) */
 :root,
 .dark {
+  /* VitePress ships a hardcoded 13px for `.custom-block code` (both inline
+     code and fenced-block code nested in a `::: tip`/`::: warning`), unscoped
+     by `.vp-doc` — it lands on quickstart's sub-path tip block too. 13px is
+     off the locked scale (V-008 §3); 14px matches the site's other inline-code
+     convention (`0.875em` on a 16px body, used by .qs-body/.cmp-body/.bmk-body
+     > p code). */
+  --vp-custom-block-code-font-size: 14px;
   --vp-code-block-bg: var(--vp-c-term-bg);
   --vp-code-block-color: var(--vp-c-term-ink);
   --vp-code-lang-color: var(--vp-c-term-dim);
@@ -542,7 +572,8 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   padding: 0 0 4rem;
 }
 .cmp-body h2 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.3;
   margin: 2.5rem 0 1rem;
@@ -566,7 +597,7 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
 }
 .cmp-body > p code {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125em;
+  font-size: 0.875em;
   background: var(--vp-c-brand-tint);
   color: var(--vp-c-brand-3);
   border-radius: 5px;
@@ -605,7 +636,8 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
   padding: 0 0 4rem;
 }
 .clog-body > h2 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.3;
   margin: 2.5rem 0 1rem;
@@ -635,14 +667,17 @@ html:not(.dark) .vp-code span[style*="6A737D" i],
      36px h1 · 24px h2 · 16px prose · 14px table cells & legend · 12px mono micro.
    Mono is reserved for data — level codes, numbers, column headers, the crumb.
    It never touches prose. */
-/* One column, one left edge, one right edge. The 1.5rem gutter lives in the
-   COLUMN's own width, not in its padding: `.bmk-page` stays the measured
-   column, so every block inside it still fills 100 % of it (no dead space),
-   while the text stops touching the viewport edge below 67rem. It matches the
-   24px inset of the site nav above it. */
+/* Column unified to 72rem (V-008 §1bis — CTO ruling "ok pour 72rem, garde cet
+   ordre", 2026-08-14): same `width:100%; max-width:72rem; margin-inline:auto`
+   contract as `.qs-page` / `.cmp-page` / `.clog-page` / `.spec-layout`. The
+   1.5rem-per-side gutter comes from the parent `.VPContent` padding, same as
+   those four — the old `calc(100% - 3rem)` here double-counted that gutter,
+   which is why benchmark measured 1024px/64rem instead of 1152px/72rem. Every
+   block inside still fills 100% of the column (no dead space); V-007's ≥98%
+   fill assertions on the figure/tables hold at the wider width unchanged. */
 .bmk-page {
-  width: calc(100% - 3rem);
-  max-width: 64rem;
+  width: 100%;
+  max-width: 72rem;
   margin-inline: auto;
 }
 .bmk-body {

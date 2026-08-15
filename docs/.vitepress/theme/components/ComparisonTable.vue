@@ -95,7 +95,7 @@ const rows: Row[] = [
 }
 .cmp-t thead th {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   letter-spacing: 0.02em;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
@@ -126,7 +126,7 @@ const rows: Row[] = [
 }
 .cell span {
   display: block;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   color: var(--vp-c-text-2);
 }

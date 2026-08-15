@@ -28,8 +28,8 @@
   display: grid;
   place-items: center;
   font-family: var(--vp-font-family-mono);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-mark:hover .nav-mark__box {

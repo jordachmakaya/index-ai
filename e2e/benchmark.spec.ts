@@ -3,9 +3,16 @@ import { expect, test, type Locator, type Page } from '@playwright/test'
 // V-007 benchmark — RED phase.
 //
 // These tests describe the page specified by .shokunin/jobs/ui/V-007-benchmark/JOB.md:
-// Catalogue macrostructure, one 64rem column, a horizontal chart.js BAR figure
-// leading the page, ONE seven-column results table whose Coverage column
-// replaces the 5x5 citation matrix, and no Stat-Led hero band.
+// Catalogue macrostructure, a horizontal chart.js BAR figure leading the page,
+// ONE seven-column results table whose Coverage column replaces the 5x5
+// citation matrix, and no Stat-Led hero band.
+//
+// CTO amendment (V-008-type-scale, 2026-08-15): the column width assertion
+// below was widened from 64rem to 72rem per JOB.md V-008 §1bis, a dated,
+// human-confirmed ruling ("ok pour 72rem, garde cet ordre", 2026-08-14) to
+// unify the site's content column — benchmark was the one page still on the
+// old 64rem grid. The ≥98% fill assertions this test also carries are
+// untouched and still sealed by V-007; only the absolute column width changed.
 //
 // The published facts (JOB §4) come from benchmark/results/2026-08-12-seed20260813.json
 // and are locked by tests/benchmark-full.spec.ts. They are never recomputed here,
@@ -79,7 +86,7 @@ async function settledPixels(canvas: Locator): Promise<string> {
 }
 
 test.describe('benchmark page (V-007)', () => {
-  test('keeps the shared page-head voice and narrows to the single 64rem column', async ({ page }) => {
+  test('keeps the shared page-head voice and narrows to the single 72rem column', async ({ page }) => {
     await page.goto(PAGE_URL)
     // Site cohesion (V-002..V-005 scaffolds) — non-negotiable.
     await expect(page.getByText('index-ai / Benchmark')).toBeVisible()
@@ -97,7 +104,7 @@ test.describe('benchmark page (V-007)', () => {
         proseRem: prose ? parseFloat(getComputedStyle(prose).maxWidth) / rem : -1,
       }
     })
-    expect(grid.colRem).toBeCloseTo(64, 1)
+    expect(grid.colRem).toBeCloseTo(72, 1)
     expect(grid.proseRem).toBeCloseTo(46, 1)
 
     // Defect #5 — figures and tables fill the column, no dead space on the right.

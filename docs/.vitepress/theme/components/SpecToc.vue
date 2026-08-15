@@ -106,7 +106,8 @@ const meta = [
   margin-bottom: 0.75rem;
 }
 .page-head h1 {
-  font-size: clamp(1.625rem, 3.5vw, 2rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
   letter-spacing: -0.022em;
   line-height: 1.15;
   margin: 0 0 0.75rem;
@@ -126,7 +127,7 @@ const meta = [
   flex-wrap: wrap;
   gap: 0.5rem 2rem;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
   margin: 1.25rem 0 0;
   border-top: 1px solid var(--vp-c-border);
@@ -157,11 +158,15 @@ const meta = [
 .spec-body {
   min-width: 0;
 }
+/* NOTE: the slot's own <h2>s (from spec/index.md) are NOT styled here — Vue
+   scoped CSS does not reach slot content passed in by the parent (it would
+   need :slotted()). The section-heading rule lives in the global custom.css
+   instead, alongside the equivalent `.qs-body`/`.cmp-body`/`.clog-body` rules. */
 .toc {
   position: sticky;
   top: calc(var(--vp-nav-height) + 1.5rem);
   align-self: start;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   border-left: 1px solid var(--vp-c-border);
   padding-left: 1rem;
   max-height: calc(100vh - var(--vp-nav-height) - 3rem);
@@ -169,7 +174,7 @@ const meta = [
 }
 .toc b {
   display: block;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--vp-c-text-3);
@@ -178,7 +183,7 @@ const meta = [
 .toc-group {
   display: block;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.65625rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--vp-c-brand-1);
@@ -201,7 +206,7 @@ const meta = [
 }
 .toc-num {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--vp-c-brand-1);
   min-width: 1.25rem;
 }

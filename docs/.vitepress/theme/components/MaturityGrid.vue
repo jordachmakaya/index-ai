@@ -46,8 +46,8 @@ const items: Item[] = [
 .m-status {
   align-self: flex-start;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.6875rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.1875rem 0.5625rem;
   border-radius: 100px;
@@ -69,7 +69,7 @@ const items: Item[] = [
   background: var(--vp-c-bg);
 }
 .m-artifact {
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--vp-c-text-1);
@@ -77,7 +77,7 @@ const items: Item[] = [
   line-height: 1.35;
 }
 .m-evidence {
-  font-size: 0.78125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--vp-c-text-2);
   margin: 0;

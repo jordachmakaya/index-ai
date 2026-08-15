@@ -16,7 +16,7 @@ import { withBase } from 'vitepress'
   gap: 0.4rem;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--vp-c-bg);
   background: var(--vp-c-text-1);
